@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#fa5c3d</color>
+    <color name="colorPrimaryDark">#fc7658</color>
+    <color name="colorAccent">#ea3535</color>
+    <color name="appBackground">#FFF7F7F7</color>
+
+    <color name="match_detail_qing">#FF0de2d1</color>
+    <color name="match_detail_red">#FFF34945</color>
+    <color name="match_detail_yellow">#ffe13d</color>
+    <color name="match_detail_blue">#FF15B4F1</color>
+    <color name="red_line">#ea3535</color>
+    <color name="click_tan_red">#59cc2525</color>
+    <color name="rb_text_check">#ff5200</color>
+    <color name="red_light">#FF1F12</color><!--红橙色 -->
+
+    <color name="c88">#888888</color>
+    <color name="cb8">#b9b9b9</color>
+    <color name="delete_btn_color">#f70c34</color>
+
+    <color name="group_layout_background">#f7f7f7</color>
+    <color name="linen">#ededed</color>
+    <color name="c38">#383838</color>
+    <color name="c02">#020202</color>
+    <color name="red_baag_title">#e05449</color>
+    <color name="orangered">#ff4500</color>
+    <color name="rc_emoji_grid_item_bg">#ebebeb</color>
+    <color name="blue_line">#0b8fe3</color>
+    <color name="orange">#ffa352</color>
+    <color name="orange_line">#ff7800</color>
+    <color name="gold_yellow">#E9A400</color>
+    <color name="black_t80">#80000000</color>
+
+
+</resources>

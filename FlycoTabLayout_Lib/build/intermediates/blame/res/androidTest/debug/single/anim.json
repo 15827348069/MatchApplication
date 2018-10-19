@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_tooltip_exit.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_tooltip_exit.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_popup_enter.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_tooltip_enter.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_tooltip_enter.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\anim\\abc_slide_in_top.xml"
+    }
+]

@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\drawable-v21\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\notification_action_background.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\4cbe90b6c115bdbbecb686a78f3bc8c5\\res\\drawable-v21\\notification_action_background.xml"
+    },
+    {
+        "merged": "G:\\Android_projects\\MatchApplication\\FlycoTabLayout_Lib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\iMac\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\fd3fd5630da9ed11dc429c413cc0f8a6\\res\\drawable-v21\\abc_btn_colored_material.xml"
+    }
+]
