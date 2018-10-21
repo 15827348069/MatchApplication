@@ -35,6 +35,7 @@ import com.zbmf.newmatch.common.RequestCode;
 import com.zbmf.newmatch.fragment.BaseFragment;
 import com.zbmf.newmatch.util.ImageLoaderOptions;
 import com.zbmf.newmatch.util.JSONParse;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.ListViewForScrollView;
@@ -185,7 +186,7 @@ public class VideoDesclFragment extends BaseFragment implements View.OnClickList
                 getActivity().runOnUiThread(() -> activity.changeVideo(video));
             }
         }, Constans.CC_USERID, video.getBokecc_id() + "",
-                SettingDefaultsManager.getInstance().NickName(), "");
+                MatchSharedUtil.NickName(), "");
         DWLive.getInstance().startLogin();
     }
 

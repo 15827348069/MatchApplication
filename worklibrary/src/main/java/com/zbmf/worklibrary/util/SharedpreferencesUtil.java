@@ -67,7 +67,7 @@ public class SharedpreferencesUtil {
         editor.putLong(key,value);
         editor.commit();
     }
-    public float getLong(String key,long defaultValue){
+    public long getLong(String key,long defaultValue){
         return sharedPreferences.getLong(key,defaultValue);
     }
     public void removeKey(String key){

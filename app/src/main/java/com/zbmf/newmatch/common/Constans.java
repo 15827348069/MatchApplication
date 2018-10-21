@@ -12,6 +12,13 @@ import java.util.LinkedHashMap;
 
 public class Constans {
 
+    public static final int MFWW=0x7;//魔方薇薇
+    public static final int MFTT=0x8;//头条
+    public static final String ZBMFTT_ID="1791321";
+    public static final int BLOG_FRAGMENT=0X5;//博文
+    public static final int ZBMFTT=0X6;//原创
+
+    public static final String MFWW_ID="7878";
     public static final String MM_dd_HH_mm="MM-dd HH:mm";
     /**
      * 收藏的博文

@@ -4,18 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/rl_root"
+    android:layout_marginTop="@dimen/dp_3"
+    android:layout_marginBottom="@dimen/dp_4"
+    android:layout_marginLeft="@dimen/dp_12"
+    android:layout_marginRight="@dimen/dp_12"
     android:background="@drawable/list_item_select"
     android:padding="15dp"
     >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <com.zbmf.newmatch.view.RoundedCornerImageView
-        android:layout_width="@dimen/teacher_avatar"
-        android:layout_height="@dimen/teacher_avatar"
+    <ImageView
+        android:layout_width="@dimen/dp_85"
+        android:layout_height="@dimen/dp_85"
         android:src="@drawable/avatar_default"
         android:id="@+id/recommend_item_avatar"
-        />
+       android:layout_centerVertical="true" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,59 +59,60 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="2dp"
             android:textColor="#999999"
             android:text="0人关注"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:id="@+id/recommend_follownum"
             />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:id="@+id/style_layout"
+            android:layout_below="@+id/recommend_item_avatar"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="风格："
+                android:textColor="@color/black_66"
+                android:textSize="13sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recommend_style"
+                android:text="擅长抓龙头牛股"
+                android:textColor="@color/black_66"
+                android:textSize="13sp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/style_layout"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标签："
+                android:textColor="@color/black_66"
+                android:textSize="13sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recommend_tag"
+                android:text="用简单易懂的方式教您宠爱股"
+                android:textColor="@color/black_66"
+                android:textSize="13sp"
+                />
+        </LinearLayout>
     </LinearLayout>
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/style_layout"
-        android:layout_below="@+id/recommend_item_avatar"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="风格："
-            android:textColor="@color/black_66"
-            android:textSize="13sp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/recommend_style"
-            android:text="擅长抓龙头牛股"
-            android:textColor="@color/black_66"
-            android:textSize="13sp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/style_layout"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="标签："
-            android:textColor="@color/black_66"
-            android:textSize="13sp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/recommend_tag"
-            android:text="用简单易懂的方式教您宠爱股"
-            android:textColor="@color/black_66"
-            android:textSize="13sp"
-            />
-    </LinearLayout>
+
 </LinearLayout>

@@ -18,6 +18,7 @@ import com.zbmf.newmatch.bean.BlogPingBean;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.common.RequestCode;
 import com.zbmf.newmatch.dialog.EditTextDialog;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.TextDialog;
@@ -51,7 +52,7 @@ public class BlogPingActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected String initTitle() {
-        return null;
+        return "评论";
     }
 
     @Override
@@ -69,7 +70,6 @@ public class BlogPingActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void GroupinitView() {
-        initTitle();
         blog_ping_list= (PullToRefreshListView) findViewById(R.id.my_blog_ping_list);
         no_message= (LinearLayout) findViewById(R.id.ll_none);
         no_message_text= (TextView) findViewById(R.id.no_message_text);
@@ -168,7 +168,7 @@ public class BlogPingActivity extends BaseActivity implements View.OnClickListen
         switch (view.getId()){
             case R.id.blog_detail_pinglun:
                 if(ShowActivity.isLogin(this)){
-                    if(TextUtils.isEmpty(SettingDefaultsManager.getInstance().getUserPhone())){
+                    if(TextUtils.isEmpty(MatchSharedUtil.UserPhone())){
                         TextDialog.createDialog(this)
                                 .setTitle("")
                                 .setMessage("为响应国家政策，请于操作前绑定手机信息！")

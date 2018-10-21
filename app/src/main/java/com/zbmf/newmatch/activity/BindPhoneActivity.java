@@ -18,6 +18,7 @@ import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.bean.User;
 import com.zbmf.newmatch.util.EditTextUtil;
 import com.zbmf.newmatch.util.JSONParse;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 
@@ -196,7 +197,7 @@ public class BindPhoneActivity extends BaseActivity implements View.OnClickListe
                         new JSONHandler(true, BindPhoneActivity.this, "加载中...") {
                     @Override
                     public void onSuccess(JSONObject obj) {
-                        SettingDefaultsManager.getInstance().setUserPhone(ed_phone.getText().toString());
+                        MatchSharedUtil.setUserPhone(ed_phone.getText().toString());
                         showToast("绑定成功");
                         finish();
                     }

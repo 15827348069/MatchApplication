@@ -41,6 +41,7 @@ import com.zbmf.newmatch.common.AppConfig;
 import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.SharedKey;
 import com.zbmf.newmatch.util.BitmapUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.worklibrary.util.SharedpreferencesUtil;
 
@@ -385,7 +386,7 @@ public class ShareDialog extends Dialog implements WbShareCallback/*, IWeiboHand
         if (flag==Constans.WX_SHARE_WEB){
             mediaObject.description = share_desc;
             if (TextUtils.isEmpty(shareUrl)) {
-                mediaObject.actionUrl = share_url + SettingDefaultsManager.getInstance().UserId();
+                mediaObject.actionUrl = share_url + MatchSharedUtil.UserId();
             } else {
                 mediaObject.actionUrl = shareUrl;
             }

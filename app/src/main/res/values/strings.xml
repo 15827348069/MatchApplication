@@ -377,6 +377,9 @@
     <string name="add_fans">加入铁粉</string>
     <string name="commit_fans">订阅中...</string>
     <string name="voting">共收到[*]票支持，与前一名还差[**]票</string>
+    <string name="fensi">粉丝</string>
+    <string name="point">观点</string>
+    <string name="care">关注</string>
 
 
 </resources>

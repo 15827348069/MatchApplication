@@ -2,6 +2,7 @@ package com.zbmf.newmatch.fragment.teacher;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.fragment.BaseFragment;
 import com.zbmf.newmatch.listener.TeacherToStudy;
 import com.zbmf.newmatch.util.JSONParse;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -129,7 +131,7 @@ public class RankingFragment extends BaseFragment implements RecommendAdapter.On
 
     @Override
     public void onCareClink(final int position) {
-        if (SettingDefaultsManager.getInstance().authToken() == null || SettingDefaultsManager.getInstance().authToken().equals("")) {
+        if (TextUtils.isEmpty(MatchSharedUtil.AuthToken())) {
             showToast("登陆后才可关注！");
             infolist.get(position).setIs_recommend(0);
             adapter.notifyDataSetChanged();

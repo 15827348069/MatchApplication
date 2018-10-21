@@ -1,5 +1,7 @@
 package com.zbmf.newmatch.presenter;
 
+import android.content.Context;
+
 import com.zbmf.newmatch.bean.LoginUser;
 import com.zbmf.newmatch.bean.VerifyCodeBean;
 import com.zbmf.newmatch.listener.ResetPassword;
@@ -99,8 +101,8 @@ public class ForgetPassWordPresenter extends BasePresenter<ForgetPassWordMode, R
         });
     }
 
-    public void login(String name, String password) {
-        new LoginMode().login(name, password, new CallBack<LoginUser>() {
+    public void login(Context context, String name, String password) {
+        new LoginMode().login(context,name, password, new CallBack<LoginUser>() {
             @Override
             public void onSuccess(LoginUser loginUser) {
                 if (getView() != null) {

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.zbmf.newmatch.common.Constans;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 
 /**
@@ -21,7 +22,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String GROUP_TABLE="group_table";
 
     public DBHelper(Context context) {
-        super(context, DATABASE_NAME + SettingDefaultsManager.getInstance().UserId(), null, DATABASE_VERSION);
+        super(context, DATABASE_NAME + MatchSharedUtil.UserId(),
+                null, DATABASE_VERSION);
+
     }
     @Override
     public void onCreate(SQLiteDatabase db) {

@@ -23,6 +23,7 @@ import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -193,7 +194,7 @@ public class SeriesVideoActivity extends BaseActivity implements View.OnClickLis
                 });
             }
         }, Constans.CC_USERID,video.getBokecc_id()+"",
-                SettingDefaultsManager.getInstance().NickName(),"");
+                MatchSharedUtil.NickName(),"");
         DWLive.getInstance().startLogin();
     }
 

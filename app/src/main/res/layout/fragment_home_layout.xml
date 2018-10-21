@@ -37,7 +37,8 @@
 
             <include layout="@layout/home_trader_layout" />
 
-            <include layout="@layout/home_city_layout" />
+            <include layout="@layout/home_blog_layout" />
+            <!--<include layout="@layout/home_city_layout" />-->
 
             <include layout="@layout/home_hot_match_layout" />
             <View

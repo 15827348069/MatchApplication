@@ -1,6 +1,8 @@
 package com.zbmf.newmatch.presenter;
 
 
+import android.content.Context;
+
 import com.zbmf.newmatch.bean.LoginUser;
 import com.zbmf.newmatch.listener.ILoginFragmentView;
 import com.zbmf.newmatch.model.LoginMode;
@@ -21,8 +23,8 @@ public class LoginFragmentPresenter extends BasePresenter<LoginMode, ILoginFragm
         return new LoginMode();
     }
 
-    public void Login(String name, String pass) {
-        getMode().login(name, pass, new CallBack<LoginUser>() {
+    public void Login(Context context, String name, String pass) {
+        getMode().login(context,name, pass, new CallBack<LoginUser>() {
             @Override
             public void onSuccess(LoginUser user) {
                 if (getView()!=null){

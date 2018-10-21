@@ -7,6 +7,7 @@ package com.zbmf.newmatch.api;
 
 public class ParamsKey {
     public static final String TOKEN = "token";
+    public static final int GROUP_FG = 19;
     public static final String AUTH_TOKEN = "auth_token";
     public static final String USERNAME = "username";
     public static final String MOBILE="mobile";

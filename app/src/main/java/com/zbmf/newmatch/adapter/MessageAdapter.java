@@ -23,6 +23,7 @@ import com.zbmf.newmatch.bean.ChatMessage;
 import com.zbmf.newmatch.util.DateUtil;
 import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.EditTextUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.view.GlideOptionsManager;
@@ -114,8 +115,10 @@ public class MessageAdapter extends BaseAdapter implements View.OnLongClickListe
         }
 
         final ChatMessage message = messages.get(position);
-        holder.tv_content2.setTextSize(TypedValue.COMPLEX_UNIT_PX,mContext.getResources().getDimension(SettingDefaultsManager.getInstance().getTextSize()));
-        holder.tv_content1.setTextSize(TypedValue.COMPLEX_UNIT_PX,mContext.getResources().getDimension(SettingDefaultsManager.getInstance().getTextSize()));
+        holder.tv_content2.setTextSize(TypedValue.COMPLEX_UNIT_PX,mContext.getResources()
+                .getDimension(MatchSharedUtil.getTextSize()));
+        holder.tv_content1.setTextSize(TypedValue.COMPLEX_UNIT_PX,mContext.getResources()
+                .getDimension(MatchSharedUtil.getTextSize()));
         holder.tv_time.setVisibility(View.VISIBLE);
         if(!message.getTime().equals("")){
             long time = Long.parseLong(message.getTime());
@@ -140,11 +143,11 @@ public class MessageAdapter extends BaseAdapter implements View.OnLongClickListe
             holder.rl_msg1.setVisibility(View.GONE);
             holder.ll_msg2.setVisibility(View.GONE);
             holder.tv_tip.setText(message.getNickname() + "已被禁言");
-        }else if (SettingDefaultsManager.getInstance().UserId().equals(message.getFrom())) {//发送
+        }else if (MatchSharedUtil.UserId().equals(message.getFrom())) {//发送
             holder.rl_msg1.setVisibility(View.GONE);
             holder.ll_msg2.setVisibility(View.VISIBLE);
             holder.tv_tip.setVisibility(View.GONE);
-            Glide.with(mContext).load(SettingDefaultsManager.getInstance().UserAvatar())
+            Glide.with(mContext).load(MatchSharedUtil.UserAvatar())
                     .apply(GlideOptionsManager.getInstance()
                     .getRequestOptionsMatch()).into( holder.rcv2);
             holder.tv_content2.setText(EditTextUtil.getContent(mContext, holder.tv_content2,message.getContent()));

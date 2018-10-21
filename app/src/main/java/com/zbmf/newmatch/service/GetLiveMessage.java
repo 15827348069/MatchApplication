@@ -4,6 +4,7 @@ import android.database.Cursor;
 
 import com.zbmf.newmatch.bean.GiftBean;
 import com.zbmf.newmatch.bean.LiveMessage;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 
@@ -94,7 +95,7 @@ public class GetLiveMessage {
             case MessageType.IMG:
                 lm.setMessage_or_img(MessageType.IMG);
                 lm.setMessage_countent(msg.optString("content"));
-                lm.setThumb(msg.optString("url")+ SettingDefaultsManager.getInstance().getLiveImg());
+                lm.setThumb(msg.optString("url")+ MatchSharedUtil.getLiveImg());
                 lm.setImg_url(msg.optString("url"));
                 break;
         }
@@ -173,7 +174,7 @@ public class GetLiveMessage {
                     case MessageType.IMG:
                         message.setMessage_or_img(MessageType.IMG);
                         message.setMessage_countent(msg.optString("content"));
-                        message.setThumb(msg.optString("url") + SettingDefaultsManager.getInstance().getLiveImg());
+                        message.setThumb(msg.optString("url") + MatchSharedUtil.getLiveImg());
                         message.setImg_url(msg.optString("url"));
                         break;
                 }

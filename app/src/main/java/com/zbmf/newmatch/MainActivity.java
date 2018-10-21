@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -13,10 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
+import com.zbmf.newmatch.api.ParamsKey;
 import com.zbmf.newmatch.bean.Adverts;
 import com.zbmf.newmatch.bean.MatchDescBean;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.db.DBManager;
+import com.zbmf.newmatch.fragment.CareFragments;
 import com.zbmf.newmatch.fragment.DrillFragment;
 import com.zbmf.newmatch.fragment.HomeFragment;
 import com.zbmf.newmatch.fragment.MatchFragment;
@@ -24,6 +27,7 @@ import com.zbmf.newmatch.fragment.MineFragment;
 import com.zbmf.newmatch.fragment.StockFragment;
 import com.zbmf.newmatch.listener.IMainActivityCilck;
 import com.zbmf.newmatch.listener.IlaunchView;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.worklibrary.adapter.ViewPageAdapter;
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
         IMainActivityCilck, IlaunchView, View.OnClickListener {
     @BindView(R.id.vp_main)
     ViewPageNoScroll vpMain;
-//        @BindView(R.id.rg_main_menu)
+    //        @BindView(R.id.rg_main_menu)
 //        RadioGroup rgMainMenu;
     @BindView(R.id.rb_home)
     TextView rbHome;
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
         Intent intent = getIntent();
         if (intent != null) {
             Adverts adverts = (Adverts) intent.getSerializableExtra(IntentKey.ADS);
-            ShowActivity.showWebViewActivityJudge(this,adverts);
+            ShowActivity.showWebViewActivityJudge(this, adverts);
 //            if (adverts != null) {
 //                if (adverts.getJump_url().contains(Constans.MATCH_AD_TYPE)) {
 //                    //如果是比赛类型的广告，则请求接口，判断是否已经参赛
@@ -79,8 +83,10 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
 //                }
 //            }
         }
+        dbManager = new DBManager(getBaseContext());
         mUnBinder = ButterKnife.bind(this);
         setOnClick();
+        //初始化选中的位置
         setSelectHome();
 //        rgMainMenu.setOnCheckedChangeListener(this);
 //        initView();
@@ -90,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
     private void setOnClick() {
         rbHome.setOnClickListener(this);
         rbMatch.setOnClickListener(this);
+        rbGroup.setOnClickListener(this);
         rbDrill.setOnClickListener(this);
         rbStock.setOnClickListener(this);
         rbMine.setOnClickListener(this);
@@ -152,11 +159,14 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
         List<Fragment> fragmentList = new ArrayList<>();
         HomeFragment homeFragment = HomeFragment.newInstance();
         matchFragment = MatchFragment.newInstance();
+        //圈子的Fragment
+        CareFragments careFragments = CareFragments.newInstance();
         DrillFragment drillFragment = DrillFragment.newInstance();
         StockFragment stockFragment = StockFragment.newInstance();
         MineFragment mineFragment = MineFragment.newInstance();
         fragmentList.add(homeFragment);
         fragmentList.add(matchFragment);
+        fragmentList.add(careFragments);
         fragmentList.add(drillFragment);
         fragmentList.add(stockFragment);
         fragmentList.add(mineFragment);
@@ -222,6 +232,13 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
                 rbMine.setTextColor(getResources().getColor(R.color.black_33));
                 break;
             case 2:
+                //首先判断用户是否已经登录
+//                boolean isLogin = ShowActivity.isLogin(this,ParamsKey.GROUP_FG);
+//                Log.i("---TAG","--   isLogin:"+isLogin);
+//                if (!isLogin){
+//                    //没有登录
+//                    return;//不执行以下代码
+//                }
                 rbHome.setSelected(false);
                 rbMatch.setSelected(false);
                 rbGroup.setSelected(true);
@@ -291,6 +308,7 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
         rbHome.setSelected(true);
         rbHome.setTextColor(getResources().getColor(R.color.share_red));
         rbMatch.setSelected(false);
+        rbGroup.setSelected(false);
         rbDrill.setSelected(false);
         rbStock.setSelected(false);
         rbMine.setSelected(false);
@@ -308,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
     @Override
     public void onCityClick() {
         selectedWithFg(1);
-        selectNo=1;
+        selectNo = 1;
         matchFragment.onCityClick();
     }
 
@@ -350,9 +368,11 @@ public class MainActivity extends AppCompatActivity implements /*RadioGroup.OnCh
     @Override
     public void refreshMatchDescErr(String msg) {
     }
+
     private int roffine = 0;
     private int select;
     private DBManager dbManager;
+
     public void setCare_menu_point() {
         roffine = dbManager.getAllUnredCount();
         roffine = Math.max(0, Math.min(roffine, 99));

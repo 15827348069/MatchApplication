@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.zbmf.newmatch.R;
@@ -89,10 +90,12 @@ public class ShowActivity {
 
     @SuppressLint("ShowToast")
     public static boolean checkLoginStatus(Context context, String msg) {
-        if (msg.equals(Constans.INVALID_ERR_CODE) || msg.equals(Constans.INVALID_ERR_MSG) || TextUtils.isEmpty(MatchSharedUtil.AuthToken())) {
+        if (TextUtils.isEmpty(MatchSharedUtil.AuthToken()) || msg.equals(Constans.INVALID_ERR_MSG)
+                || msg.equals(Constans.INVALID_ERR_CODE)) {
             Toast.makeText(context, context.getString(R.string.user_invalid_login), Toast.LENGTH_SHORT);
             return true;
-        } else if (msg.equals(Constans.INVALID_LOGIN_CODE) || msg.equals(Constans.INVALID_LOGIN_MSG) || TextUtils.isEmpty(MatchSharedUtil.AuthToken())) {
+        } else if (msg.equals(Constans.INVALID_LOGIN_CODE) || msg.equals(Constans.INVALID_LOGIN_MSG)
+                || TextUtils.isEmpty(MatchSharedUtil.AuthToken())) {
             Toast.makeText(context, context.getString(R.string.invalid_login_err), Toast.LENGTH_SHORT);
             return true;
         } else {
@@ -292,6 +295,7 @@ public class ShowActivity {
      */
     @SuppressLint("ShowToast")
     public static boolean isLogin(Activity activity, int flag) {
+        Log.i("---TAG","==   isLogin方法中的  authToken："+MatchSharedUtil.AuthToken());
         if (TextUtils.isEmpty(MatchSharedUtil.AuthToken())) {
             Toast.makeText(activity, activity.getString(R.string.login_tip), Toast.LENGTH_SHORT);
             intent = new Intent(activity, LoginActivity.class);
@@ -305,7 +309,7 @@ public class ShowActivity {
         }
     }
     public static boolean isLogin(Activity activity){
-        if(TextUtils.isEmpty(SettingDefaultsManager.getInstance().authToken())){
+        if(TextUtils.isEmpty(MatchSharedUtil.AuthToken())){
             intent=new Intent(activity, LoginActivity.class);
             activity.startActivityForResult(intent, RequestCode.LOGIN);
             return false;

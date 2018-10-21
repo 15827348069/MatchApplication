@@ -66,6 +66,7 @@ import com.zbmf.newmatch.service.GetLiveMessage;
 import com.zbmf.newmatch.util.DateUtil;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
@@ -414,7 +415,7 @@ public class LiveFragment extends BaseFragment implements GroupTextView.OnTextCl
         long time = new Date().getTime();
         getGroupMessage();
         if (!dbManager.isGroupOnline(GROUP_ID) ||
-                DateUtil.MoreThanHour(SettingDefaultsManager.getInstance().getUpdataLive(GROUP_ID),
+                DateUtil.MoreThanHour(MatchSharedUtil.getUpdataLive(GROUP_ID),
                         time, 20 * 60)) {
             getMessageList(time, true);
         } else {
@@ -481,7 +482,7 @@ public class LiveFragment extends BaseFragment implements GroupTextView.OnTextCl
                         //铁粉
                         add_tf_message.setVisibility(View.VISIBLE);
                     } else {
-                        boolean isShowFans = SettingDefaultsManager.getInstance().getIsShowFans();
+                        boolean isShowFans = MatchSharedUtil.getIsShowFans();
                         if (isShowFans) {
                             add_tf_message.setVisibility(View.GONE);
                         } else {
@@ -622,7 +623,7 @@ public class LiveFragment extends BaseFragment implements GroupTextView.OnTextCl
             mGift = gift;
             if (mGift != null) {
                 if (!mGift.getCategory().equals("10")) {
-                    double my_mfb = Double.valueOf(SettingDefaultsManager.getInstance().getPays());
+                    double my_mfb = Double.valueOf(MatchSharedUtil.getPays());
                     if (sp != null) {
                         if (my_mfb < mGift.getMpays() * gift_num) {
                             sp.setText("去充值");
@@ -689,7 +690,7 @@ public class LiveFragment extends BaseFragment implements GroupTextView.OnTextCl
             if (mGift != null && ShowActivity.isLogin(getActivity())) {
                 if (mGift.getCategory().equals("10")) {
                     //积分礼物
-                    if (SettingDefaultsManager.getInstance().getPoint() < mGift.getMpays() * gift_num) {
+                    if (MatchSharedUtil.getPoint() < mGift.getMpays() * gift_num) {
                         Toast.makeText(getActivity(), "积分不足!", Toast.LENGTH_SHORT).show();
                         sp.stopAnim();
                     } else {
@@ -697,7 +698,7 @@ public class LiveFragment extends BaseFragment implements GroupTextView.OnTextCl
                     }
                 } else {
                     //魔方宝礼物
-                    double my_mfb = Double.valueOf(SettingDefaultsManager.getInstance().getPays());
+                    double my_mfb = Double.valueOf(MatchSharedUtil.getPays());
                     if (my_mfb < mGift.getMpays() * gift_num) {
                         sp.stopAnim();
                         ShowActivity.showPayDetailActivity(getActivity());
@@ -711,8 +712,8 @@ public class LiveFragment extends BaseFragment implements GroupTextView.OnTextCl
             }
         });
 
-        tv_mfb.setText(SettingDefaultsManager.getInstance().getPays());
-        tv_jf.setText(String.valueOf(SettingDefaultsManager.getInstance().getPoint()));
+        tv_mfb.setText(MatchSharedUtil.getPays());
+        tv_jf.setText(String.valueOf(MatchSharedUtil.getPoint()));
         for (int i = 0; i < views.size(); i++) {
             ImageView point = new ImageView(getActivity());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -794,10 +795,10 @@ public class LiveFragment extends BaseFragment implements GroupTextView.OnTextCl
             public void onSuccess(JSONObject obj) {
                 JSONObject pays = obj.optJSONObject("pay");
                 JSONObject point = obj.optJSONObject("point");
-                SettingDefaultsManager.getInstance().setPays(pays.optString("unfrozen"));
-                SettingDefaultsManager.getInstance().setPoint(point.optLong("unfrozen"));
-                tv_mfb.setText(SettingDefaultsManager.getInstance().getPays());
-                tv_jf.setText(String.valueOf(SettingDefaultsManager.getInstance().getPoint()));
+                MatchSharedUtil.setPays(pays.optString("unfrozen"));
+                MatchSharedUtil.setPoint(point.optLong("unfrozen"));
+                tv_mfb.setText(MatchSharedUtil.getPays());
+                tv_jf.setText(String.valueOf(MatchSharedUtil.getPoint()));
             }
 
             @Override
@@ -1035,7 +1036,7 @@ public class LiveFragment extends BaseFragment implements GroupTextView.OnTextCl
                 LogUtil.d("消息：" + obj);
                 groupbean.setIs_online(1);
                 dbManager.addGroup(groupbean);
-                SettingDefaultsManager.getInstance().setUpdataLive(time, GROUP_ID);
+                MatchSharedUtil.setUpdataLive(time, GROUP_ID);
                 if (!obj.isNull("msgs")) {
                     JSONArray msgs = obj.optJSONArray("msgs");
                     int size = msgs.length() - 1;

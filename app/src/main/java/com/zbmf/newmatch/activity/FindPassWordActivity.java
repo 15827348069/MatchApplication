@@ -156,7 +156,7 @@ public class FindPassWordActivity extends BaseActivity<ForgetPassWordPresenter> 
             String username = etUserName.getText().toString().trim();
             String pass = etUserPass.getText().toString().trim();
             if (validateAccount(username) && validatePassword(pass) ){
-                mForgetPassWordPresenter.login(username, pass);
+                mForgetPassWordPresenter.login(FindPassWordActivity.this,username, pass);
                 ShowOrHideProgressDialog.showProgressDialog(this,this,getString(R.string.login_loading));
             }
         }

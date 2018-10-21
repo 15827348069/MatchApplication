@@ -7,13 +7,16 @@
     android:background="@color/group_layout_background"
   >
 
-    <include layout="@layout/title_layout" />
-
+    <include
+        android:id="@+id/group_fg_title_view"
+        layout="@layout/fragment_title_layout" />
+    <!--<include layout="@layout/new_group_title"/>-->
+    <!--<include layout="@layout/title_layout" />-->
     <com.zbmf.worklibrary.pulltorefresh.PullToRefreshScrollView
         android:id="@+id/care_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_layout_id">
+        android:layout_below="@+id/group_fg_title_view">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +70,6 @@
                 android:id="@+id/care_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 app:tl_indicator_color="@color/red_line"
                 app:tl_indicator_height="2dp"
@@ -84,18 +86,18 @@
         </LinearLayout>
     </com.zbmf.worklibrary.pulltorefresh.PullToRefreshScrollView>
 
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/care_top_tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/title_layout_id"
-        android:background="@color/white"
-        android:visibility="gone"
-        app:tl_indicator_color="@color/red_line"
-        app:tl_indicator_height="2dp"
-        app:tl_indicator_width_equal_title="true"
-        app:tl_tab_space_equal="true"
-        app:tl_textSelectColor="@color/red_line"
-        app:tl_textUnselectColor="#fa000000"
-        app:tl_textsize="15sp" />
+    <!--<com.flyco.tablayout.SlidingTabLayout-->
+        <!--android:id="@+id/care_top_tab_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_below="@+id/title_layout_id"-->
+        <!--android:background="@color/white"-->
+        <!--android:visibility="gone"-->
+        <!--app:tl_indicator_color="@color/red_line"-->
+        <!--app:tl_indicator_height="2dp"-->
+        <!--app:tl_indicator_width_equal_title="true"-->
+        <!--app:tl_tab_space_equal="true"-->
+        <!--app:tl_textSelectColor="@color/red_line"-->
+        <!--app:tl_textUnselectColor="#fa000000"-->
+        <!--app:tl_textsize="15sp" />-->
 </RelativeLayout>

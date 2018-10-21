@@ -3,6 +3,7 @@ package com.zbmf.newmatch.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         setUserVisible(isVisibleToUser);
-        onResume();
+//        onResume();
     }
     @Nullable
     @Override
@@ -88,6 +89,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if(isUserVisible()&&isAdded()){
             if(presenter!=null){
                 //fragment初始化加载数据
+                Log.i("---TAG","--    执行加载数据 ：");
                 presenter.getDatas();
             }else{
                 presenter=initPresent();
@@ -110,6 +112,17 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     }
 
     /*-----------下面是 progressDialog------------*/
+    public void dialogShow(){
+        if(getView(R.id.dialog_layout)!=null){
+            getView(R.id.dialog_layout).setVisibility(View.VISIBLE);
+        }
+    }
+    public void dialogDiss(){
+        if(getView(R.id.dialog_layout)!=null){
+            getView(R.id.dialog_layout).setVisibility(View.GONE);
+        }
+    }
+
     public void ShowLoading() {
         if(progressDialog!=null&&!progressDialog.isShowing()){
             progressDialog.show();

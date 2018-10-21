@@ -19,7 +19,8 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             >
-            <include layout="@layout/group_detail_message"/>
+            <!--<include layout="@layout/group_detail_message"/>-->
+            <include layout="@layout/top_bg_view"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -30,7 +31,7 @@
                 android:gravity="center_vertical"
                 android:background="@drawable/button_background_10dp"
                 android:id="@+id/live_type_layout"
-                >
+                android:visibility="gone">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

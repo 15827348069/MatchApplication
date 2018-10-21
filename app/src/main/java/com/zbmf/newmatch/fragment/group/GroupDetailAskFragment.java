@@ -13,6 +13,7 @@ import com.zbmf.newmatch.bean.Ask;
 import com.zbmf.newmatch.bean.Group;
 import com.zbmf.newmatch.fragment.BaseFragment;
 import com.zbmf.newmatch.util.JSONParse;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.view.AddMoreLayout;
 import com.zbmf.newmatch.view.ListViewForScrollView;
@@ -73,7 +74,7 @@ public class GroupDetailAskFragment extends BaseFragment implements AddMoreLayou
 
     private void userAsks() {
         lv.onLoad();
-        WebBase.groupAnsweredAsks(group.getId(),page, SettingDefaultsManager.getInstance().authToken(), new JSONHandler() {
+        WebBase.groupAnsweredAsks(group.getId(),page, MatchSharedUtil.AuthToken(), new JSONHandler() {
             @Override
             public void onSuccess(JSONObject obj) {
                 Ask ask = JSONParse.getAsks(obj);

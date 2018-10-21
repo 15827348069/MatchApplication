@@ -7,6 +7,11 @@
         <item >最新比赛</item>
         <item >全部</item>
     </array>
+    <string-array name="look_stock">
+        <item>股票快讯</item>
+        <item>魔方头条</item>
+        <item>原创文章</item>
+    </string-array>
     <array name="match_rank_tag">
         <item >最新交易</item>
         <item >日榜</item>

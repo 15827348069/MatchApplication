@@ -18,6 +18,7 @@ import com.zbmf.newmatch.api.JSONHandler;
 import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.util.EditCheckUtil;
 import com.zbmf.newmatch.util.EditTextUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 
@@ -73,9 +74,9 @@ public class BindInfoActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.tv_text_tip2).setVisibility(View.VISIBLE);
         mRl_yzm = (RelativeLayout) findViewById(R.id.rl_yzm);
         rl_idcard = (RelativeLayout) findViewById(R.id.rl_idcard);
-        phone = SettingDefaultsManager.getInstance().getUserPhone();
-        mTrueName = SettingDefaultsManager.getInstance().getTrueName();
-        mIdCard = SettingDefaultsManager.getInstance().getIdcard();
+        phone = MatchSharedUtil.UserPhone();
+        mTrueName = MatchSharedUtil.UserTrueName();
+        mIdCard = MatchSharedUtil.UserIDCard();
         rl_pwd.setVisibility(View.GONE);
         rl_idcard.setVisibility(View.VISIBLE);
         setViewEnable();
@@ -230,9 +231,9 @@ public class BindInfoActivity extends BaseActivity implements View.OnClickListen
                     @Override
                     public void onSuccess(JSONObject obj) {
                         Toast.makeText(getBaseContext(), "提交成功", 0).show();
-                        SettingDefaultsManager.getInstance().setUserPhone(ed_phone.getText().toString());
-                        SettingDefaultsManager.getInstance().setTrueName(turename);
-                        SettingDefaultsManager.getInstance().setIdcard(idcard);
+                        MatchSharedUtil.setUserPhone(ed_phone.getText().toString());
+                        MatchSharedUtil.setUserTrueName(turename);
+                        MatchSharedUtil.setUserIDCard(idcard);
                         setResult(RESULT_OK);
                         finish();
                     }

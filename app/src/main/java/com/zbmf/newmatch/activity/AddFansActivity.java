@@ -29,6 +29,7 @@ import com.zbmf.newmatch.bean.Rules;
 import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.common.RequestCode;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SendBrodacast;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
@@ -140,8 +141,8 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
             public void onSuccess(JSONObject obj) {
                 JSONObject pays = obj.optJSONObject("pay");
                 JSONObject point = obj.optJSONObject("point");
-                SettingDefaultsManager.getInstance().setPays(pays.optString("unfrozen"));
-                SettingDefaultsManager.getInstance().setPoint(point.optLong("unfrozen"));
+                MatchSharedUtil.instance().setPays(pays.optString("unfrozen"));
+                MatchSharedUtil.instance().setPoint(point.optLong("unfrozen"));
                 setAddFansMessage();
             }
 
@@ -382,8 +383,10 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
     public void setAddFansMessage() {
         group_name.setText("【" + group.getName() + "】");
         group_name_id.setText("【" + group.getName() + "】");
-        my_tv_mfb.setText(DoubleFromat.getDouble(Double.valueOf(SettingDefaultsManager.getInstance().getPays()), 2));
-        my_tv_jf.setText(String.format("%d", SettingDefaultsManager.getInstance().getPoint()));
+
+        my_tv_mfb.setText(DoubleFromat.getDouble(Double.valueOf(
+                MatchSharedUtil.instance().getPays()), 2));
+        my_tv_jf.setText(String.format("%d", MatchSharedUtil.instance().getPoint()));
     }
 
     public void setJF(double price) {
@@ -397,7 +400,7 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
             jf_to_mfb_button.setVisibility(View.VISIBLE);
             jf_to_mfb_button.setChecked(jf_to_mfb);
             jf_to_mfb_button.setOnClickListener(this);
-            long my_jf = SettingDefaultsManager.getInstance().getPoint();//我自己的积分
+            long my_jf = MatchSharedUtil.instance().getPoint();//我自己的积分
             long max_point = group.getMax_point();//规定最高可使用的积分
             double jf_to_mfb_bi = group.getMax_mpay() / group.getMax_point();
             double need_jf = price / jf_to_mfb_bi;//兑换成魔方宝所需要的积分
@@ -480,7 +483,7 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void setButtonMessage(double mpays) {
-        double my_mfb = Double.valueOf(SettingDefaultsManager.getInstance().getPays());
+        double my_mfb = Double.valueOf(MatchSharedUtil.instance().getPays());
         double need_pay_mfb = mpays - my_mfb;
         if (need_pay_mfb > 0) {
             need_add_mfb = true;
@@ -583,16 +586,17 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void checkUserInfo() {
-        String userPhone = SettingDefaultsManager.getInstance().getUserPhone();
-        String trueName = SettingDefaultsManager.getInstance().getTrueName();
-        String idCard = SettingDefaultsManager.getInstance().getIdcard();
+        String userPhone = MatchSharedUtil.UserPhone();//获取用户的手机号
+        String trueName = MatchSharedUtil.UserTrueName();//获取用户的真是名字
+        String idCard = MatchSharedUtil.UserIDCard();//获取用户的身份证号
         boolean userPhoneEmpty = TextUtils.isEmpty(userPhone);
         boolean trueNameEmpty = TextUtils.isEmpty(trueName);
         boolean idCardEmpty = TextUtils.isEmpty(idCard);
         if (!userPhoneEmpty && !trueNameEmpty && !idCardEmpty) {
             subFans();
         } else {
-            startActivityForResult(new Intent(this, BindInfoActivity.class), RequestCode.BINDED);
+            startActivityForResult(new Intent(this,
+                    BindInfoActivity.class), RequestCode.BINDED);
 //            mz_dialog.dismiss();
         }
     }

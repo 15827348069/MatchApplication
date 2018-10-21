@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +21,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.zbmf.newmatch.MainActivity;
 import com.zbmf.newmatch.R;
+import com.zbmf.newmatch.activity.LookStockActivity;
 import com.zbmf.newmatch.activity.MatchTraderInfoActivity;
+import com.zbmf.newmatch.adapter.HeadMessageAdapter;
 import com.zbmf.newmatch.adapter.HomeCityAdapter;
 import com.zbmf.newmatch.adapter.HomeHotMatchAdapter;
 import com.zbmf.newmatch.adapter.HomeMatchAdapter;
 import com.zbmf.newmatch.adapter.HomeTraderAdapter;
 import com.zbmf.newmatch.adapter.SponsorAdapter;
+import com.zbmf.newmatch.api.JSONHandler;
 import com.zbmf.newmatch.api.ParamsKey;
+import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.bean.Adverts;
+import com.zbmf.newmatch.bean.BlogBean;
 import com.zbmf.newmatch.bean.City;
 import com.zbmf.newmatch.bean.HomeMatchList;
 import com.zbmf.newmatch.bean.MatchDescBean;
@@ -49,6 +54,7 @@ import com.zbmf.newmatch.listener.SponsorAdsClick;
 import com.zbmf.newmatch.presenter.HomePresenter;
 import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.ShowActivity;
+import com.zbmf.newmatch.util.TimeOnItemClickListener;
 import com.zbmf.newmatch.view.MZBannerView;
 import com.zbmf.newmatch.view.ShowOrHideProgressDialog;
 import com.zbmf.newmatch.view.ViewFactory;
@@ -57,7 +63,10 @@ import com.zbmf.worklibrary.pulltorefresh.PullToRefreshScrollView;
 import com.zbmf.worklibrary.util.GsonUtil;
 import com.zbmf.worklibrary.util.SharedpreferencesUtil;
 import com.zbmf.worklibrary.view.CycleViewPager;
-import com.zbmf.worklibrary.view.ListViewForScrollView;
+import com.zbmf.newmatch.view.ListViewForScrollView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -107,8 +116,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     PullToRefreshScrollView homePullScrollview;
     @BindView(R.id.rv_trader)
     RecyclerView rvTrader;
-    @BindView(R.id.rv_city)
-    RecyclerView rvCity;
+    //    @BindView(R.id.rv_city)
+//    RecyclerView rvCity;
     @BindView(R.id.list_hot_match)
     ListViewForScrollView listHotMatch;
     @BindView(R.id.m_banner)
@@ -119,9 +128,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     RecyclerView imgRecyclerView;
     @BindView(R.id.sponsorView)
     LinearLayout sponsorView;
+    //    @BindView(R.id.home_mf_head_message)
+    private ListViewForScrollView home_mf_head_message;
 
     private List<ImageView> views;
     private CycleViewPager cycleViewPager;
+    private List<BlogBean> bloglist;
 
     private HomeMatchAdapter homeMatchAdapter;
     private HomeHotMatchAdapter hotMatchAdapter;
@@ -151,6 +163,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
     };
     private Dialog mDialog;
     private SponsorAdapter mSponsorAdapter;
+    private HeadMessageAdapter headadapter;
+    private TextView tv_more_button;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -168,6 +182,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
 
     @Override
     protected void initView() {
+        home_mf_head_message = getView(R.id.home_mf_head_message);
+        tv_more_button = getView(R.id.tv_more_button);
+
         homePullScrollview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);//只能刷新
         ShowOrHideProgressDialog.showProgressDialog(getActivity(), getActivity(), getString(R.string.hard_loading));
         homePullScrollview.setOnRefreshListener(refreshView -> getPresenter().getDatas());
@@ -188,17 +205,42 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
         listHotMatch.setOnItemClickListener((adapterView, view, i, l) -> ShowActivity.showHotMatchDetail(getActivity(), hotMatchAdapter.getItem(i)));
         homePullScrollview.setOnRefreshListener(refreshView -> {
             ShowOrHideProgressDialog.showProgressDialog(getActivity(), getActivity(), getString(R.string.hard_loading));
+            first_onload_url = true;
+            first_onload_bloglist = true;
+            first_onload_screen = true;
             getPresenter().getDatas();
+        });
+        bloglist = new ArrayList<>();
+        //设置魔方头条
+        headadapter = new HeadMessageAdapter(getActivity(), bloglist);
+        home_mf_head_message.setAdapter(headadapter);
+        home_mf_head_message.setOnItemClickListener(new TimeOnItemClickListener() {
+            @Override
+            public void onNoDoubleClick(int position) {
+                ShowActivity.showBlogDetailActivity(getActivity(), bloglist.get(position));
+            }
+        });
+        //跳转到魔方头条的更多
+        tv_more_button.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt(IntentKey.FLAG, 1);
+            ShowActivity.showActivity(getActivity(), bundle, LookStockActivity.class);
         });
     }
 
     @Override
     protected void initData() {
+        //初始化数据
+        page = 1;
+        pages = 0;
         homeMatchAdapter = new HomeMatchAdapter(getActivity());
         listSupermeMatch.setAdapter(homeMatchAdapter);
 
         hotMatchAdapter = new HomeHotMatchAdapter(getActivity());
         listHotMatch.setAdapter(hotMatchAdapter);
+
+        //获取博文
+        getBlog_message();
 
 //        HomeSchoolAdapter schoolAdapter = new HomeSchoolAdapter(getActivity());
         // TODO: 2018/3/20 改成这里设置Banner的点击事件
@@ -239,18 +281,18 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
         rvTrader.setAdapter(traderAdapter);
         cityAdapter = new HomeCityAdapter(getActivity());
         cityAdapter.setCityClick(this);
-        rvCity.setLayoutManager(new GridLayoutManager(getActivity(), 3) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        });
-        rvCity.setAdapter(cityAdapter);
+//        rvCity.setLayoutManager(new GridLayoutManager(getActivity(), 3) {
+//            @Override
+//            public boolean canScrollVertically() {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean canScrollHorizontally() {
+//                return false;
+//            }
+//        });
+//        rvCity.setAdapter(cityAdapter);
 
     }
 
@@ -486,16 +528,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
         ShowActivity.circleImageClick(phoneAd, getActivity());
     }
 
-    @OnClick({R.id.tv_trader_more, R.id.tv_city_more, R.id.tv_create, R.id.kf_layout_id})
+    @OnClick({R.id.tv_trader_more,/* R.id.tv_city_more,*/ R.id.tv_create, R.id.kf_layout_id})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_trader_more:
                 ShowActivity.showMatchRankActivity(getActivity(), Constans.MATCH_ID, Constans.TRADER_RANK_FLAG, false);
                 break;
-            case R.id.tv_city_more:
-                MainActivity activity = (MainActivity) getActivity();
-                activity.onCityClick();
-                break;
+//            case R.id.tv_city_more:
+//                MainActivity activity = (MainActivity) getActivity();
+//                activity.onCityClick();
+//                break;
             case R.id.tv_create:
                 if (ShowActivity.isLogin(getActivity(), ParamsKey.MATCH_ORG_OTHER)) {
                     ShowActivity.showWebViewActivity(getActivity(), HtmlUrl.CREATE_MATCH,
@@ -596,6 +638,63 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements IHomeVi
             if (!TextUtils.isEmpty(ad.getJump_url())) {
                 ShowActivity.showWebViewActivity(getActivity(), ad.getJump_url(), "");
             }
+        }
+    }
+
+    private int page, pages;
+    public boolean first_onload_url, first_onload_bloglist, first_onload_screen;
+
+    private void getBlog_message() {
+        if (page == pages) {
+            showToast("已加载全部数据");
+            homePullScrollview.onRefreshComplete();
+            return;
+        }
+        WebBase.searchUserBlogs(new JSONHandler() {
+            @Override
+            public void onSuccess(JSONObject obj) {
+                JSONObject result = obj.optJSONObject("result");
+                page = result.optInt("page");
+                pages = result.optInt("pages");
+                bloglist.clear();
+                JSONArray blogs = result.optJSONArray("blogs");
+                int size = blogs.length();
+                for (int i = 0; i < size; i++) {
+                    JSONObject blog = blogs.optJSONObject(i);
+                    BlogBean blogBean = new BlogBean();
+                    blogBean.setImg(blog.optString("cover"));
+                    blogBean.setTitle(blog.optString("subject"));
+                    blogBean.setDate(blog.optString("posted_at"));
+                    blogBean.setLook_number(blog.optJSONObject("stat").optString("views"));
+                    blogBean.setPinglun(blog.optJSONObject("stat").optString("replys"));
+                    blogBean.setAvatar(blog.optJSONObject("user").optString("avatar"));
+                    blogBean.setName(blog.optJSONObject("user").optString("nickname"));
+                    blogBean.setApp_link(blog.optJSONObject("link").optString("app"));
+                    blogBean.setWap_link(blog.optJSONObject("link").optString("wap"));
+                    blogBean.setBlog_id(blog.optString("blog_id"));
+                    bloglist.add(blogBean);
+                }
+                headadapter.notifyDataSetChanged();
+                if (first_onload_bloglist) {
+                    first_onload_bloglist = false;
+                }
+                RunshComplete();
+            }
+
+            @Override
+            public void onFailure(String err_msg) {
+                showToast(err_msg);
+                if (first_onload_bloglist) {
+                    first_onload_bloglist = false;
+                }
+                RunshComplete();
+            }
+        });
+    }
+
+    private void RunshComplete() {
+        if (!first_onload_bloglist && !first_onload_screen && !first_onload_url && homePullScrollview.isRefreshing()) {
+            homePullScrollview.onRefreshComplete();
         }
     }
 }

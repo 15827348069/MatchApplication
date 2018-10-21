@@ -1,12 +1,17 @@
 package com.zbmf.newmatch.fragment;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -14,23 +19,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
+
+
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.zbmf.newmatch.MainActivity;
 import com.zbmf.newmatch.R;
+import com.zbmf.newmatch.activity.CareTeacherActivity;
 import com.zbmf.newmatch.activity.SearchActivity;
+import com.zbmf.newmatch.adapter.CareAdapter;
 import com.zbmf.newmatch.adapter.ViewPageFragmentadapter;
 import com.zbmf.newmatch.adapter.interfaces.LoadFinish;
 import com.zbmf.newmatch.api.JSONHandler;
 import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.bean.Group;
 import com.zbmf.newmatch.common.Constans;
+import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.db.DBManager;
 import com.zbmf.newmatch.db.Database;
 import com.zbmf.newmatch.fragment.care.RankTeacherFragment;
 import com.zbmf.newmatch.util.JSONParse;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.MyCustomViewpager;
-import com.zbmf.newmatch.view.RoundedCornerImageView;
 import com.zbmf.worklibrary.listener.ScrollViewChangeListener;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 import com.zbmf.worklibrary.pulltorefresh.OverscrollHelper;
@@ -43,74 +54,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.BindView;
-
 
 /**
- * Created by xuhao
- * on 2017/8/16.
- * 圈子 fragment
+ * Created by xuhao on 2017/8/16.
  */
 
-public class CareFragments extends BaseFragment implements ViewPager.OnPageChangeListener, LoadFinish,
-        /*PullToRefreshScrollView.onScrolls,*/ View.OnClickListener, ScrollViewChangeListener {
-    @BindView(R.id.action_bar_layout)
-    View action_bar_layout;
-    @BindView(R.id.group_title_return)
-    ImageButton group_title_return;
-    @BindView(R.id.group_title_avatar)
-    RoundedCornerImageView group_title_avatar;
-    @BindView(R.id.group_title_name)
-    TextView group_title_name;
-    @BindView(R.id.group_tiitle_share)
-    ImageButton group_tiitle_share;
-    @BindView(R.id.group_title_tw)
-    ImageButton group_title_tw;
-    @BindView(R.id.group_title_right_button)
-    Button group_title_right_button;
-    @BindView(R.id.msgCount)
-    TextView msgCount;
-    @BindView(R.id.rightTipR)
-    FrameLayout rightTipR;
-    @BindView(R.id.search_button)
-    ImageButton search_button;
-    @BindView(R.id.cause_care_about_blog_button)
-    ImageButton cause_care_about_blog_button;
-    @BindView(R.id.imb_stock_mode)
-    ImageButton imb_stock_mode;
-    @BindView(R.id.care_about_blog_button)
-    ImageButton care_about_blog_button;
-    @BindView(R.id.blog_textsize_setting)
-    ImageButton blog_textsize_setting;
-    @BindView(R.id.imb_send)
-    ImageButton imb_send;
-    @BindView(R.id.imb_msg)
-    ImageButton imb_msg;
-    @BindView(R.id.title_layout)
-    RelativeLayout title_layout;
-    @BindView(R.id.title_layout_id)
-    LinearLayout title_layout_id;
-    @BindView(R.id.care_tab_layout)
-    SlidingTabLayout mTab;
-    @BindView(R.id.care_viewpager_teacher)
-    MyCustomViewpager care_viewpager_teacher;
-    @BindView(R.id.care_refresh)
-    PullToRefreshScrollView sc_focus;
-    @BindView(R.id.care_top_tab_layout)
-    SlidingTabLayout care_top_tab_layout;
+public class CareFragments extends BaseFragment implements ViewPager.OnPageChangeListener,
+        LoadFinish, /*PullToRefreshScrollView.onScrolls,*/ View.OnClickListener ,ScrollViewChangeListener {
     private MainActivity groupActivity;
+    private List<Group> infolist;
 
-    public MyCustomViewpager mViewpager;
-    private List<Fragment> mList;
-    private List<String> title_list;
     private DBManager dbManager;
     private Database db;
     private boolean isFirstIn = true;
-    private RankTeacherFragment recomedFragment, exclusiveFragment, arrowFragment;
     private int select;
-    private List<Group> infolist;
-    private ViewPageFragmentadapter mAdapter;
 
+    private PullToRefreshScrollView sc_focus;
+    private SlidingTabLayout mTab;
+    public MyCustomViewpager mViewpager;
+
+    private RankTeacherFragment recomedFragment, exclusiveFragment, arrowFragment;
 
     public static CareFragments newInstance() {
         CareFragments fragment = new CareFragments();
@@ -124,22 +87,33 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
 
     @Override
     protected void initView() {
+        sc_focus = (PullToRefreshScrollView) getView(R.id.care_refresh);
+        mTab = (SlidingTabLayout) getView(R.id.care_tab_layout);
+        mViewpager = (MyCustomViewpager) getView(R.id.care_viewpager_teacher);
+        TextView tv_title_text = (TextView) getView(R.id.tv_title_text);
+        ImageView searchBtn = (ImageView) getView(R.id.searchBtn);
+        mViewpager.setScrollble(true);
+
+        //获取数据库对象
         dbManager = new DBManager(getContext());
         db = new Database(getContext());
         groupActivity = (MainActivity) getActivity();
-        group_title_name.setText("圈子");
-
-        group_title_return.setVisibility(View.GONE);
-        search_button.setVisibility(View.VISIBLE);
-        search_button.setOnClickListener(this);
+        tv_title_text.setText("圈子");
+        searchBtn.setVisibility(View.VISIBLE);
+        searchBtn.setOnClickListener(this);
 
         infolist = new ArrayList<>();
         new OverscrollHelper().setScrollViewChangeListener(this);
 
+        //初始化圈子的Fragment
         initCareFragment();
+        //设置刷新
+        setRefresh();
 
+    }
+
+    private void setRefresh(){
         sc_focus.setMode(PullToRefreshBase.Mode.BOTH);
-
         sc_focus.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
@@ -161,7 +135,6 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
                 }
             }
         });
-//        sc_focus.setOnScroll(this);
     }
 
     private void rush() {
@@ -171,7 +144,9 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
     @Override
     protected void initData() {
         isFirstIn = true;
-        if (!SettingDefaultsManager.getInstance().authToken().isEmpty()) {
+        //如果用户已经登录则获取数据
+        String authToken = MatchSharedUtil.AuthToken();
+        if (!authToken.isEmpty()) {
             userGroups();
         }
     }
@@ -182,7 +157,7 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
     }
 
     private void RunshList() {
-        if (!SettingDefaultsManager.getInstance().authToken().isEmpty()) {
+        if (!MatchSharedUtil.AuthToken().isEmpty()) {
             userGroups();
             switch (select) {
                 case 0:
@@ -198,22 +173,16 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
         }
     }
 
-    public void setData(boolean updata){
-        // TODO: 2018/10/18
-//        setinitData(updata);
-    }
-
-
     private void initCareFragment() {
-        mList = new ArrayList<>();
-        title_list = Arrays.asList(getResources().getStringArray(R.array.find_teacher));
+        List<Fragment> mList = new ArrayList<>();
+        List<String> title_list = Arrays.asList(getResources().getStringArray(R.array.find_teacher));
 
         recomedFragment = RankTeacherFragment.newInstance(Constans.PEOPLE_RECOMED);
         recomedFragment.setCustomViewPage(mViewpager);
         recomedFragment.setLoadFinish(this);
         mViewpager.setObjectForPosition(recomedFragment.getFragmentView(), 0);
 
-/*        liveFragment = RankTeacherFragment.newInstance(Constans.NOW_LIVE);
+        /*liveFragment = RankTeacherFragment.newInstance(Constans.NOW_LIVE);
         liveFragment.setCustomViewPage(mViewpager);
         liveFragment.setLoadFinish(this);
         mViewpager.setObjectForPosition(liveFragment.getFragmentView(), 1);*/
@@ -232,12 +201,38 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
         mList.add(exclusiveFragment);
         mList.add(arrowFragment);
 
-        mAdapter = new ViewPageFragmentadapter(getActivity().getSupportFragmentManager(), title_list, mList);
+        ViewPageFragmentadapter mAdapter = new ViewPageFragmentadapter(getActivity().getSupportFragmentManager(), title_list, mList);
         mViewpager.setAdapter(mAdapter);
         mViewpager.setOffscreenPageLimit(mList.size());
         mViewpager.setOnPageChangeListener(this);
         mTab.setViewPager(mViewpager);
-        care_top_tab_layout.setViewPager(mViewpager);
+        mTab.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
+        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTab.setSelected(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void userGroups() {
@@ -260,7 +255,8 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
                         group1.setUnredcount(liveNo);
                     }
                     for (Group group1 : infolist) {
-                        int chatNo = db.getChatUnReadNum(group1.getId())/*+dbManager.getOfflineMsgConunt(Constants.ROOM,group1.getId())*/;
+                        int chatNo = db.getChatUnReadNum(group1.getId())
+                                /*+dbManager.getOfflineMsgConunt(Constants.ROOM,group1.getId())*/;
                         group1.setChat(chatNo);
                     }
                     if (infolist.size() == 0) {
@@ -270,7 +266,7 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
                     } else {
                         sc_focus.setVisibility(View.VISIBLE);
                     }
-                    mAdapter.notifyDataSetChanged();
+//                    mAdapter.notifyDataSetChanged();
                     groupActivity.setCare_menu_point();
                 }
             }
@@ -278,7 +274,8 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
             @Override
             public void onFailure(String err_msg) {
                 if (checkVa(err_msg)) {
-                    SettingDefaultsManager.getInstance().setAuthtoken("");
+                    Log.i("---TAG","---   存储 空的Auth_Token ");
+                    MatchSharedUtil.putAuthToken("");
 //                    ((MainActivity) getActivity()).checked();
                 } else {
                     Toast.makeText(getActivity(), err_msg, Toast.LENGTH_SHORT).show();
@@ -339,6 +336,7 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
 
     @Override
     public void onScrollChanged(PullToRefreshScrollView scrollView, int x, int y, int oldx, int oldy) {
+
     }
 
     @Override
@@ -355,16 +353,16 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
 
     @Override
     public void onScroll(int x, int y) {
-        int top = mTab.getTop();
-        if (y >= top) {
-            if (care_top_tab_layout.getVisibility() == View.GONE) {
-                care_top_tab_layout.setVisibility(View.VISIBLE);
-            }
-        } else {
-            if (care_top_tab_layout.getVisibility() == View.VISIBLE) {
-                care_top_tab_layout.setVisibility(View.GONE);
-            }
-        }
+//        int top = mTab.getTop();
+//        if (y >= top) {
+//            if (care_top_tab_layout.getVisibility() == View.GONE) {
+//                care_top_tab_layout.setVisibility(View.VISIBLE);
+//            }
+//        } else {
+//            if (care_top_tab_layout.getVisibility() == View.VISIBLE) {
+//                care_top_tab_layout.setVisibility(View.GONE);
+//            }
+//        }
     }
 
     @Override

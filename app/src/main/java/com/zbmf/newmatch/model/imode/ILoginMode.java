@@ -1,5 +1,7 @@
 package com.zbmf.newmatch.model.imode;
 
+import android.content.Context;
+
 import com.zbmf.worklibrary.model.CallBack;
 
 /**
@@ -8,6 +10,6 @@ import com.zbmf.worklibrary.model.CallBack;
  */
 
 public interface ILoginMode{
-    void login(String name, String pass, CallBack callBack);
+    void login(Context context, String name, String pass, CallBack callBack);
     void forgetPassword(String phone, CallBack callBack);
 }

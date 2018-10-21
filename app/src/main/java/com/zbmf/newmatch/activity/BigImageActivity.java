@@ -19,6 +19,7 @@ import com.zbmf.newmatch.dialog.ImageDialog;
 import com.zbmf.newmatch.util.BitmapUtil;
 import com.zbmf.newmatch.util.ImageLoaderOptions;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.PhotoViewAttacher;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.WebClickUitl;
@@ -45,7 +46,7 @@ public class BigImageActivity extends AppCompatActivity {
         big_img_id = (ImageView) findViewById(R.id.big_img_id);
         img_url = getIntent().getStringExtra("img_url");
         if (img_url != null && !img_url.equals("")) {
-            img_url = img_url.replace(SettingDefaultsManager.getInstance().getLiveImg(), "");
+            img_url = img_url.replace(MatchSharedUtil.instance().getLiveImg(), "");
 
             ImageLoader.getInstance().getDiskCache().remove(img_url.trim());
             ImageLoader.getInstance().displayImage(img_url, big_img_id, ImageLoaderOptions.BigProgressOptions(),

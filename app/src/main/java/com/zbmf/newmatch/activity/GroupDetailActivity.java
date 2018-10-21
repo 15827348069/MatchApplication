@@ -31,11 +31,12 @@ import com.zbmf.newmatch.fragment.group.GroupDetailFansFragment;
 import com.zbmf.newmatch.fragment.group.GroupDetailHistoryFragment;
 import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.JSONParse;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.GlideOptionsManager;
 import com.zbmf.newmatch.view.MyCustomViewpager;
 import com.zbmf.newmatch.view.MyScrollView;
+import com.zbmf.newmatch.view.RoundImageView;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 
 import org.json.JSONObject;
@@ -58,12 +59,14 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
     private int LayoutTop, nameTop,LayoutBottom;
     private ImageView icon_live_id;
     private Animation wheelAnimation;
-    private TextView group_title_name,tv_care_detail_message, tv_detail_care_text,group_detail_name, group_detail_id, group_detail_desc, group_detail_fans, group_detail_blog_number, group_detail_care_number, live_type_text;
+    private TextView group_title_name,tv_care_detail_message, tv_detail_care_text,group_detail_name,
+            group_detail_id, group_detail_desc, group_detail_fans, group_detail_blog_number,
+            group_detail_care_number, live_type_text;
     private LinearLayout group_detail_layout;
     private RadioGroup group_detail_radio, group_top_detail_radio;
     public MyCustomViewpager viewPager;
     private Group group_bean;
-    private ImageView group_detail_avatar;
+    private RoundImageView group_detail_avatar;
     private RelativeLayout live_type_layout;
     private LinearLayout bottom_layout;
     private LinearLayout group_detail_top_layout;
@@ -93,6 +96,7 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
 
         GroupinitView();
         addListener();
+        initData();
 
     }
 
@@ -115,19 +119,31 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
         group_detail_button_layout = (LinearLayout) findViewById(R.id.group_detail_button_layout);
         group_detail_layout = (LinearLayout) findViewById(R.id.group_detail_layout);
         group_title_name = (TextView) findViewById(R.id.group_title_name);
-        group_detail_name = (TextView) findViewById(R.id.group_detail_name);
-        group_detail_id = (TextView) findViewById(R.id.group_detail_id);
+        group_detail_name = (TextView) findViewById(R.id.teacherTag);
+//        group_detail_id = (TextView) findViewById(R.id.group_detail_id);//
+        group_detail_id= findViewById(R.id.countTeacherTv);
+
         mTv_coupons = (TextView) getView(R.id.tv_coupons);
         mSure_add_fans_button = (LinearLayout) getView(R.id.sure_add_fans_button);
 
-        group_detail_desc = (TextView) findViewById(R.id.group_detail_desc);
-        group_detail_fans = (TextView) findViewById(R.id.group_detail_fans);
-        group_detail_blog_number = (TextView) findViewById(R.id.group_detail_blog_number);
-        group_detail_care_number = (TextView) findViewById(R.id.group_detail_care_number);
+//        group_detail_desc = (TextView) findViewById(R.id.group_detail_desc);//原来的简介
+        group_detail_desc = findViewById(R.id.jianjieTv);
+
+//        group_detail_fans = (TextView) findViewById(R.id.group_detail_fans);//原来的粉丝数量
+        group_detail_fans = findViewById(R.id.fensi_count_value);
+
+//        group_detail_blog_number = (TextView) findViewById(R.id.group_detail_blog_number);//观点数量
+        group_detail_blog_number = findViewById(R.id.point_count_value);//观点数量
+
+//        group_detail_care_number = (TextView) findViewById(R.id.group_detail_care_number);//关注数量
+        group_detail_care_number = findViewById(R.id.care_count_value);//关注数量
+
         live_type_text = (TextView) findViewById(R.id.live_type_text);
         icon_live_id = (ImageView) findViewById(R.id.icon_live_id);
         viewPager = (MyCustomViewpager) findViewById(R.id.group_detail_view_page);
-        group_detail_avatar = (ImageView) findViewById(R.id.group_detail_avatar);
+//        group_detail_avatar = (ImageView) findViewById(R.id.group_detail_avatar);//原来的Avatar
+        group_detail_avatar = findViewById(R.id.teacherAvatar);
+
         live_type_layout = (RelativeLayout) findViewById(R.id.live_type_layout);
         wheelAnimation = AnimationUtils.loadAnimation(this, R.anim.send_gift_progress_ami);
         group_detail_radio = (RadioGroup) findViewById(R.id.group_detail_radio);
@@ -137,7 +153,8 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
         group_detail_scroll.setOnScrollListener(this);
         bottom_layout = (LinearLayout) getView(R.id.bottom_layout);
         tv_detail_care_text=(TextView) getView(R.id.tv_detail_care_text);
-        tv_care_detail_message=(TextView)getView(R.id.tv_care_detail_message);
+//        tv_care_detail_message=(TextView)getView(R.id.tv_care_detail_message);//关注的按钮
+        tv_care_detail_message=(TextView)getView(R.id.careTvBtn);//关注的按钮
         if (edit_dialog == null) {
             edit_dialog = Editdialog1();
         }
@@ -168,7 +185,7 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
             mTv_coupons.setVisibility(View.VISIBLE);
             mSure_add_fans_button.setVisibility(View.VISIBLE);
         }else {
-            boolean isShowFans = SettingDefaultsManager.getInstance().getIsShowFans();
+            boolean isShowFans = MatchSharedUtil.getIsShowFans();
             if (isShowFans){
                 mTv_coupons.setVisibility(View.GONE);
                 mSure_add_fans_button.setVisibility(View.GONE);
@@ -263,39 +280,39 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
     }
 
     public void getGroupInfo() {
-//        WebBase.groupInfo(group_bean.getId(), new JSONHandler() {
-//            @Override
-//            public void onSuccess(JSONObject obj) {
-//                if (!obj.isNull("group")) {
-//                    JSONObject group = obj.optJSONObject("group");
-//                    group_bean = JSONParse.getGroup(group);
-//                    setGroupMessage();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(String err_msg) {
-//                Toast.makeText(GroupDetailActivity.this, err_msg, Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        WebBase.groupInfo(group_bean.getId(), new JSONHandler() {
+            @Override
+            public void onSuccess(JSONObject obj) {
+                if (!obj.isNull("group")) {
+                    JSONObject group = obj.optJSONObject("group");
+                    group_bean = JSONParse.getGroup(group);
+                    setGroupMessage();
+                }
+            }
+
+            @Override
+            public void onFailure(String err_msg) {
+                Toast.makeText(GroupDetailActivity.this, err_msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void GroupStat() {
-//        WebBase.GroupStat(group_bean.getId(), new JSONHandler() {
-//            @Override
-//            public void onSuccess(JSONObject obj) {
-//                Group group = new Group();
-//                group.setBlogs(obj.optJSONObject("stat").optInt("blogs"));
-//                group.setFans(obj.optJSONObject("stat").optInt("fans"));
-//                group.setFollows(obj.optJSONObject("stat").optInt("follows"));
-//                setGroupNumber(group);
-//            }
-//
-//            @Override
-//            public void onFailure(String err_msg) {
-//
-//            }
-//        });
+        WebBase.GroupStat(group_bean.getId(), new JSONHandler() {
+            @Override
+            public void onSuccess(JSONObject obj) {
+                Group group = new Group();
+                group.setBlogs(obj.optJSONObject("stat").optInt("blogs"));
+                group.setFans(obj.optJSONObject("stat").optInt("fans"));
+                group.setFollows(obj.optJSONObject("stat").optInt("follows"));
+                setGroupNumber(group);
+            }
+
+            @Override
+            public void onFailure(String err_msg) {
+
+            }
+        });
     }
 
     @Override
@@ -416,7 +433,7 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
                     edit_dialog.show();
                 }
                 break;
-            case R.id.group_detail_desc:
+            case R.id.jianjieTv:
                 if(desc_dialog==null){
                     desc_dialog= DescDialog.createDialog(GroupDetailActivity.this)
                     .setMessage(group_bean.getDescription());

@@ -13,6 +13,7 @@ import com.zbmf.newmatch.callback.ResultCallback;
 import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.service.GetLiveMessage;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 
@@ -66,7 +67,7 @@ public class DBManager {
                 do {
                     LiveMessage message = GetLiveMessage.getLiveMessage(c);
                     if (message.is_private()) {
-                        if (message.getQuestion_id().equals(SettingDefaultsManager.getInstance().UserId())) {
+                        if (message.getQuestion_id().equals(MatchSharedUtil.UserId())) {
                             infolist.add(0, message);
                         }
                     } else {
@@ -292,17 +293,16 @@ public class DBManager {
 //            //没有就插入数据
 //            db.insert(DBHelper.USER_TABLE, null, values);
 //        }
-        SettingDefaultsManager.getInstance().setAuthtoken(user.getAuth_token());
-        SettingDefaultsManager.getInstance().setUserId(String.valueOf(user.getUser_id()));
-        SettingDefaultsManager.getInstance().setUserAvatar(user.getAvatar());
-        SettingDefaultsManager.getInstance().setUserPhone(user.getPhone());
-        SettingDefaultsManager.getInstance().setNickName(user.getNickname());
-        SettingDefaultsManager.getInstance().setTrueName(user.getTruename());
-        SettingDefaultsManager.getInstance().setIdcard(user.getIdcard());
-        SettingDefaultsManager.getInstance().setIdcard(user.getIdcard());
-        SettingDefaultsManager.getInstance().setIsVip(user.getIs_vip());
-        SettingDefaultsManager.getInstance().setSuperVip(user.getIs_super());
-        SettingDefaultsManager.getInstance().setVipAtEnd(user.getVip_end_at());
+//        MatchSharedUtil.putAuthToken(user.getAuth_token());
+        MatchSharedUtil.setUserId(String.valueOf(user.getUser_id()));
+        MatchSharedUtil.setUserAvatar(user.getAvatar());
+        MatchSharedUtil.setUserPhone(user.getPhone());
+        MatchSharedUtil.setNickName(user.getNickname());
+        MatchSharedUtil.setTrueName(user.getTruename());
+        MatchSharedUtil.setUserIDCard(user.getIdcard());
+        MatchSharedUtil.setIsVip(user.getIs_vip());
+        MatchSharedUtil.setSuperVip(user.getIs_super());
+        MatchSharedUtil.setVipAtEnd(user.getVip_end_at());
     }
 
     public List<User> queryUser() {

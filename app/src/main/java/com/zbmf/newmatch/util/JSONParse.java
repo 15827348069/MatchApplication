@@ -134,7 +134,7 @@ public class JSONParse {
                     post.setIs_private(object.getInt("is_private"));
                     a.setPost(post);
                     if (a.getPost().getIs_private()
-                            && a.getAsk_id().equals(SettingDefaultsManager.getInstance().UserId())) {
+                            && a.getAsk_id().equals(MatchSharedUtil.UserId())) {
                         asks.add(a);
                     } else {
                         asks.add(a);
@@ -194,7 +194,7 @@ public class JSONParse {
             blogBean.setWap_link(link.optString("wap"));
         }
         blogBean.setBlog_id(blog.optString("blog_id"));
-        if (blogBean.getBlog_id().contains(SettingDefaultsManager.getInstance().UserId())) {
+        if (blogBean.getBlog_id().contains(MatchSharedUtil.UserId())) {
             blogBean.setIs_myself(true);
         } else {
             blogBean.setIs_myself(false);

@@ -116,7 +116,7 @@ public class WebClickUitl {
                                         ShowActivity.showActivityForResult(activity,bundle, VideoPlayActivity.class, RequestCode.COMIT_VIDEO);
                                     });
                                 }
-                            }, Constans.CC_USERID,video.getBokecc_id()+"", SettingDefaultsManager.getInstance().NickName(),"");
+                            }, Constans.CC_USERID,video.getBokecc_id()+"",MatchSharedUtil.NickName(),"");
                             DWLive.getInstance().startLogin();
                         }else{
                             Bundle bundle=new Bundle();

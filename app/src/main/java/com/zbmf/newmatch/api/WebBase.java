@@ -12,6 +12,7 @@ import com.zbmf.newmatch.callback.LoadFileResult;
 import com.zbmf.newmatch.callback.UpFileResult;
 import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 
@@ -212,7 +213,7 @@ public class WebBase {
      */
     public static void getWalle(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.GET_WALLE, param, jsonHandler);
     }
 
@@ -223,8 +224,8 @@ public class WebBase {
      */
     public static void Bind(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
-        param.put("socket_id", SettingDefaultsManager.getInstance().getClientId());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
+        param.put("socket_id", MatchSharedUtil.getClientId());
         post(AppUrl.BIND, param, jsonHandler);
     }
 
@@ -259,7 +260,7 @@ public class WebBase {
      */
     public static void logout(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         login_post(AppUrl.LOGIN_OUT, param, jsonHandler);
     }
 
@@ -352,7 +353,7 @@ public class WebBase {
      */
     public static void uploadAvatar1(String path,String url,String fileKey, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         RequestParams params = getRequest(url, param, path,fileKey);
         Log.i("--TAG","--- method :"+url);
         client.setTimeout(7000);
@@ -414,7 +415,7 @@ public class WebBase {
     //更新头像 !!!垃圾文档啊!!
     public static void updateUser(String icon_key, String nickname, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("nickname", nickname);
         if (icon_key != null) {
             param.put("icon_key", icon_key);
@@ -424,7 +425,7 @@ public class WebBase {
 
     public static void uploadAvatar(String path, String nickname, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("nickname", nickname);
         LogUtil.e(path + "");
         LogUtil.e(TextUtils.isEmpty(path) + "");
@@ -440,7 +441,7 @@ public class WebBase {
     //上传图片文件
     public static void upImgFile(String path,JSONHandler jsonHandler){
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         LogUtil.e(path + "");
         LogUtil.e(TextUtils.isEmpty(path) + "");
         if (path != null && !TextUtils.isEmpty(path)) {
@@ -471,7 +472,7 @@ public class WebBase {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            params.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+            params.put("auth_token", MatchSharedUtil.AuthToken());
             // 上传文件
             client.post(url, params, new AsyncHttpResponseHandler() {
                 @Override
@@ -619,7 +620,7 @@ public class WebBase {
      */
     public static void getUserBoxs(String is_stop, String is_stick, int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("is_stop", is_stop);
         param.put("is_stick", is_stick);
         param.put("page", page + "");
@@ -637,7 +638,7 @@ public class WebBase {
      */
     public static void getBoxInfo(String id, String box_id, int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         param.put("box_id", box_id);
         param.put("page", page + "");
@@ -655,7 +656,7 @@ public class WebBase {
      */
     public static void getGroupBoxs(String id, String is_stick, int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("id", id);
         param.put("is_stick", is_stick);
         param.put("page", page + "");
@@ -691,7 +692,7 @@ public class WebBase {
      */
     public static void sendGift(String id, String gift_id, int amount, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         param.put("gift_id", gift_id);
         param.put("amount", String.valueOf(amount));
@@ -705,8 +706,8 @@ public class WebBase {
      */
     public static void leaveGroup(String group_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
-        param.put("socket_id", SettingDefaultsManager.getInstance().getClientId());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
+        param.put("socket_id", MatchSharedUtil.getClientId());
         param.put("group_id", group_id);
         post(AppUrl.LEAVEGROUP, param, jsonHandler);
     }
@@ -718,8 +719,8 @@ public class WebBase {
      */
     public static void enterGroup(String group_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
-        param.put("socket_id", SettingDefaultsManager.getInstance().getClientId());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
+        param.put("socket_id", MatchSharedUtil.getClientId());
         param.put("group_id", group_id);
         post(AppUrl.ENTERGROUP, param, jsonHandler);
     }
@@ -736,12 +737,12 @@ public class WebBase {
     public static void sendToRoom(String group_id, String type, String content, String url,
                                   String client_msg_id, ChatHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("group_id", group_id);
         param.put("type", type);
         param.put("content", content);
         param.put("client_msg_id", client_msg_id);
-        param.put("socket_id", SettingDefaultsManager.getInstance().getClientId());
+        param.put("socket_id", MatchSharedUtil.getClientId());
 
         if (!"".equals(url))
             param.put("url", url);
@@ -752,12 +753,12 @@ public class WebBase {
     public static void sendToFans(String group_id, String type, String content, String url,
                                   String client_msg_id, ChatHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("group_id", group_id);
         param.put("type", type);
         param.put("content", content);
         param.put("client_msg_id", client_msg_id);
-        param.put("socket_id", SettingDefaultsManager.getInstance().getClientId());
+        param.put("socket_id", MatchSharedUtil.getClientId());
 
         if (!"".equals(url))
             param.put("url", url);
@@ -773,7 +774,7 @@ public class WebBase {
      */
     public static void getLiveMsg(String group_id, long time, boolean just_look_tf, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("group_id", group_id);
         param.put("time", time + "");
         if (just_look_tf) {
@@ -790,7 +791,7 @@ public class WebBase {
      */
     public static void getRoomMsg(String group_id, String time, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("group_id", group_id);
         param.put("time", time);
         post(AppUrl.getRoomMsg, param, jsonHandler);
@@ -804,7 +805,7 @@ public class WebBase {
      */
     public static void getFansMsg(String group_id, String time, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("group_id", group_id);
         param.put("time", time);
         post(AppUrl.getFansMsg, param, jsonHandler);
@@ -818,7 +819,7 @@ public class WebBase {
      */
     public static void openRedPackged(String red_id, OpenRedPackHandler openRedPackHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("packet_id", red_id);
         post(AppUrl.openRedPackged, param, openRedPackHandler);
     }
@@ -831,7 +832,7 @@ public class WebBase {
      */
     public static void getRedPackged(String red_id, GetRedPackHandler redPackHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("packet_id", red_id);
         post(AppUrl.getRedPackged, param, redPackHandler);
     }
@@ -844,7 +845,7 @@ public class WebBase {
      */
     public static void getRedPackgedDetail(String red_id, int page, RedPackgedDetailHandler redPackgedDetailHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("packet_id", red_id);
         param.put("page", page + "");
         param.put("per_page", 10 + "");
@@ -859,7 +860,7 @@ public class WebBase {
      */
     public static void sendRedPackged(String title, String pays, int amount, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("title", title);
         param.put("pays", pays);
         param.put("amount", amount + "");
@@ -873,7 +874,7 @@ public class WebBase {
      */
     public static void complaint(String msg_id, String room, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("msg_id", msg_id);
         param.put("room", room);
         post(AppUrl.complaint, param, jsonHandler);
@@ -887,7 +888,7 @@ public class WebBase {
      */
     public static void getGroupCoupons(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         post(AppUrl.getGroupCoupons, param, jsonHandler);
     }
@@ -900,7 +901,7 @@ public class WebBase {
      */
     public static void takeAllCoupon(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         post(AppUrl.takeAllCoupon, param, jsonHandler);
     }
@@ -913,7 +914,7 @@ public class WebBase {
      */
     public static void takeCoupon(String coupon_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("coupon_id", coupon_id);
         post(AppUrl.takeCoupon, param, jsonHandler);
     }
@@ -926,7 +927,7 @@ public class WebBase {
      */
     public static void getUserCoupons(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         if (id != null) {
             param.put("id", id);
         }
@@ -940,7 +941,7 @@ public class WebBase {
      */
     public static void getCoupons(String method, int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
         get(method, param, jsonHandler);
@@ -954,7 +955,7 @@ public class WebBase {
      */
     public static void follow(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         post(AppUrl.follow, param, jsonHandler);
     }
@@ -967,7 +968,7 @@ public class WebBase {
      */
     public static void unfollow(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         post(AppUrl.unfollow, param, jsonHandler);
     }
@@ -980,7 +981,7 @@ public class WebBase {
      */
     public static void getGroupInfo(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         post(AppUrl.getGroupInfo, param, jsonHandler);
     }
@@ -993,7 +994,7 @@ public class WebBase {
      */
     public static void groupInfo(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         post(AppUrl.groupInfo, param, jsonHandler);
     }
@@ -1030,7 +1031,7 @@ public class WebBase {
      */
     public static void fansInfo(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         post(AppUrl.fansInfo, param, jsonHandler);
     }
@@ -1043,7 +1044,7 @@ public class WebBase {
      */
     public static void fansProduct(String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         post(AppUrl.fansProduct, param, jsonHandler);
     }
@@ -1056,7 +1057,7 @@ public class WebBase {
      */
     public static void subFans(String id, int monthz, String take_id, boolean jf_to_mfb, long point, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         param.put("monthz", monthz + "");
         if (take_id != null) {
@@ -1078,7 +1079,7 @@ public class WebBase {
      */
     public static void subGuest(String id, int days, boolean jf_to_mfb, String take_id, long point, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         param.put("days", days + "");
         if (take_id != null) {
@@ -1102,7 +1103,7 @@ public class WebBase {
     public static void weChat(String code, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
         param.put("code", code);
-        param.put("client_id", SettingDefaultsManager.getInstance().PUSH_CILENT_ID());
+        param.put("client_id", MatchSharedUtil.getPUSH_CILENT_ID());
         login_post(AppUrl.weChat, param, jsonHandler);
     }
 
@@ -1117,7 +1118,7 @@ public class WebBase {
         param.put("openid", openid);
         param.put("token", toekn);
         param.put("api_type", api_type);
-        param.put("client_id", SettingDefaultsManager.getInstance().PUSH_CILENT_ID());
+        param.put("client_id", MatchSharedUtil.getPUSH_CILENT_ID());
         login_post(AppUrl.getAccessTokenByOpenapi, param, jsonHandler);
     }
 
@@ -1131,7 +1132,7 @@ public class WebBase {
      */
     public static void bindPhone(String phone, String code, String password, String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("phone", phone);
         param.put("client_id", id);
         param.put("code", code);
@@ -1144,7 +1145,7 @@ public class WebBase {
 
     public static void bindName(String phone, String code, String truename, String idcard, String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("truename", truename);
         param.put("client_id", id);
         param.put("idcard", idcard);
@@ -1195,7 +1196,7 @@ public class WebBase {
      */
     public static void recommendList(int per_page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("page", 1 + "");
         param.put("per_page", per_page + "");
         get(AppUrl.recommend, param, jsonHandler);
@@ -1210,7 +1211,7 @@ public class WebBase {
         Map<String, String> param = new HashMap<>();
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         get(AppUrl.recommend, param, jsonHandler);
     }
 
@@ -1231,7 +1232,7 @@ public class WebBase {
                 method = AppUrl.recommend;
                 break;
         }
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
         if (!method.isEmpty()) {
@@ -1366,7 +1367,7 @@ public class WebBase {
     public static void getUserBlogPosts(String blog_id, int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
         param.put("blog_id", blog_id);
-        param.put("id", SettingDefaultsManager.getInstance().UserId());
+        param.put("id", MatchSharedUtil.UserId());
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
         walle_get(AppUrl.getUserBlogPosts, param, jsonHandler);
@@ -1382,14 +1383,14 @@ public class WebBase {
     public static void createUserBlogPost(String blog_id, String content, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
         param.put("blog_id", blog_id);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("content", content);
         walle_post(AppUrl.createUserBlogPost, param, jsonHandler);
     }
     //获取关注列表
     public static void getGzTopicList(JSONHandler jsonHandler){
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         walle_post(AppUrl.GZ_TOPICS_LIST,param,jsonHandler);
     }
     //获取话题分类列表
@@ -1398,14 +1399,14 @@ public class WebBase {
         param.put("type_id",type_id);
         param.put("page",page);
         param.put("per_page","10");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.FL_TOPICS_LIST,param,jsonHandler);
     }
     //获取话题详情
     public static void getHtDetail(String topic_id,JSONHandler jsonHandler){
         Map<String, String> param = new HashMap<>();
         param.put("topic_id",topic_id);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.TOPIC_DETAIL,param,jsonHandler);
     }
     //发布观点
@@ -1417,7 +1418,7 @@ public class WebBase {
         param.put("img_keys",img_keys);
         param.put("height",height);
         param.put("width",width);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.FB_POINT,param,jsonHandler);
     }
     //获取话题观点列表
@@ -1426,7 +1427,7 @@ public class WebBase {
         param.put("topic_id",topic_id);
         param.put("page",page);
         param.put("per_page","10");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.TOPIC_GD_LIST,param,jsonHandler);
     }
     //关注话题
@@ -1434,7 +1435,7 @@ public class WebBase {
         Map<String, String> param = new HashMap<>();
         param.put("topic_id",topic_id);
         param.put("status",status);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.GZ_TOPIC,param,jsonHandler);
     }
     //观点点赞
@@ -1442,7 +1443,7 @@ public class WebBase {
         Map<String, String> param = new HashMap<>();
         param.put("viewpoint_id",viewpoint_id);
         param.put("status",status);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.GD_DZ,param,jsonHandler);
     }
     //发布评论
@@ -1451,20 +1452,20 @@ public class WebBase {
         param.put("viewpoint_id",viewpoint_id);
         param.put("content",content);
         param.put("to_user","");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.FB_COMMENT,param,jsonHandler);
     }
     //获取观点详情
     public static void getGDDetail(String viewpoint_id,JSONHandler jsonHandler){
         Map<String, String> param = new HashMap<>();
         param.put("viewpoint_id",viewpoint_id);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.GET_GD_DETAIL,param,jsonHandler);
     }
     //获取未读消息数量
     public static void getNoReadMsgCount(JSONHandler jsonHandler){
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.NO_READ_MSG_COUNT,param,jsonHandler);
     }
     //未读消息列表的数据
@@ -1472,14 +1473,14 @@ public class WebBase {
         Map<String, String> param = new HashMap<>();
         param.put("page",page);
         param.put("per_page","10");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.NO_READ_MSG,param,jsonHandler);
     }
     //获取点赞用户
     public static void getDzUserList(String viewpoint_id,JSONHandler jsonHandler){
         Map<String, String> param = new HashMap<>();
         param.put("viewpoint_id",viewpoint_id);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.DZ_USER_LIST,param,jsonHandler);
     }
     //获取评论列表
@@ -1488,7 +1489,7 @@ public class WebBase {
         param.put("viewpoint_id",viewpoint_id);
         param.put("page_id",page);
         param.put("per_page","10");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.COMMENT_LIST,param,jsonHandler);
     }
     //获取开通VIP会员的价格
@@ -1503,14 +1504,14 @@ public class WebBase {
     //开通VIP会员
     public static void subscribeVIP(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.SUBSCRIBE_VIP, param, jsonHandler);
     }
 
     //续费会员
     public static void xfVIP(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         walle_post(AppUrl.XF_VIP, param, jsonHandler);
     }
 
@@ -1547,7 +1548,7 @@ public class WebBase {
      */
     public static void userGroups(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
         get(AppUrl.userGroups, param, jsonHandler);
@@ -1555,7 +1556,7 @@ public class WebBase {
 
     public static void userGroups(int page, int per_page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         param.put("per_page", per_page + "");
         get(AppUrl.userGroups, param, jsonHandler);
@@ -1569,7 +1570,7 @@ public class WebBase {
      */
     public static void pointLogs(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
         walle_get(AppUrl.pointLogs, param, jsonHandler);
@@ -1583,7 +1584,7 @@ public class WebBase {
      */
     public static void payLogs(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
         walle_get(AppUrl.payLogs, param, jsonHandler);
@@ -1608,7 +1609,7 @@ public class WebBase {
      */
     public static void wx_pay(String id, String pro_num, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         if (id.equals("7")) {
             param.put("pro_num", pro_num);
@@ -1618,7 +1619,7 @@ public class WebBase {
 
     public static void ask(String id, String content, int flag, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         param.put("content", content);
         param.put("is_private", flag + "");
@@ -1629,7 +1630,7 @@ public class WebBase {
     public static void blog(int feed_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
         param.put("feed_id", feed_id + "");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.blog, param, jsonHandler);
     }
 
@@ -1642,7 +1643,7 @@ public class WebBase {
     public static void createBlogCollect(String blog_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
         param.put("blog_id", blog_id);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.createBlogCollect, param, jsonHandler);
     }
 
@@ -1655,7 +1656,7 @@ public class WebBase {
     public static void removeBlogCollect(String blog_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
         param.put("blog_id", blog_id);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.removeBlogCollect, param, jsonHandler);
     }
 
@@ -1669,7 +1670,7 @@ public class WebBase {
         Map<String, String> param = new HashMap<>();
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("collect_type", Constans.BLOG_COLLECT_TYPE);
         walle_get(AppUrl.getUserCollects, param, jsonHandler);
     }
@@ -1683,7 +1684,7 @@ public class WebBase {
     public static void getUserBlogInfo(String blog_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
         param.put("blog_id", blog_id);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.getUserBlogInfo, param, jsonHandler);
     }
 
@@ -1709,14 +1710,14 @@ public class WebBase {
     public static void box(String is_more, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
         param.put("is_more", is_more);
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.box, param, jsonHandler);
     }
 
     //是否绑定手机
     public static void isBind(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         login_post(AppUrl.isBind, param, jsonHandler);
     }
 
@@ -1727,7 +1728,7 @@ public class WebBase {
      */
     public static void signIn(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_post(AppUrl.signIn, param, jsonHandler);
     }
 
@@ -1738,14 +1739,14 @@ public class WebBase {
      */
     public static void userSigns(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.userSigns, param, jsonHandler);
     }
 
     //修改密码
     public static void changePwd(String oldpassword, String newpwd, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("oldpassword", oldpassword);
         param.put("password", newpwd);
         login_post(AppUrl.changePwd, param, jsonHandler);
@@ -1754,7 +1755,7 @@ public class WebBase {
     //发送绑定手机验证码
     public static void codeBind(String phone, String client_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("phone", phone);
         param.put("client_id", client_id);
         login_post(AppUrl.codeBind, param, jsonHandler);
@@ -1763,7 +1764,7 @@ public class WebBase {
     //管理宝盒详情
     public static void getGroupBoxItems(String group_id, String box_id, int page, int per_page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", group_id);
         param.put("box_id", box_id);
         param.put("page", page + "");
@@ -1777,7 +1778,7 @@ public class WebBase {
      * @param jsonHandler
      */
     public static void GetsVideos(Map<String, String> param, JSONHandler jsonHandler) {
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         post(AppUrl.GetsVideos, param, jsonHandler);
     }
 
@@ -1791,7 +1792,7 @@ public class WebBase {
         Map<String, String> param = new HashMap<>();
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         post(AppUrl.GetSeries, param, jsonHandler);
     }
 
@@ -1811,7 +1812,7 @@ public class WebBase {
      */
     public static void GetTeachers(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         post(AppUrl.GetTeachers, param, jsonHandler);
     }
 
@@ -1822,7 +1823,7 @@ public class WebBase {
      */
     public static void GetPayVideoLog(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         post(AppUrl.GetPayVideoLog, param, jsonHandler);
     }
@@ -1835,7 +1836,7 @@ public class WebBase {
      */
     public static void GetVideoDetail(String video_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("video_id", video_id);
         post(AppUrl.LoadVideo, param, jsonHandler);
     }
@@ -1847,7 +1848,7 @@ public class WebBase {
      */
     public static void Series(String series_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("series_id", series_id);
         post(AppUrl.Series, param, jsonHandler);
     }
@@ -1859,7 +1860,7 @@ public class WebBase {
      */
     public static void Series(String series_id, int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("series_id", series_id);
         param.put("page", page + "");
         post(AppUrl.Series, param, jsonHandler);
@@ -1904,7 +1905,7 @@ public class WebBase {
      */
     public static void SendVideoMessage(String video_id, String content, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("video_id", video_id);
         param.put("content", content);
         post(AppUrl.sendToVideo, param, jsonHandler);
@@ -1927,7 +1928,7 @@ public class WebBase {
      */
     public static void PayVideo(int is_series, String id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("is_series", is_series + "");
         param.put("id", id);
         post(AppUrl.PayVideo, param, jsonHandler);
@@ -1948,7 +1949,7 @@ public class WebBase {
     //邀请列表
     public static void getInviteList(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
         walle_get(AppUrl.INVITELIST, param, jsonHandler);
@@ -1965,7 +1966,7 @@ public class WebBase {
      */
     public static void ruleCouponFans(String id, int take_id, int product_id, int point, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("id", id);
         param.put("take_id", String.valueOf(take_id));
         param.put("product_id", String.valueOf(product_id));
@@ -1994,7 +1995,7 @@ public class WebBase {
      */
     public static void index(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         get(AppUrl.INDEX, param, jsonHandler);
     }
 
@@ -2021,7 +2022,7 @@ public class WebBase {
      */
     public static void sendAskStock(String stock, String content, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token",MatchSharedUtil.AuthToken());
         param.put("symbol", stock);
         param.put("content", content);
         post(AppUrl.SEND_ASK_STOCK, param, jsonHandler);
@@ -2036,7 +2037,7 @@ public class WebBase {
      */
     public static void askList(String stock, int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("symbol", stock);
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
@@ -2050,7 +2051,7 @@ public class WebBase {
      */
     public static void getScreenProducts(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         walle_get(AppUrl.getScreenProducts, param, jsonHandler);
     }
 
@@ -2061,7 +2062,7 @@ public class WebBase {
      */
     public static void PayScreen(String screen_id, String price_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("screen_id", screen_id);
         param.put("price_id", price_id);
         walle_get(AppUrl.PayScreen, param, jsonHandler);
@@ -2076,7 +2077,7 @@ public class WebBase {
         Map<String, String> param = new HashMap<>();
 //        if(!TextUtils.isEmpty( SettingDefaultsManager.getInstance().authToken())){
 //        }
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("screen_id", screen_id);
         walle_get(AppUrl.loadScreenProduct, param, jsonHandler);
     }
@@ -2088,7 +2089,7 @@ public class WebBase {
      */
     public static void getNotices(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", page + "");
         param.put("per_page", Constans.PER_PAGE + "");
         walle_get(AppUrl.getNotices, param, jsonHandler);
@@ -2101,17 +2102,17 @@ public class WebBase {
      */
     public static void getPlayer(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("match_id", Constans.MATCH_ID);
-        param.put("user_id", SettingDefaultsManager.getInstance().UserId());
+        param.put("user_id", MatchSharedUtil.UserId());
         match_post(AppUrl.getPlayer, param, jsonHandler);
     }
 
     public static void getMatchPlayer(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("match_id", Constans.MATCH_ID);
-        param.put("user_id", SettingDefaultsManager.getInstance().UserId());
+        param.put("user_id",MatchSharedUtil.UserId());
         match_post1(AppUrl.MATCH_PLAYER, param, jsonHandler);
     }
 
@@ -2122,7 +2123,7 @@ public class WebBase {
      */
     public static void getAnnouncements(JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("match_id", Constans.MATCH_ID);
         param.put("page", "1");
         param.put("per_page", String.valueOf(1));
@@ -2136,7 +2137,7 @@ public class WebBase {
      */
     public static void getAnnouncements(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("match_id", Constans.MATCH_ID);
         param.put("page", String.valueOf(page));
         param.put("per_page", String.valueOf(Constans.PER_PAGE));
@@ -2156,7 +2157,7 @@ public class WebBase {
     //提交选股
     public static void submitStock(String symbol,String stockReason,JSONHandler jsonHandler){
         Map<String,String> map=new HashMap<>();
-        map.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        map.put("auth_token", MatchSharedUtil.AuthToken());
         map.put("symbol",symbol);
         map.put("reason",stockReason);
         walle_post(AppUrl.SUBMIT_STOCK,map,jsonHandler);
@@ -2203,7 +2204,7 @@ public class WebBase {
     public static void traderHolds(String id, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
         mParams.put("user_id", id);
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token",MatchSharedUtil.AuthToken());
         match_post(AppUrl.traderHolds, mParams, jsonHandler);
     }
 
@@ -2216,7 +2217,7 @@ public class WebBase {
     public static void getHoldlist(JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
         mParams.put("match_id", Constans.MATCH_ID);
-        mParams.put("user_id", SettingDefaultsManager.getInstance().UserId());
+        mParams.put("user_id", MatchSharedUtil.UserId());
         mParams.put("page", String.valueOf(1));
         mParams.put("per_page", String.valueOf(10));
         mParams.put("hide", "1");
@@ -2232,7 +2233,7 @@ public class WebBase {
     public static void getHoldlist(int page, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
         mParams.put("match_id", Constans.MATCH_ID);
-        mParams.put("user_id", SettingDefaultsManager.getInstance().UserId());
+        mParams.put("user_id", MatchSharedUtil.UserId());
         mParams.put("page", String.valueOf(page));
         mParams.put("per_page", String.valueOf(Constans.PER_PAGE));
         mParams.put("hide", "1");
@@ -2242,7 +2243,7 @@ public class WebBase {
     public static void getHoldlist1(JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
         mParams.put("match_id", Constans.MATCH_ID);
-        mParams.put("user_id", SettingDefaultsManager.getInstance().UserId());
+        mParams.put("user_id",MatchSharedUtil.UserId());
         mParams.put("page", String.valueOf(1));
         mParams.put("per_page", String.valueOf(10));
         mParams.put("hide", "1");
@@ -2252,7 +2253,7 @@ public class WebBase {
     public static void getHoldlist2(int page, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
         mParams.put("match_id", Constans.MATCH_ID);
-        mParams.put("user_id", SettingDefaultsManager.getInstance().UserId());
+        mParams.put("user_id", MatchSharedUtil.UserId());
         mParams.put("page", String.valueOf(page));
         mParams.put("per_page", String.valueOf(10));
         mParams.put("hide", "1");
@@ -2261,7 +2262,7 @@ public class WebBase {
 
     public static void addComment(String contract_id, String message, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token",MatchSharedUtil.AuthToken());
         mParams.put("desc", message);
         mParams.put("contract_id", contract_id);
         match_post(AppUrl.addComment, mParams, jsonHandler);
@@ -2269,7 +2270,7 @@ public class WebBase {
 
     public static void dealSys(String match_id, int page, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("match_id", match_id);
         mParams.put("page", String.valueOf(page));
         mParams.put("per_page", String.valueOf(Constans.PER_PAGE));
@@ -2278,7 +2279,7 @@ public class WebBase {
 
     public static void getYieldList(String order, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("page", String.valueOf(1));
         mParams.put("match_id", Constans.MATCH_ID);
         mParams.put("order", order);
@@ -2288,7 +2289,7 @@ public class WebBase {
 
     public static void getYieldList1(String page, String order, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("page", page);
         mParams.put("match_id", Constans.MATCH_ID);
         mParams.put("order", order);
@@ -2298,28 +2299,27 @@ public class WebBase {
 
     public static void traderRanks(JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         match_post(AppUrl.traderRanks, mParams, jsonHandler);
     }
 
     public static void traderInfo(String id, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("user_id", id);
         match_post(AppUrl.traderInfo, mParams, jsonHandler);
     }
 
     public static void traders_buy(String id, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("user_id", id);
         match_post(AppUrl.traders_buy, mParams, jsonHandler);
     }
 
     public static void traderDeals(String id, int page, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token",MatchSharedUtil.AuthToken());
         mParams.put("user_id", id);
         mParams.put("page", String.valueOf(page));
         mParams.put("per_page", String.valueOf(Constans.PER_PAGE));
@@ -2328,21 +2328,21 @@ public class WebBase {
 
     public static void TrackList(JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token",MatchSharedUtil.AuthToken());
         match_post(AppUrl.TrackList, mParams, jsonHandler);
     }
 
     //重置比赛
     public static void resetMatch(JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("match_id", Constans.MATCH_ID);
         match_post1(AppUrl.RESET_MATCH/*resetMatch*/, mParams, jsonHandler);
     }
 
     public static void getStockRealtimeInfo(String symbols, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("symbols", symbols);
         mParams.put("full", "1");
         match_post(AppUrl.getStockRealtimeInfo, mParams, jsonHandler);
@@ -2350,7 +2350,7 @@ public class WebBase {
 
     public static void getRealtimeInfo(String symbols, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("symbols", symbols);
         mParams.put("full", "1");
         mParams.put("id", Constans.MATCH_ID);
@@ -2359,7 +2359,7 @@ public class WebBase {
 
     public static void buyMatchStock(String symbol, String price, String volumn, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("symbol", symbol);
         mParams.put("price", price);
         mParams.put("volumn", volumn);
@@ -2369,7 +2369,7 @@ public class WebBase {
 
     public static void sellMatchStock(String symbol, String price, String volumn, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("symbol", symbol);
         mParams.put("price", price);
         mParams.put("volumn", volumn);
@@ -2379,7 +2379,7 @@ public class WebBase {
 
     public static void getOrderList(int page, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("match_id", Constans.MATCH_ID);
         mParams.put("page", String.valueOf(page));
         mParams.put("per_page", String.valueOf(Constans.PER_PAGE));
@@ -2388,18 +2388,18 @@ public class WebBase {
 
     public static void getDeallogList(int page, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("match_id", Constans.MATCH_ID);
         mParams.put("page", String.valueOf(page));
         mParams.put("per_page", String.valueOf(Constans.PER_PAGE));
-        mParams.put("user_id", SettingDefaultsManager.getInstance().UserId());
+        mParams.put("user_id", MatchSharedUtil.UserId());
 //        mParams.put("hide","1");
         match_post1(AppUrl.DEALS_RECORD/*getDeallogList*/, mParams, jsonHandler);
     }
 
     public static void withdraw(String id, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("id", id);
         mParams.put("match_id", Constans.MATCH_ID);
         match_post1(AppUrl.WITH_DRAW/*withdraw*/, mParams, jsonHandler);
@@ -2407,9 +2407,9 @@ public class WebBase {
 
     public static void getWinRecords(int page, JSONHandler jsonHandler) {
         Map<String, String> mParams = new HashMap<>();
-        mParams.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        mParams.put("auth_token", MatchSharedUtil.AuthToken());
         mParams.put("match_id", Constans.MATCH_ID);
-        mParams.put("user_id", SettingDefaultsManager.getInstance().UserId());
+        mParams.put("user_id", MatchSharedUtil.UserId());
         mParams.put("page", String.valueOf(page));
         mParams.put("per_page", String.valueOf(Constans.PER_PAGE));
         match_post1(AppUrl.RECORD/*getWinRecords*/, mParams, jsonHandler);
@@ -2508,7 +2508,7 @@ public class WebBase {
      */
     public static void userList(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", String.valueOf(page));
         param.put("per_page", String.valueOf(Constans.PER_PAGE));
         stockGet(AppUrl.USER_LIST, param, jsonHandler);
@@ -2523,7 +2523,7 @@ public class WebBase {
      */
     public static void stockAsk(String symbol, String content, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("symbol", symbol);
         param.put("content", content);
         stockGet(AppUrl.STOCK_ASK, param, jsonHandler);
@@ -2531,7 +2531,7 @@ public class WebBase {
 
     public static void reMind(String position, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         if (position != null) {
             param.put("position", position);
         }
@@ -2540,7 +2540,7 @@ public class WebBase {
 
     public static void stockList(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", String.valueOf(page));
         param.put("per_page", String.valueOf(Constans.PER_PAGE));
         stockGet(AppUrl.STOCK_LIST, param, jsonHandler);
@@ -2548,7 +2548,7 @@ public class WebBase {
 
     public static void tagList(int page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", String.valueOf(page));
         param.put("per_page", String.valueOf(Constans.PER_PAGE));
         stockGet(AppUrl.tagList, param, jsonHandler);
@@ -2556,7 +2556,7 @@ public class WebBase {
 
     public static void stockList(int page, int per_page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", String.valueOf(page));
         param.put("per_page", String.valueOf(per_page));
         stockGet(AppUrl.STOCK_LIST, param, jsonHandler);
@@ -2564,7 +2564,7 @@ public class WebBase {
 
     public static void tagList(int page, int per_page, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("page", String.valueOf(page));
         param.put("per_page", String.valueOf(per_page));
         stockGet(AppUrl.tagList, param, jsonHandler);
@@ -2572,7 +2572,7 @@ public class WebBase {
 
     public static void noticeList(int page, int tag_type, String symbol, String tag_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         if (tag_type == 1) {
             param.put("tag_type", String.valueOf(tag_type));
             if (symbol != null) {
@@ -2597,7 +2597,7 @@ public class WebBase {
      */
     public static void addStock(String symbol, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("symbol", symbol);
         stockGet(AppUrl.addStock, param, jsonHandler);
     }
@@ -2610,7 +2610,7 @@ public class WebBase {
      */
     public static void addTag(String tag_name, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("tag_name", tag_name);
         stockGet(AppUrl.addTag, param, jsonHandler);
     }
@@ -2623,7 +2623,7 @@ public class WebBase {
      */
     public static void delTag(String tag_id, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("tag_id", tag_id);
         stockGet(AppUrl.delTag, param, jsonHandler);
     }
@@ -2636,7 +2636,7 @@ public class WebBase {
      */
     public static void delStock(String symbol, JSONHandler jsonHandler) {
         Map<String, String> param = new HashMap<>();
-        param.put("auth_token", SettingDefaultsManager.getInstance().authToken());
+        param.put("auth_token", MatchSharedUtil.AuthToken());
         param.put("symbol", symbol);
         stockGet(AppUrl.delStock, param, jsonHandler);
     }

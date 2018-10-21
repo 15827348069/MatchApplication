@@ -186,7 +186,8 @@ public class DrillFragment extends BaseFragment<DrillPresenter> implements IDril
                 getWolle();
                 break;
             case R.id.ll_stock_chat://跳转排行页面
-                ShowActivity.showMatchRankActivity(getActivity(), Constans.MATCH_ID, Constans.NEW_DEAL_FLAG, false);
+                ShowActivity.showMatchRankActivity(getActivity(), Constans.MATCH_ID,
+                        Constans.NEW_DEAL_FLAG, false);
                 break;
             case R.id.notice_layout:
             case R.id.notice_right_arrow:
@@ -222,9 +223,12 @@ public class DrillFragment extends BaseFragment<DrillPresenter> implements IDril
         paynum = result.getPaynum();
         tvAllAsset.setText(String.valueOf(result.getTotal()));
         tvCanUse.setText(DoubleFromat.getStockDouble(result.getUnfrozen(), 2));
-        tvProfit.setTextColor(result.getTotal_yield() >= 0 ? getResources().getColor(R.color.red) : getResources().getColor(R.color.green));
-        tvWeekYield.setTextColor(result.getWeek_yield() >= 0 ? getResources().getColor(R.color.red) : getResources().getColor(R.color.green));
-        tvDayYield.setTextColor(result.getDay_yield() >= 0 ? getResources().getColor(R.color.red) : getResources().getColor(R.color.green));
+        tvProfit.setTextColor(result.getTotal_yield() >= 0 ? getResources().getColor(R.color.red) :
+                getResources().getColor(R.color.green));
+        tvWeekYield.setTextColor(result.getWeek_yield() >= 0 ? getResources().getColor(R.color.red)
+                : getResources().getColor(R.color.green));
+        tvDayYield.setTextColor(result.getDay_yield() >= 0 ? getResources().getColor(R.color.red) :
+                getResources().getColor(R.color.green));
         tvWeekYield.setText(String.format("%+.2f%%", result.getWeek_yield() * 100));
         tvDayYield.setText(String.format("%+.2f%%", result.getDay_yield() * 100));
         int maxDayNum = result.getPlayers(),

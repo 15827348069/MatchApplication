@@ -54,6 +54,7 @@ import com.zbmf.newmatch.listener.OnUrlClick;
 import com.zbmf.newmatch.util.FileUtils;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.util.ShowWebShareLayout;
@@ -116,7 +117,7 @@ public class BlogDetailActivity extends BaseActivity implements View.OnClickList
 
         GroupinitView();
         addListener();
-
+        GroupinitData();
 
     }
 
@@ -281,7 +282,7 @@ public class BlogDetailActivity extends BaseActivity implements View.OnClickList
         dismiss.addAnimation(alpha);
         return dismiss;
     }
-    public void initData(){
+    public void GroupinitData(){
         blogBean= (BlogBean) getIntent().getSerializableExtra("blogBean");
         if(blogBean.getApp_link()!=null){
             loadUrl();
@@ -290,7 +291,7 @@ public class BlogDetailActivity extends BaseActivity implements View.OnClickList
         }
     }
     private void loadUrl(){
-        switch (SettingDefaultsManager.getInstance().getBlogTextSize()) {
+        switch (MatchSharedUtil.getBlogTextSize()) {
             case 0:
                 URL=blogBean.getApp_link()+"?size=s";
                 break;
@@ -409,9 +410,9 @@ public class BlogDetailActivity extends BaseActivity implements View.OnClickList
                 sections.add("");
         }
         seekbar.initData(sections);
-        seekbar.setCur_sections(SettingDefaultsManager.getInstance().getBlogTextSize());
+        seekbar.setCur_sections(MatchSharedUtil.getBlogTextSize());
         seekbar.setResponseOnTouch(volume -> {
-            SettingDefaultsManager.getInstance().setBlogTextSize(volume);
+            MatchSharedUtil.setBlogTextSize(volume);
             String vealue=null;
             switch (volume) {
                 case 0:
@@ -452,7 +453,7 @@ public class BlogDetailActivity extends BaseActivity implements View.OnClickList
         switch (view.getId()){
             case R.id.blog_detail_pinglun:
                 if(ShowActivity.isLogin(this)){
-                    if(TextUtils.isEmpty(SettingDefaultsManager.getInstance().getUserPhone())){
+                    if(TextUtils.isEmpty(MatchSharedUtil.UserPhone())){
                         TextDialog.createDialog(this)
                                 .setTitle("")
                                 .setMessage("为响应国家政策，请于操作前绑定手机信息！")
@@ -660,7 +661,7 @@ public class BlogDetailActivity extends BaseActivity implements View.OnClickList
                         showActivityForResult(BlogDetailActivity.this,bundle, VideoPlayActivity.class, RequestCode.COMIT_VIDEO);
                     });
                 }
-            }, Constans.CC_USERID, video.getBokecc_id() + "", SettingDefaultsManager.getInstance().NickName(), "");
+            }, Constans.CC_USERID, video.getBokecc_id() + "", MatchSharedUtil.NickName(), "");
             DWLive.getInstance().startLogin();
         } else {
             Bundle bundle = new Bundle();

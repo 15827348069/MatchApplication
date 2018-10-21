@@ -15,7 +15,7 @@ public class User extends BaseBean implements Serializable{
     private String truename;
     private String role;//权限
     private String phone;
-    private String auth_token;
+//    private String auth_token;
     private String user_id;
     private String is_bind;
     private String has_password;
@@ -97,15 +97,15 @@ public class User extends BaseBean implements Serializable{
         this.vip_end_at = vip_end_at;
     }
 
-    @Override
-    public String getAuth_token() {
-        return auth_token;
-    }
-
-    @Override
-    public void setAuth_token(String auth_token) {
-        this.auth_token = auth_token;
-    }
+//    @Override
+//    public String getAuth_token() {
+//        return auth_token;
+//    }
+//
+//    @Override
+//    public void setAuth_token(String auth_token) {
+//        this.auth_token = auth_token;
+//    }
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;

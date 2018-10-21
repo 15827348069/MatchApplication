@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.zbmf.newmatch.R;
 import com.zbmf.newmatch.bean.Ask;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 
 import java.util.List;
@@ -67,7 +68,7 @@ public class AskAdapter extends BaseAdapter{
         String target_nickname = ask.getTarget_nickname();
         String content = ask.getAsk_content();
         holder.tv_ask_date.setText(ask.getPosted_at());
-        String nickname = ask.getNickname().equals(SettingDefaultsManager.getInstance().NickName()) ?  "我" :ask.getNickname();
+        String nickname = ask.getNickname().equals(MatchSharedUtil.NickName()) ?  "我" :ask.getNickname();
 
         String html = "<font size=\"30px\" color=\"#888888\">"+nickname+"：</font><font size=\"30px\" color=\"#000000\">"+content+"</font>";
         Spanned text = Html.fromHtml(html);

@@ -52,6 +52,7 @@ import com.zbmf.newmatch.fragment.chat.FansFragment;
 import com.zbmf.newmatch.fragment.chat.LiveFragment;
 import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
@@ -182,18 +183,18 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
 //        select_tab = getIntent().getIntExtra("live_or_chat", 0);
         GROUP_ID = group.getId();
         flag = getIntent().getIntExtra(IntentKey.FLAG, 0);
-        SettingDefaultsManager.getInstance().setCurrentChat(GROUP_ID);
+        MatchSharedUtil.instance().setCurrentChat(GROUP_ID);
         initFragment();
     }
 
     public void setLiveImageW() {
         int width = DisplayUtil.getScreenWidthPixels(this);
         if (width >= 1000) {
-            SettingDefaultsManager.getInstance().setLiveImg(Constans.LIVE_IMG_500);
+            MatchSharedUtil.instance().setLiveImg(Constans.LIVE_IMG_500);
         } else if (width >= 600 && width < 1000) {
-            SettingDefaultsManager.getInstance().setLiveImg(Constans.LIVE_IMG_350);
+            MatchSharedUtil.instance().setLiveImg(Constans.LIVE_IMG_350);
         } else if (width >= 320 && width < 700) {
-            SettingDefaultsManager.getInstance().setLiveImg(Constans.LIVE_IMG_200);
+            MatchSharedUtil.instance().setLiveImg(Constans.LIVE_IMG_200);
         }
     }
 
@@ -674,7 +675,7 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
     protected void onDestroy() {
         super.onDestroy();
         leaveGroup();
-        SettingDefaultsManager.getInstance().setCurrentChat("");
+        MatchSharedUtil.instance().setCurrentChat("");
         ActivityUtil.removeActivity(this);
     }
 
@@ -713,13 +714,13 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
         setting_view.findViewById(R.id.live_histtory_button).setOnClickListener(view ->
                 ShowActivity.showLiveHistoryDateActivity(Chat1Activity.this, group));
         SwitchCompat live_switchCompat = (SwitchCompat) setting_view.findViewById(R.id.live_new_msg_vedio);
-        live_switchCompat.setChecked(SettingDefaultsManager.getInstance().getNewMessageVedio(GROUP_ID));
+        live_switchCompat.setChecked(MatchSharedUtil.instance().getNewMessageVedio(GROUP_ID));
         live_switchCompat.setOnCheckedChangeListener((compoundButton, b) ->
-                SettingDefaultsManager.getInstance().setNewMessageVedio(GROUP_ID, b));
+                MatchSharedUtil.instance().setNewMessageVedio(GROUP_ID, b));
         SwitchCompat chat_switchCompat = (SwitchCompat) setting_view.findViewById(R.id.chat_new_msg_vedio);
-        chat_switchCompat.setChecked(SettingDefaultsManager.getInstance().getNewChatMessageVedio(GROUP_ID));
+        chat_switchCompat.setChecked(MatchSharedUtil.instance().getNewChatMessageVedio(GROUP_ID));
         chat_switchCompat.setOnCheckedChangeListener((compoundButton, b) ->
-                SettingDefaultsManager.getInstance().setNewChatMessageVedio(GROUP_ID, b));
+                MatchSharedUtil.instance().setNewChatMessageVedio(GROUP_ID, b));
 
         popupWindow.showAsDropDown(title_layout, width, 0);
     }
@@ -736,7 +737,7 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
                 sections.add("");
         }
         seekbar.initData(sections);
-        int dimen = SettingDefaultsManager.getInstance().getTextSize();
+        int dimen = MatchSharedUtil.instance().getTextSize();
         switch (dimen) {
             case R.dimen.live_text_size_min_small:
                 seekbar.setCur_sections(0);
@@ -758,19 +759,19 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
         seekbar.setResponseOnTouch(volume -> {
             switch (volume) {
                 case 0:
-                    SettingDefaultsManager.getInstance().setTextSize(R.dimen.live_text_size_min_small);
+                    MatchSharedUtil.instance().setTextSize(R.dimen.live_text_size_min_small);
                     break;
                 case 1:
-                    SettingDefaultsManager.getInstance().setTextSize(R.dimen.live_text_size_small);
+                    MatchSharedUtil.instance().setTextSize(R.dimen.live_text_size_small);
                     break;
                 case 2:
-                    SettingDefaultsManager.getInstance().setTextSize(R.dimen.live_text_size);
+                    MatchSharedUtil.instance().setTextSize(R.dimen.live_text_size);
                     break;
                 case 3:
-                    SettingDefaultsManager.getInstance().setTextSize(R.dimen.live_text_size_big);
+                    MatchSharedUtil.instance().setTextSize(R.dimen.live_text_size_big);
                     break;
                 case 4:
-                    SettingDefaultsManager.getInstance().setTextSize(R.dimen.live_text_size_max_big);
+                    MatchSharedUtil.instance().setTextSize(R.dimen.live_text_size_max_big);
                     break;
             }
             mLiveFragment.livenotifyDataSetChanged();

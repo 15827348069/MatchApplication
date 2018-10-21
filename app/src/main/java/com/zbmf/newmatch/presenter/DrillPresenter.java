@@ -35,7 +35,8 @@ public class DrillPresenter extends BasePresenter<MatchDetailMode, IDrillFragmen
             setFirst(false);
         }
         if (!TextUtils.isEmpty(matchId)) {
-            getMatchDetail(matchId, MatchSharedUtil.UserId());
+            String userId = MatchSharedUtil.UserId();
+            getMatchDetail(matchId, userId);
             getMatchHolder(matchId, ParamsKey.D_PAGE, MatchSharedUtil.UserId());
             getMatchNotice(matchId, String.valueOf(ParamsKey.D_PAGE));
         }
@@ -67,7 +68,8 @@ public class DrillPresenter extends BasePresenter<MatchDetailMode, IDrillFragmen
     }
 
     public void getMatchHolder(String matchId,int page,String userID) {
-        new JoinMatchMode().holderPosition(Integer.parseInt(matchId),String.valueOf(page),userID, new CallBack<HolderPositionBean.Result>() {
+        new JoinMatchMode().holderPosition(Integer.parseInt(matchId),
+                String.valueOf(page),userID, new CallBack<HolderPositionBean.Result>() {
             @Override
             public void onSuccess(HolderPositionBean.Result result) {
                 if (getView() != null) {

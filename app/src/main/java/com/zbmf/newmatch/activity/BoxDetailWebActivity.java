@@ -30,6 +30,7 @@ import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.common.RequestCode;
 import com.zbmf.newmatch.listener.OnUrlClick;
 import com.zbmf.newmatch.util.BoxDetailHtml;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.webclient.GroupWebViewClient;
@@ -327,7 +328,7 @@ public class BoxDetailWebActivity extends BaseActivity implements View.OnClickLi
                     });
                 }
             }, Constans.CC_USERID, video.getBokecc_id() + "",
-                    SettingDefaultsManager.getInstance().NickName(), "");
+                    MatchSharedUtil.NickName(), "");
             DWLive.getInstance().startLogin();
         } else {
             Bundle bundle = new Bundle();

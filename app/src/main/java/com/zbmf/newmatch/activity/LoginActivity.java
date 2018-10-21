@@ -68,31 +68,28 @@ public class LoginActivity extends BaseActivity<BasePresenter> {
         ThirdLoginUtil.getInstance().init(this);
         mFgFlag = bundle.getInt(ParamsKey.FG_FLAG,-1);
         setDefaultFragment();
-        rgLogin.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (radioGroup.getCheckedRadioButtonId()) {
-                    case R.id.rb_register:
-                        llBottom.setVisibility(View.GONE);
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction()
-                                .setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
-                        if (registerFragment.isAdded()) {
-                            fragmentTransaction.hide(loginFragment).show(registerFragment).commit();
-                        } else {
-                            fragmentTransaction.add(R.id.fragment_login, registerFragment).commit();
-                        }
-                        break;
-                    case R.id.rb_login:
-                        llBottom.setVisibility(View.VISIBLE);
-                        FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction()
-                                .setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out);
-                        if (loginFragment.isAdded()) {
-                            fragmentTransaction2.hide(registerFragment).show(loginFragment).commit();
-                        } else {
-                            fragmentTransaction2.add(R.id.fragment_login, loginFragment).commit();
-                        }
-                        break;
-                }
+        rgLogin.setOnCheckedChangeListener((radioGroup, i) -> {
+            switch (radioGroup.getCheckedRadioButtonId()) {
+                case R.id.rb_register:
+                    llBottom.setVisibility(View.GONE);
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out);
+                    if (registerFragment.isAdded()) {
+                        fragmentTransaction.hide(loginFragment).show(registerFragment).commit();
+                    } else {
+                        fragmentTransaction.add(R.id.fragment_login, registerFragment).commit();
+                    }
+                    break;
+                case R.id.rb_login:
+                    llBottom.setVisibility(View.VISIBLE);
+                    FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out);
+                    if (loginFragment.isAdded()) {
+                        fragmentTransaction2.hide(registerFragment).show(loginFragment).commit();
+                    } else {
+                        fragmentTransaction2.add(R.id.fragment_login, loginFragment).commit();
+                    }
+                    break;
             }
         });
     }
@@ -182,19 +179,12 @@ public class LoginActivity extends BaseActivity<BasePresenter> {
         View layout = LayoutInflater.from(this).inflate(R.layout.out_dialog, null);
         TextView cancel_tv = (TextView) layout.findViewById(R.id.cancel_tv);
         TextView confirm_tv = (TextView) layout.findViewById(R.id.confirm_tv);
-        cancel_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDialog.dismiss(); //
-            }
+        cancel_tv.setOnClickListener(v -> {
+            mDialog.dismiss(); //
         });
-        confirm_tv.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                MyActivityManager.getMyActivityManager().removeAllAct();//退出应用的方法
-            }
+        confirm_tv.setOnClickListener(v -> {
+            dialog.dismiss();
+            MyActivityManager.getMyActivityManager().removeAllAct();//退出应用的方法
         });
         dialog.setContentView(layout);
         dialog.setCancelable(false);//设置dialog不可取消

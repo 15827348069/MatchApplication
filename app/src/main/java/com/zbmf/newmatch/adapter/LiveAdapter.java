@@ -24,6 +24,7 @@ import com.zbmf.newmatch.bean.LiveMessage;
 import com.zbmf.newmatch.util.DateUtil;
 import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.view.GlideOptionsManager;
@@ -154,7 +155,8 @@ public class LiveAdapter extends BaseAdapter implements View.OnClickListener, Vi
             item = (LiveItem) view.getTag();
         }
         final LiveMessage cm = infolist.get(i);
-        item.message_countent.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources().getDimension(SettingDefaultsManager.getInstance().getTextSize()));
+        item.message_countent.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.getResources()
+                .getDimension(MatchSharedUtil.getTextSize()));
         item.message_time.setText(DateUtil.getNewChatTime(cm.getMessage_time()));
         if (cm.getMessage_type().equals(MessageType.FANS) || cm.getMessage_type().equals(MessageType.CHAT)) {
             item.message_countent.setTag(i);
@@ -193,7 +195,7 @@ public class LiveAdapter extends BaseAdapter implements View.OnClickListener, Vi
                         //铁粉
                         box_name = cm.getBox_name();
                     } else {
-                        boolean isShowFans = SettingDefaultsManager.getInstance().getIsShowFans();
+                        boolean isShowFans = MatchSharedUtil.getIsShowFans();
                         if (isShowFans) {
                             item.message_countent.setClickable(false);
                         } else {
@@ -216,7 +218,8 @@ public class LiveAdapter extends BaseAdapter implements View.OnClickListener, Vi
                 item.message_countent.setTextColor(context.getResources().getColor(R.color.black));
                 String blog_message = cm.getMessage_countent();
                 blog_message = blog_message.substring(0, cm.getMessage_countent().indexOf("["));
-                item.message_countent.setBlogMessage(blog_message, cm.getBlog_name(), cm.getUser_id() + "-" + cm.getBlog_id());
+                item.message_countent.setBlogMessage(blog_message, cm.getBlog_name(), cm.getUser_id()
+                        + "-" + cm.getBlog_id());
                 item.live_img_id.setVisibility(View.GONE);
                 break;
             case MessageType.MEMBER:
@@ -235,7 +238,7 @@ public class LiveAdapter extends BaseAdapter implements View.OnClickListener, Vi
                         //铁粉
                         moment_message = moment_message + context.getResources().getString(R.string.tf_commit);
                     } else {
-                        boolean isShowFans = SettingDefaultsManager.getInstance().getIsShowFans();
+                        boolean isShowFans =MatchSharedUtil.getIsShowFans();
                         if (isShowFans) {
                             item.message_countent.setClickable(false);
                         } else {
@@ -262,7 +265,7 @@ public class LiveAdapter extends BaseAdapter implements View.OnClickListener, Vi
                         if (fans_level >= 5) {
                             a = a + context.getResources().getString(R.string.add_tf_ck);
                         } else {
-                            boolean isShowFans = SettingDefaultsManager.getInstance().getIsShowFans();
+                            boolean isShowFans = MatchSharedUtil.getIsShowFans();
                             if (isShowFans) {
                                 item.message_countent.setClickable(false);
                             } else {

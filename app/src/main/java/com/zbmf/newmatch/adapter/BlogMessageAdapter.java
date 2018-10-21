@@ -56,7 +56,7 @@ public class BlogMessageAdapter extends BaseAdapter {
         }
         BlogBean bb=info.get(i);
         Glide.with(mContext).load(bb.getImg()).apply(GlideOptionsManager.getInstance()
-                .getBannerOptions(0)).into(item.avatar);
+                .getBannerOptions(0)).into(item.img);
         item.title.setText(bb.getTitle());
         item.date.setText(bb.getDate());
         if(bb.getLook_number()!=null){
@@ -76,8 +76,8 @@ public class BlogMessageAdapter extends BaseAdapter {
     }
     private class HeadMessageItem{
         ImageView img;
-        RoundedCornerImageView avatar;
-        TextView title,name,date,look,pinglun;
+//        RoundedCornerImageView avatar;
+        TextView title,date,look,pinglun;
         public HeadMessageItem(View view){
             this.img= (ImageView) view.findViewById(R.id.head_message_img);
             this.title= (TextView) view.findViewById(R.id.head_message_title);

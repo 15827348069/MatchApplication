@@ -16,15 +16,15 @@ android {
 //        exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
     }
-    signingConfigs {
-        config {
-            keyAlias 'stocksmatch.keystore'
-            keyPassword 'lujiafeng'
-//            storeFile file('F:/kubo.keystore')
-            storeFile file('E:/zbmf_doc/zbmf_KeyStore/kubo.keystore1')
-            storePassword 'kubo@mac--7878'
-        }
-    }
+//    signingConfigs {
+//        config {
+//            keyAlias 'stocksmatch.keystore'
+//            keyPassword 'lujiafeng'
+////            storeFile file('F:/kubo.keystore')
+//            storeFile file('E:/zbmf_doc/zbmf_KeyStore/kubo.keystore1')
+//            storePassword 'kubo@mac--7878'
+//        }
+//    }
     compileSdkVersion 27
     buildToolsVersion "26.0.3"
     useLibrary 'org.apache.http.legacy'
@@ -49,9 +49,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug {
-            signingConfig signingConfigs.config
-        }
+//        debug {
+//            signingConfig signingConfigs.config
+//        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

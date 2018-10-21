@@ -39,6 +39,7 @@ import com.zbmf.newmatch.util.DateUtil;
 import com.zbmf.newmatch.util.EditTextUtil;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.MD5Util;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.view.TextDialog;
@@ -308,15 +309,15 @@ public class FansFragment extends BaseFragment implements View.OnClickListener/*
                     message.setTime(time);
                     message.setClient_msg_id(MD5Util.getMD5String(time));
                     message.setContent(partStr + content_message);
-                    message.setFrom(SettingDefaultsManager.getInstance().UserId());
+                    message.setFrom(MatchSharedUtil.UserId());
                     message.setChat_type(MessageType.CHAT_GROUP);
                     message.setType(MessageType.TXT);
                     message.setState(MessageType.UPLOADING);
                     message.setUrl("");
                     message.setTo(Integer.parseInt(groupId));
                     message.setMsg_type(MessageType.CHAT);
-                    message.setNickname(SettingDefaultsManager.getInstance().NickName());
-                    message.setAvatar(SettingDefaultsManager.getInstance().UserAvatar());
+                    message.setNickname(MatchSharedUtil.NickName());
+                    message.setAvatar(MatchSharedUtil.UserAvatar());
                     message.setRole(role);
                     db.addChat(groupId, message);
                     messages.add(message);
@@ -332,7 +333,7 @@ public class FansFragment extends BaseFragment implements View.OnClickListener/*
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_emoji:
-                if (TextUtils.isEmpty(SettingDefaultsManager.getInstance().getUserPhone())) {
+                if (TextUtils.isEmpty(MatchSharedUtil.UserPhone())) {
                     TextDialog.createDialog(getActivity())
                             .setTitle("")
                             .setMessage("为响应国家政策，请于操作前绑定手机信息！")
@@ -352,7 +353,7 @@ public class FansFragment extends BaseFragment implements View.OnClickListener/*
                 }
                 break;
             case R.id.send_layout:
-                if (TextUtils.isEmpty(SettingDefaultsManager.getInstance().getUserPhone())) {
+                if (TextUtils.isEmpty(MatchSharedUtil.UserPhone())) {
                     TextDialog.createDialog(getActivity())
                             .setTitle("")
                             .setMessage("为响应国家政策，请于操作前绑定手机信息！")

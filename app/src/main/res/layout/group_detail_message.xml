@@ -19,6 +19,8 @@
             android:background="@color/transparent"
             android:src="@drawable/icon_return"
             android:paddingLeft="10dp"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
             android:paddingRight="15dp"
             android:id="@+id/group_title_return"
             />
@@ -33,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="关注"
+            android:padding="@dimen/dp_3"
             android:id="@+id/tv_care_detail_message"
             android:drawablePadding="5dp"
             android:textColor="@color/white"

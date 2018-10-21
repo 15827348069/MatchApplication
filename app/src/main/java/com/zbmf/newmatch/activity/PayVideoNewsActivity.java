@@ -19,6 +19,7 @@ import com.zbmf.newmatch.bean.Video;
 import com.zbmf.newmatch.bean.VideoPrice;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.common.RequestCode;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -81,7 +82,7 @@ public class PayVideoNewsActivity extends BaseActivity implements View.OnClickLi
     }
 
     public void setViewData(){
-        my_tv_mfb.setText(SettingDefaultsManager.getInstance().getPays());
+        my_tv_mfb.setText(MatchSharedUtil.getPays());
         tv_video_name.setText(video.getVideoName());
         tv_video_teacher_name.setText(video.getVideoGroupname());
         tv_video_time.setText(videoprice.getVideo_start_at());
@@ -136,7 +137,7 @@ public class PayVideoNewsActivity extends BaseActivity implements View.OnClickLi
             tv_seriesprice.setVisibility(View.GONE);
             series_price=videoprice.getSeris_price();
         }
-        my_mfb=Double.valueOf(SettingDefaultsManager.getInstance().getPays());
+        my_mfb=Double.valueOf(MatchSharedUtil.getPays());
         CheckJust();
     }
 
@@ -184,10 +185,10 @@ public class PayVideoNewsActivity extends BaseActivity implements View.OnClickLi
             public void onSuccess(JSONObject obj) {
                 JSONObject pays = obj.optJSONObject("pay");
                 JSONObject point = obj.optJSONObject("point");
-                SettingDefaultsManager.getInstance().setPays(pays.optString("unfrozen"));
-                SettingDefaultsManager.getInstance().setPoint(point.optLong("unfrozen"));
-                my_tv_mfb.setText(SettingDefaultsManager.getInstance().getPays());
-                my_mfb=Double.valueOf(SettingDefaultsManager.getInstance().getPays());
+                MatchSharedUtil.setPays(pays.optString("unfrozen"));
+                MatchSharedUtil.setPoint(point.optLong("unfrozen"));
+                my_tv_mfb.setText(MatchSharedUtil.getPays());
+                my_mfb=Double.valueOf(MatchSharedUtil.getPays());
                 switch (select){
                     case 0:
                         CheckJust();

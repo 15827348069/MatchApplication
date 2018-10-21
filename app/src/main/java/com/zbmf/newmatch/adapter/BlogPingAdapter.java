@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zbmf.newmatch.R;
 import com.zbmf.newmatch.bean.BlogPingBean;
 import com.zbmf.newmatch.util.EditTextUtil;
 import com.zbmf.newmatch.util.ImageLoaderOptions;
+import com.zbmf.newmatch.view.GlideOptionsManager;
 import com.zbmf.newmatch.view.RoundedCornerImageView;
 
 import java.util.List;
@@ -59,8 +61,10 @@ public class BlogPingAdapter extends BaseAdapter {
         item.date.setText(bp.getPosted_at());
         item.content.setText(EditTextUtil.getContent(context,bp.getContent()));
 //        ViewFactory.imgCircleView(viewGroup.getContext(),bp.getUser_avatar(),item.avatar);
-        ImageLoader.getInstance().displayImage(bp.getUser_avatar(),item.avatar,
-                ImageLoaderOptions.AvatarOptions());
+        Glide.with(context).load(bp.getUser_avatar()).apply(GlideOptionsManager.getInstance()
+                .getRequestOptionsMatch()).into(item.avatar);
+//        ImageLoader.getInstance().displayImage(bp.getUser_avatar(),item.avatar,
+//                ImageLoaderOptions.AvatarOptions());
         return view;
     }
     private class BlogPingItem{

@@ -28,7 +28,8 @@ import butterknife.OnClick;
  * on 2017/12/7.
  */
 
-public class LoginFragment extends BaseFragment<LoginFragmentPresenter> implements ILoginFragmentView,View.OnClickListener{
+public class LoginFragment extends BaseFragment<LoginFragmentPresenter> implements
+        ILoginFragmentView,View.OnClickListener{
     @BindView(R.id.et_user_name)
     TextInputEditText etUserName;
     @BindView(R.id.ti_user_name)
@@ -114,7 +115,8 @@ public class LoginFragment extends BaseFragment<LoginFragmentPresenter> implemen
                 String username = etUserName.getText().toString();
                 String pass = etUserPass.getText().toString();
                 if (validateAccount(username) && validatePassword(pass) && getPresenter() != null) {
-                    getPresenter().Login(etUserName.getText().toString(), etUserPass.getText().toString());
+                    getPresenter().Login(getActivity(),etUserName.getText().toString(),
+                            etUserPass.getText().toString());
                     ShowOrHideProgressDialog.showProgressDialog(getActivity(), getActivity(), getString(R.string.login_loading));
                 }
                 break;

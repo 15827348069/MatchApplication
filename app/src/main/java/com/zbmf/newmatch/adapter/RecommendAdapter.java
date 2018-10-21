@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -94,7 +95,7 @@ public class RecommendAdapter extends BaseAdapter {
     private class RecommendItem{
         TextView name,desc;
         TextView care_button,recommend_tag,recommend_style;
-        RoundedCornerImageView avatar;
+        ImageView avatar;
         RecommendItem(View view){
             name= view.findViewById(R.id.recommend_item_name);
             desc= view.findViewById(R.id.recommend_follownum);
