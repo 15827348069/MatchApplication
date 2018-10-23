@@ -20,7 +20,7 @@ import com.zbmf.newmatch.bean.VideoPrice;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.common.RequestCode;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 
@@ -70,8 +70,9 @@ public class PayVideoNewsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initData(Bundle bundle) {
-
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
+        initView();
         GroupinitData();
 
     }

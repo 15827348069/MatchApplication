@@ -15,6 +15,7 @@ import com.zbmf.newmatch.bean.LiveMessage;
 import com.zbmf.newmatch.bean.LiveTypeMessage;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.service.GetLiveMessage;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.GroupTextView;
 import com.zbmf.newmatch.view.ListViewForScrollView;
@@ -65,7 +66,8 @@ public class LiveHistoryActivity extends BaseActivity implements GroupTextView.O
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         addListener();
 
         GroupinitData();

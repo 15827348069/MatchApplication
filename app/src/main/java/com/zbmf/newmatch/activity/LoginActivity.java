@@ -44,7 +44,7 @@ public class LoginActivity extends BaseActivity<BasePresenter> {
 
     private LoginFragment loginFragment;
     private RegisterFragment registerFragment;
-    private int mFgFlag;
+//    private int mFgFlag;
     private Dialog mDialog;
 
     @Override
@@ -66,7 +66,7 @@ public class LoginActivity extends BaseActivity<BasePresenter> {
     protected void initData(Bundle bundle) {
         MyActivityManager.getMyActivityManager().pushAct(this);
         ThirdLoginUtil.getInstance().init(this);
-        mFgFlag = bundle.getInt(ParamsKey.FG_FLAG,-1);
+//        mFgFlag = bundle.getInt(ParamsKey.FG_FLAG,-1);
         setDefaultFragment();
         rgLogin.setOnCheckedChangeListener((radioGroup, i) -> {
             switch (radioGroup.getCheckedRadioButtonId()) {
@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity<BasePresenter> {
     //供旗下的fragment跳转到mainActivity调用
     public void skipMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(ParamsKey.FG_FLAG,mFgFlag);
+//        intent.putExtra(ParamsKey.FG_FLAG,mFgFlag);
         new MainActivity().setIsExit(false);
         startActivity(intent);
         this.finish();

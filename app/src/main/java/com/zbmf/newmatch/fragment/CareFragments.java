@@ -1,47 +1,33 @@
 package com.zbmf.newmatch.fragment;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
-
-
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.zbmf.newmatch.MainActivity;
 import com.zbmf.newmatch.R;
-import com.zbmf.newmatch.activity.CareTeacherActivity;
-import com.zbmf.newmatch.activity.SearchActivity;
-import com.zbmf.newmatch.adapter.CareAdapter;
+import com.zbmf.newmatch.activity.GroupSearchActivity;
 import com.zbmf.newmatch.adapter.ViewPageFragmentadapter;
 import com.zbmf.newmatch.adapter.interfaces.LoadFinish;
 import com.zbmf.newmatch.api.JSONHandler;
 import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.bean.Group;
 import com.zbmf.newmatch.common.Constans;
-import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.db.DBManager;
 import com.zbmf.newmatch.db.Database;
 import com.zbmf.newmatch.fragment.care.RankTeacherFragment;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.MyCustomViewpager;
+import com.zbmf.newmatch.view.ShowOrHideProgressDialog;
 import com.zbmf.worklibrary.listener.ScrollViewChangeListener;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 import com.zbmf.worklibrary.pulltorefresh.OverscrollHelper;
@@ -60,7 +46,7 @@ import java.util.List;
  */
 
 public class CareFragments extends BaseFragment implements ViewPager.OnPageChangeListener,
-        LoadFinish, /*PullToRefreshScrollView.onScrolls,*/ View.OnClickListener ,ScrollViewChangeListener {
+        LoadFinish, /*PullToRefreshScrollView.onScrolls,*/ View.OnClickListener, ScrollViewChangeListener {
     private MainActivity groupActivity;
     private List<Group> infolist;
 
@@ -68,9 +54,10 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
     private Database db;
     private boolean isFirstIn = true;
     private int select;
+    private boolean isLoad=false;
 
     private PullToRefreshScrollView sc_focus;
-    private SlidingTabLayout mTab;
+    private SlidingTabLayout mTab,care_top_tab_layout;
     public MyCustomViewpager mViewpager;
 
     private RankTeacherFragment recomedFragment, exclusiveFragment, arrowFragment;
@@ -87,32 +74,81 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
 
     @Override
     protected void initView() {
+        initCare();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isLoad){
+            initCare();
+        }
+    }
+
+    private void initCare(){
+        if (!isLoad){
+            isLoad=true;
+        }
         sc_focus = (PullToRefreshScrollView) getView(R.id.care_refresh);
         mTab = (SlidingTabLayout) getView(R.id.care_tab_layout);
+        care_top_tab_layout = (SlidingTabLayout)getView(R.id.care_top_tab_layout);
         mViewpager = (MyCustomViewpager) getView(R.id.care_viewpager_teacher);
         TextView tv_title_text = (TextView) getView(R.id.tv_title_text);
         ImageView searchBtn = (ImageView) getView(R.id.searchBtn);
         mViewpager.setScrollble(true);
-
+        //设置fragment页面和tabLayout
+        List<Fragment> mList = new ArrayList<>();
+        List<String> title_list = Arrays.asList(getResources().getStringArray(R.array.find_teacher));
+        //排名
+        recomedFragment = RankTeacherFragment.newInstance(Constans.PEOPLE_RECOMED);
+        recomedFragment.setCustomViewPage(mViewpager);
+        recomedFragment.setLoadFinish(this);
+        mViewpager.setObjectForPosition(recomedFragment.getFragmentView(), 0);
+        //直播
+        exclusiveFragment = RankTeacherFragment.newInstance(Constans.EXCLUSIVE);
+        exclusiveFragment.setCustomViewPage(mViewpager);
+        exclusiveFragment.setLoadFinish(this);
+        mViewpager.setObjectForPosition(exclusiveFragment.getFragmentView(), 1);
+        //人气
+        arrowFragment = RankTeacherFragment.newInstance(Constans.PEOPLE_ARROW);
+        arrowFragment.setCustomViewPage(mViewpager);
+        arrowFragment.setLoadFinish(this);
+        mViewpager.setObjectForPosition(arrowFragment.getFragmentView(), 2);
+        mList.add(recomedFragment);
+        mList.add(exclusiveFragment);
+        mList.add(arrowFragment);
+        ViewPageFragmentadapter mAdapter = new ViewPageFragmentadapter(getActivity().getSupportFragmentManager()
+                , title_list, mList);
+        mViewpager.setAdapter(mAdapter);
+        mViewpager.setOffscreenPageLimit(mList.size());
+        mViewpager.setOnPageChangeListener(this);
+        mTab.setViewPager(mViewpager);
+        care_top_tab_layout.setViewPager(mViewpager);
         //获取数据库对象
         dbManager = new DBManager(getContext());
         db = new Database(getContext());
         groupActivity = (MainActivity) getActivity();
         tv_title_text.setText("圈子");
         searchBtn.setVisibility(View.VISIBLE);
-        searchBtn.setOnClickListener(this);
+        searchBtn.setOnClickListener(v -> {
+            ShowActivity.showActivity(getActivity(), GroupSearchActivity.class);
+        });
 
         infolist = new ArrayList<>();
         new OverscrollHelper().setScrollViewChangeListener(this);
-
+        //有登录
         //初始化圈子的Fragment
-        initCareFragment();
+//        initCareFragment();
         //设置刷新
         setRefresh();
-
+        initCareFragment();
     }
 
-    private void setRefresh(){
+    public void setData(boolean updata) {
+        setinitData(updata);
+    }
+
+    private void setRefresh() {
         sc_focus.setMode(PullToRefreshBase.Mode.BOTH);
         sc_focus.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
@@ -147,6 +183,7 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
         //如果用户已经登录则获取数据
         String authToken = MatchSharedUtil.AuthToken();
         if (!authToken.isEmpty()) {
+            ShowOrHideProgressDialog.showProgressDialog(getActivity(), getActivity(), getString(R.string.loading));
             userGroups();
         }
     }
@@ -157,7 +194,9 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
     }
 
     private void RunshList() {
-        if (!MatchSharedUtil.AuthToken().isEmpty()) {
+        String authToken = MatchSharedUtil.AuthToken();
+        if (!authToken.isEmpty()) {
+            ShowOrHideProgressDialog.showProgressDialog(getActivity(), getActivity(), getString(R.string.loading));
             userGroups();
             switch (select) {
                 case 0:
@@ -174,71 +213,20 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
     }
 
     private void initCareFragment() {
-        List<Fragment> mList = new ArrayList<>();
-        List<String> title_list = Arrays.asList(getResources().getStringArray(R.array.find_teacher));
-
-        recomedFragment = RankTeacherFragment.newInstance(Constans.PEOPLE_RECOMED);
-        recomedFragment.setCustomViewPage(mViewpager);
-        recomedFragment.setLoadFinish(this);
-        mViewpager.setObjectForPosition(recomedFragment.getFragmentView(), 0);
-
-        /*liveFragment = RankTeacherFragment.newInstance(Constans.NOW_LIVE);
-        liveFragment.setCustomViewPage(mViewpager);
-        liveFragment.setLoadFinish(this);
-        mViewpager.setObjectForPosition(liveFragment.getFragmentView(), 1);*/
-
-        exclusiveFragment = RankTeacherFragment.newInstance(Constans.EXCLUSIVE);
-        exclusiveFragment.setCustomViewPage(mViewpager);
-        exclusiveFragment.setLoadFinish(this);
-        mViewpager.setObjectForPosition(exclusiveFragment.getFragmentView(), 1);
-
-        arrowFragment = RankTeacherFragment.newInstance(Constans.PEOPLE_ARROW);
-        arrowFragment.setCustomViewPage(mViewpager);
-        arrowFragment.setLoadFinish(this);
-        mViewpager.setObjectForPosition(arrowFragment.getFragmentView(), 2);
-
-        mList.add(recomedFragment);
-        mList.add(exclusiveFragment);
-        mList.add(arrowFragment);
-
-        ViewPageFragmentadapter mAdapter = new ViewPageFragmentadapter(getActivity().getSupportFragmentManager(), title_list, mList);
-        mViewpager.setAdapter(mAdapter);
-        mViewpager.setOffscreenPageLimit(mList.size());
-        mViewpager.setOnPageChangeListener(this);
-        mTab.setViewPager(mViewpager);
-        mTab.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-
+        //初始化数据
+        if (isFirstIn) {
+            if (dbManager == null) {
+                dbManager = new DBManager(getContext());
             }
-
-            @Override
-            public void onTabReselect(int position) {
-
-            }
-        });
-        mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mTab.setSelected(true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+            RunshList();
+        }
     }
 
     private void userGroups() {
         WebBase.userGroups(1, 3, new JSONHandler() {
             @Override
             public void onSuccess(JSONObject obj) {
+                ShowOrHideProgressDialog.disMissProgressDialog();
                 JSONObject result = obj.optJSONObject("result");
                 if (!result.isNull("groups")) {
                     if (isFirstIn) {
@@ -273,9 +261,9 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
 
             @Override
             public void onFailure(String err_msg) {
+                ShowOrHideProgressDialog.disMissProgressDialog();
                 if (checkVa(err_msg)) {
-                    Log.i("---TAG","---   存储 空的Auth_Token ");
-                    MatchSharedUtil.putAuthToken("");
+//                    MatchSharedUtil.putAuthToken("");
 //                    ((MainActivity) getActivity()).checked();
                 } else {
                     Toast.makeText(getActivity(), err_msg, Toast.LENGTH_SHORT).show();
@@ -294,6 +282,7 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
     @Override
     public void onRush() {
         super.onRush();
+        Log.i("===TAG", "--    执行CareFragment的  onRush方法  ");
         if (isFirstIn) {
             if (dbManager == null) {
                 dbManager = new DBManager(getContext());
@@ -323,13 +312,13 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
         rush();
         switch (select) {
             case 0:
-                recomedFragment.setViewPageHeight(select);
+                recomedFragment.setViewPageHeight(0);
                 break;
             case 1:
-                exclusiveFragment.setViewPageHeight(select);
+                exclusiveFragment.setViewPageHeight(1);
                 break;
             case 2:
-                arrowFragment.setViewPageHeight(select);
+                arrowFragment.setViewPageHeight(2);
                 break;
         }
     }
@@ -353,16 +342,16 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
 
     @Override
     public void onScroll(int x, int y) {
-//        int top = mTab.getTop();
-//        if (y >= top) {
-//            if (care_top_tab_layout.getVisibility() == View.GONE) {
-//                care_top_tab_layout.setVisibility(View.VISIBLE);
-//            }
-//        } else {
-//            if (care_top_tab_layout.getVisibility() == View.VISIBLE) {
-//                care_top_tab_layout.setVisibility(View.GONE);
-//            }
-//        }
+        int top = mTab.getTop();
+        if (y >= top) {
+            if (care_top_tab_layout.getVisibility() == View.GONE) {
+                care_top_tab_layout.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (care_top_tab_layout.getVisibility() == View.VISIBLE) {
+                care_top_tab_layout.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -380,7 +369,8 @@ public class CareFragments extends BaseFragment implements ViewPager.OnPageChang
                 ShowActivity.showActivity(getActivity(), GoldStockActivity.class);
                 break;*/
             case R.id.search_button:
-                ShowActivity.showActivity(getActivity(), SearchActivity.class);
+//                Toast.makeText(groupActivity, "点击了搜索按钮", Toast.LENGTH_SHORT).show();
+//                ShowActivity.showActivity(getActivity(), GroupSearchActivity.class);
                 break;
         }
     }

@@ -43,7 +43,6 @@ import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.MD5Util;
 import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.view.TextDialog;
 import com.zbmf.worklibrary.pulltorefresh.PullToRefreshBase;
 import com.zbmf.worklibrary.pulltorefresh.PullToRefreshListView;
@@ -114,7 +113,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener/*, Ad
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 
@@ -386,6 +384,10 @@ public class ChatFragment extends Fragment implements View.OnClickListener/*, Ad
         }
     }
 
+    /**
+     * 发送聊天消息
+     * @param message  消息
+     */
     private void sendMessage(ChatMessage message) {
         WebBase.sendToRoom(groupId, message.getChat_type(), message.getContent(),
                 message.getUrl(), message.getClient_msg_id(), new ChatHandler(getActivity(),message.getClient_msg_id()) {

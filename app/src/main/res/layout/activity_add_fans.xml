@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/group_layout_background"
-    tools:context="com.zbmf.StockGroup.activity.AddFansActivity">
+    tools:context="com.zbmf.newmatch.activity.AddFansActivity">
     <include layout="@layout/title_layout"/>
     <View
         android:layout_width="match_parent"
@@ -170,7 +170,7 @@
             android:textSize="16dp"
             />
     </LinearLayout>
-        <com.zbmf.StockGroup.view.GridViewForScrollView
+        <com.zbmf.newmatch.view.GridViewForScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fans_price_gridview"

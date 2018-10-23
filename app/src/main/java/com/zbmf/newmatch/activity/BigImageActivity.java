@@ -20,8 +20,8 @@ import com.zbmf.newmatch.util.BitmapUtil;
 import com.zbmf.newmatch.util.ImageLoaderOptions;
 import com.zbmf.newmatch.util.LogUtil;
 import com.zbmf.newmatch.util.MatchSharedUtil;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.PhotoViewAttacher;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.WebClickUitl;
 import com.zbmf.newmatch.view.SwipeToFinishView;
 
@@ -38,6 +38,8 @@ public class BigImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_big_image);
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         new SwipeToFinishView(this);
         init();
     }

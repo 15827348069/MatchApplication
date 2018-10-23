@@ -16,7 +16,7 @@ public class User extends BaseBean implements Serializable{
     private String role;//权限
     private String phone;
 //    private String auth_token;
-    private String user_id;
+    private int user_id;
     private String is_bind;
     private String has_password;
     private int is_vip;
@@ -107,7 +107,7 @@ public class User extends BaseBean implements Serializable{
 //        this.auth_token = auth_token;
 //    }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
@@ -128,6 +128,26 @@ public class User extends BaseBean implements Serializable{
     }
 
     public String getUser_id() {
-        return user_id;
+        return String.valueOf(user_id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "mpay=" + mpay +
+                ", avatar='" + avatar + '\'' +
+                ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", truename='" + truename + '\'' +
+                ", role='" + role + '\'' +
+                ", phone='" + phone + '\'' +
+                ", user_id=" + user_id +
+                ", is_bind='" + is_bind + '\'' +
+                ", has_password='" + has_password + '\'' +
+                ", is_vip=" + is_vip +
+                ", is_super=" + is_super +
+                ", vip_end_at='" + vip_end_at + '\'' +
+                ", idcard='" + idcard + '\'' +
+                '}';
     }
 }

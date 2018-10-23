@@ -151,6 +151,9 @@ public class DrillFragment extends BaseFragment<DrillPresenter> implements IDril
         if (mBuyDialog == null) {
             mBuyDialog = new BuyDialog(getActivity(), R.style.Buy_Dialog).createDialog();
         }
+        //手动加载第一次数据
+        getPresenter().setFirst(true);
+        getPresenter().getDatas();
         plv.setOnRefreshListener(refreshView -> {
             ShowOrHideProgressDialog.showProgressDialog(getActivity(), getActivity(), getString(R.string.hard_loading));
             getPresenter().setFirst(true);

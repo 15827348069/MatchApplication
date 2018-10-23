@@ -20,6 +20,7 @@ import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.util.DateUtil;
 import com.zbmf.newmatch.util.JSONParse;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.ListViewForScrollView;
 import com.zbmf.newmatch.view.RoundedCornerImageView;
@@ -83,7 +84,7 @@ public class VotingGroupRankActivity extends BaseActivity implements VotingTeach
     @BindView(R.id.tv_sign)
     TextView tv_sign;
     @BindView(R.id.list_voting)
-    ListViewForScrollView list_voting;
+    ListViewForScrollView listViewForScrollView;
     @BindView(R.id.tv_teacher_sign)
     TextView tv_teacher_sign;
     @BindView(R.id.list_teacher_voting)
@@ -95,7 +96,6 @@ public class VotingGroupRankActivity extends BaseActivity implements VotingTeach
     @BindView(R.id.pull_to_refresh_scrollview)
     PullToRefreshScrollView pull_to_refresh_scrollview;
 
-    private ListViewForScrollView listViewForScrollView;
     private VotingAdapter adapter;
     private VotingTeacherAdapter teacherAdapter;
     private List<Group> infolist;
@@ -116,7 +116,8 @@ public class VotingGroupRankActivity extends BaseActivity implements VotingTeach
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         tv_sign.setVisibility(View.VISIBLE);
         pull_to_refresh_scrollview.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
 

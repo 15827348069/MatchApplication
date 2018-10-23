@@ -316,7 +316,7 @@ public class DBManager {
             user.setRole(c.getString(c.getColumnIndex("role")));
             user.setPhone(c.getString(c.getColumnIndex("phone")));
             user.setAuth_token(c.getString(c.getColumnIndex("auth_token")));
-            user.setUser_id(c.getString(c.getColumnIndex("user_id")));
+            user.setUser_id(Integer.parseInt(c.getString(c.getColumnIndex("user_id"))));
             user.setTruename(c.getString(c.getColumnIndex("truename")));
             infolist.add(user);
         }

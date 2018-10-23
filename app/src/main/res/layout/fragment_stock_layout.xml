@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/app_bag"
     >
+    <!--<include layout="@layout/fragment_title_layout"/>-->
     <include layout="@layout/fragment_title_layout"/>
-
     <com.zbmf.worklibrary.pulltorefresh.PullToRefreshListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

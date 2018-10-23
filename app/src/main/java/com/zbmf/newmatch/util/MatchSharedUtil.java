@@ -1,10 +1,8 @@
 package com.zbmf.newmatch.util;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 import com.zbmf.newmatch.R;
 import com.zbmf.newmatch.bean.LoginUser;
@@ -12,6 +10,7 @@ import com.zbmf.newmatch.bean.TagBean;
 import com.zbmf.newmatch.bean.User;
 import com.zbmf.newmatch.callback.ResultCallback;
 import com.zbmf.newmatch.common.Constans;
+import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.common.SharedKey;
 import com.zbmf.worklibrary.util.Logx;
 import com.zbmf.worklibrary.util.SharedpreferencesUtil;
@@ -46,9 +45,7 @@ public class MatchSharedUtil {
     }
 
     public static void saveUser(LoginUser loginUser){
-        Log.i("---TAG"," 存储 Auth_token  :"+loginUser.getAuth_token());
         SharedpreferencesUtil.getInstance().putString(SharedKey.AUTH_TOKEN,loginUser.getAuth_token());
-        Log.i("---TAG","---    存了之后获取刚存的值： "+AuthToken());
         saveUser(loginUser.getUser());
     }
     public static void saveUser(User user){
@@ -63,7 +60,6 @@ public class MatchSharedUtil {
         SharedpreferencesUtil.getInstance().putString(SharedKey.IDCARD,user.getIdcard());
     }
     public static void clearUser(){
-        Log.i("---TAG","---   清空存户的数据  ");
         SharedpreferencesUtil.getInstance().removeKey(SharedKey.AUTH_TOKEN);
         SharedpreferencesUtil.getInstance().removeKey(SharedKey.USER_ID);
         SharedpreferencesUtil.getInstance().removeKey(SharedKey.USER_NAME);
@@ -74,6 +70,9 @@ public class MatchSharedUtil {
         SharedpreferencesUtil.getInstance().removeKey(SharedKey.PHONE);
         SharedpreferencesUtil.getInstance().removeKey(SharedKey.MPAY);
         SharedpreferencesUtil.getInstance().removeKey(SharedKey.IDCARD);
+        SharedpreferencesUtil.getInstance().removeKey(SharedKey.POINT);
+        SharedpreferencesUtil.getInstance().removeKey(SharedKey.PAYS);
+        SharedpreferencesUtil.getInstance().removeKey(SharedKey.COUPON);
     }
     public static void clearAuthToken(){
         SharedpreferencesUtil.getInstance().removeKey(SharedKey.AUTH_TOKEN);
@@ -83,7 +82,6 @@ public class MatchSharedUtil {
     }
     public static String AuthToken(){
         String string = SharedpreferencesUtil.getInstance().getString(SharedKey.AUTH_TOKEN, defaultValue);
-        Log.i("---TAG","---      AuthToken 方法中获取："+string);
         return  string;
     }
     //设置用户ID
@@ -153,19 +151,19 @@ public class MatchSharedUtil {
     }
     //设置优惠券
     public static void setCoupon(String coupon) {
-        SharedpreferencesUtil.getInstance().putString(COUPON, coupon);
+        SharedpreferencesUtil.getInstance().putString(SharedKey.COUPON, coupon);
     }
     //获取优惠券
     public static String getCoupon() {
-        return SharedpreferencesUtil.getInstance().getString(COUPON,"0");
+        return SharedpreferencesUtil.getInstance().getString(SharedKey.COUPON,"0");
     }
     //存储是否显示当前铁粉
     public static void setIsShowFans(int isShowFans){
-        SharedpreferencesUtil.getInstance().putInt(SHOW_FANS,isShowFans);
+        SharedpreferencesUtil.getInstance().putInt(IntentKey.SHOW_FANS,isShowFans);
     }
     //获取当前是否铁粉
     public static boolean getIsShowFans(){
-        return SharedpreferencesUtil.getInstance().getInt(SHOW_FANS,1)==1;// 0非紧急 显示,1紧急 隐藏
+        return SharedpreferencesUtil.getInstance().getInt(IntentKey.SHOW_FANS,1)==1;// 0非紧急 显示,1紧急 隐藏
     }
     // 设置当前用户的推送PUSH_CILENT_ID
     public static void setPushCilentId(String authToken) {
@@ -183,7 +181,10 @@ public class MatchSharedUtil {
     }
     //设置当前用户是VIP
     public static void setIsVip(int vip){
-        SharedpreferencesUtil.getInstance().putInt(VIP,vip);
+        SharedpreferencesUtil.getInstance().putInt(SharedKey.VIP,vip);
+    }
+    public static int getIsVip(){
+        return SharedpreferencesUtil.getInstance().getInt(SharedKey.VIP,-1);
     }
     //设置当前用户是超级VIP
     public static void setSuperVip(int superVip){
@@ -191,7 +192,10 @@ public class MatchSharedUtil {
     }
     //设置当前用户的VIP的结束时间
     public static void setVipAtEnd(String vipAtEnd){
-        SharedpreferencesUtil.getInstance().putString(VIP_AT_END,vipAtEnd);
+        SharedpreferencesUtil.getInstance().putString(SharedKey.VIP_AT_END,vipAtEnd);
+    }
+    public static String getVipAtEnd(){
+       return SharedpreferencesUtil.getInstance().getString(SharedKey.VIP_AT_END,defaultValue);
     }
     //设置博文字体大小
     public static void setBlogTextSize(int textsize) {
@@ -246,28 +250,28 @@ public class MatchSharedUtil {
      * @param pays
      */
     public static void setPays(String pays){
-        SharedpreferencesUtil.getInstance().putString(PAYS+UserId(),pays);
+        SharedpreferencesUtil.getInstance().putString(SharedKey.PAYS+UserId(),pays);
     }
     /**
      * 获取可用魔方宝
      * @return
      */
     public static String getPays(){
-        return SharedpreferencesUtil.getInstance().getString((PAYS+UserId()),"0.00");
+        return SharedpreferencesUtil.getInstance().getString((SharedKey.PAYS+UserId()),"0.00");
     }
     /**
      * 设置可用积分
      * @param pays
      */
     public static void setPoint(long pays){
-        SharedpreferencesUtil.getInstance().putLong(POINT+UserId(),pays);
+        SharedpreferencesUtil.getInstance().putLong(SharedKey.POINT+UserId(),pays);
     }
     /**
      * 获取可用积分
      * @return
      */
     public static long getPoint(){
-        return SharedpreferencesUtil.getInstance().getLong(POINT+UserId(),0);
+        return SharedpreferencesUtil.getInstance().getLong(SharedKey.POINT+UserId(),0);
     }
     //设置client_id
     public static void setClientId(String clientId) {
@@ -307,7 +311,8 @@ public class MatchSharedUtil {
     }
     //获取搜索的历史记录
     public void getSearchHistory(ResultCallback callback){
-        String result = sharedPreferences.getString(SEARCH_HISTORY,"");
+        SharedpreferencesUtil instance = SharedpreferencesUtil.getInstance();
+        String result = instance.getString(SEARCH_HISTORY,"");
         List<TagBean.ChildrenTag> tags=new ArrayList<>();
         try {
             JSONArray array ;
@@ -330,15 +335,14 @@ public class MatchSharedUtil {
         } catch (JSONException e) {
             e.printStackTrace();
             Logx.e("取出异常"+e.getMessage());
-            editor.putString(SEARCH_HISTORY,"");
-            editor.commit();
+            instance.putString(SEARCH_HISTORY,"");
             callback.onFail(e.getMessage());
         }
     }
     //设置搜索的历史记录
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void setSearchHistory(TagBean.ChildrenTag tag){
-        String result = sharedPreferences.getString(SEARCH_HISTORY,"");
+        String result = SharedpreferencesUtil.getInstance().getString(SEARCH_HISTORY,"");
         if(!result.contains(tag.getName())){
             try {
                 JSONObject object=new JSONObject();
@@ -355,8 +359,7 @@ public class MatchSharedUtil {
                     jsonArray=new JSONArray();
                 }
                 jsonArray.put(object);
-                editor.putString(SEARCH_HISTORY,jsonArray.toString());
-                editor.commit();
+                SharedpreferencesUtil.getInstance().putString(SEARCH_HISTORY,jsonArray.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -393,21 +396,21 @@ public class MatchSharedUtil {
     //设置用户群聊声音是否提示
     public static final String CHAT_MESSAGE_VEDIO="chat_message_vedio_";
     //设置用户可用魔方宝
-    public static final String PAYS="pays";
+//    public static final String PAYS="pays";
     //设置用户可用积分
-    public static final String POINT="point";
+//    public static final String POINT="point";
     //设置用户可用优惠券
-    public static final String COUPON="coupon";
+//    public static final String COUPON="coupon";
     //是否显示铁粉
     public static final String SHOW_FANS="show_fans";
 
     public static final String LIVE_IMG ="live_img";
     //vip
-    public static final String VIP="vip";
+//    public static final String VIP="vip";
     //superVip
     public static final String SUPER_VIP="super_vip";
     //vip到期时间
-    public static final String VIP_AT_END="vip_at_end";
+//    public static final String VIP_AT_END="vip_at_end";
     //设置用户声音是否提示
     public static final String MESSAGE_All="message_all";
 
@@ -417,19 +420,19 @@ public class MatchSharedUtil {
     public static final String UPDATA_LIVE="updata_live";
 
     public static final String STOCK_MODE_DESC="stock_mode_desc";
-    public void clearUserInfo(){
-        editor.remove(USER_AUTHTOKEN);
-        editor.remove(USER_ID);
-        editor.remove(USER_PHONE);
-        editor.remove(USER_AVATAR);
-        editor.remove(USER_NICK_NAME);
-        editor.remove(TRUE_NAME);
-        editor.remove(IDCARD);
-        editor.remove(POINT);
-        editor.remove(PAYS);
-        editor.remove(COUPON);
-        editor.commit();
-    }
+//    public void clearUserInfo(){
+//        editor.remove(USER_AUTHTOKEN);
+//        editor.remove(USER_ID);
+//        editor.remove(USER_PHONE);
+//        editor.remove(USER_AVATAR);
+//        editor.remove(USER_NICK_NAME);
+//        editor.remove(TRUE_NAME);
+//        editor.remove(IDCARD);
+//        editor.remove(POINT);
+//        editor.remove(PAYS);
+//        editor.remove(COUPON);
+//        editor.commit();
+//    }
 
 
 

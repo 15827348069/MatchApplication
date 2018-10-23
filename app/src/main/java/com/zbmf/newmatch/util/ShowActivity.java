@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.zbmf.newmatch.MainActivity;
 import com.zbmf.newmatch.R;
 import com.zbmf.newmatch.activity.AddFansActivity;
 import com.zbmf.newmatch.activity.BigImageActivity;
@@ -21,10 +22,13 @@ import com.zbmf.newmatch.activity.BlogDetailActivity;
 import com.zbmf.newmatch.activity.BlogPingActivity;
 import com.zbmf.newmatch.activity.BoxDetailActivity;
 import com.zbmf.newmatch.activity.BoxDetailWebActivity;
+import com.zbmf.newmatch.activity.Chat1Activity;
+import com.zbmf.newmatch.activity.ConponsActivity;
 import com.zbmf.newmatch.activity.DealActivity;
 import com.zbmf.newmatch.activity.FansActivity;
 import com.zbmf.newmatch.activity.FindPassWordActivity;
 import com.zbmf.newmatch.activity.GroupDetailActivity;
+import com.zbmf.newmatch.activity.GroupPayDetailActivity;
 import com.zbmf.newmatch.activity.HistoryDateActivity;
 import com.zbmf.newmatch.activity.LiveHistoryActivity;
 import com.zbmf.newmatch.activity.LoginActivity;
@@ -34,16 +38,19 @@ import com.zbmf.newmatch.activity.MatchHoldActivity;
 import com.zbmf.newmatch.activity.MatchRankActivity;
 import com.zbmf.newmatch.activity.MatchTraderInfoActivity;
 import com.zbmf.newmatch.activity.MatchTrustsActivity;
+import com.zbmf.newmatch.activity.MyDetailActivity;
 import com.zbmf.newmatch.activity.NoticeActivity;
 import com.zbmf.newmatch.activity.PayDetailActivity;
 import com.zbmf.newmatch.activity.PopDialogActivity;
 import com.zbmf.newmatch.activity.QueryActivity;
 import com.zbmf.newmatch.activity.RedPackgedActivity;
 import com.zbmf.newmatch.activity.RemarkListActivity;
+import com.zbmf.newmatch.activity.SettingActivity;
 import com.zbmf.newmatch.activity.StockBuyActivity;
 import com.zbmf.newmatch.activity.StockCommitActivity;
 import com.zbmf.newmatch.activity.StockDetailActivity;
 import com.zbmf.newmatch.activity.UserActivity;
+import com.zbmf.newmatch.activity.VipActivity;
 import com.zbmf.newmatch.activity.WebViewActivity;
 import com.zbmf.newmatch.activity.WinAPrizeActivity;
 import com.zbmf.newmatch.api.Method;
@@ -147,6 +154,74 @@ public class ShowActivity {
         StartActivityForResult(activity, intent, code);
     }
 
+
+    public static void showPayDetailActivity1(Activity activity,float money)
+    {
+        intent=new Intent(activity, PayDetailActivity.class);
+        intent.putExtra(IntentKey.MONEY,money);
+        StartActivity(activity,intent);
+    }
+    //跳转VIP服务订阅页面
+    public static void skipVIPActivity(Activity activity/*, Screen screen*/){
+        Intent intent = new Intent(activity, VipActivity.class);
+        Bundle bundle = new Bundle();
+//        bundle.putSerializable(IntentKey.SCREEN,screen);
+        intent.putExtras(bundle);
+        activity.startActivity(intent);
+    }
+    /**
+     * 我的资料
+     * @param activity
+     */
+    public static void showMyDetail(Activity activity){
+        intent=new Intent(activity, MyDetailActivity.class);
+        StartActivity(activity,intent);
+    }
+    /**
+     * 设置页面
+     * @param activity
+     */
+    public static void showSettingActivity(Activity activity){
+        intent=new Intent(activity, SettingActivity.class);
+        StartActivity(activity,intent);
+    }
+    //跳转首页
+    public static void skipGroupActivity(Activity activity,int flag){
+        Bundle bundle = new Bundle();
+//        bundle.putInt(IntentKey.FLAG,flag);
+        ShowActivity.showActivity(activity,bundle, MainActivity.class);
+    }
+    /**
+     * 优惠券
+     * @param activity
+     */
+    public static void showConponsActivity(Activity activity){
+        intent=new Intent(activity, ConponsActivity.class);
+        StartActivity(activity,intent);
+    }
+    /**
+     * 直播室
+     * @param activity
+     */
+    public static void showChatActivity(Activity activity,Group group){
+        intent=new Intent(activity, Chat1Activity.class);
+        intent.putExtra(IntentKey.GROUP,group);
+        StartActivity(activity,intent);
+    }
+    public static void showChatActivity(Activity activity,String  group_id){
+        intent=new Intent(activity, GroupDetailActivity.class);
+        Group group=new Group();
+        group.setId(group_id);
+        intent.putExtra(IntentKey.GROUP,group);
+        StartActivity(activity,intent);
+    }
+    public static void showGroupDetailActivity(Activity activity,String  group_id){
+        intent=new Intent(activity, GroupDetailActivity.class);
+        Group group=new Group();
+        group.setId(group_id);
+        intent.putExtra(IntentKey.GROUP,group);
+        StartActivity(activity,intent);
+    }
     /**
      * 圈子简介
      * @param activity
@@ -178,7 +253,7 @@ public class ShowActivity {
     }
     public static void showPayDetailActivity(Activity activity)
     {
-        intent=new Intent(activity, PayDetailActivity.class);
+        intent=new Intent(activity, GroupPayDetailActivity.class/*PayDetailActivity.class*/);
         StartActivity(activity,intent);
     }
     /**
@@ -295,7 +370,7 @@ public class ShowActivity {
      */
     @SuppressLint("ShowToast")
     public static boolean isLogin(Activity activity, int flag) {
-        Log.i("---TAG","==   isLogin方法中的  authToken："+MatchSharedUtil.AuthToken());
+       Log.i("===TAG","--     isLogin   1");
         if (TextUtils.isEmpty(MatchSharedUtil.AuthToken())) {
             Toast.makeText(activity, activity.getString(R.string.login_tip), Toast.LENGTH_SHORT);
             intent = new Intent(activity, LoginActivity.class);
@@ -309,6 +384,7 @@ public class ShowActivity {
         }
     }
     public static boolean isLogin(Activity activity){
+        Log.i("===TAG","--     isLogin   2");
         if(TextUtils.isEmpty(MatchSharedUtil.AuthToken())){
             intent=new Intent(activity, LoginActivity.class);
             activity.startActivityForResult(intent, RequestCode.LOGIN);
@@ -322,6 +398,7 @@ public class ShowActivity {
      * 判断是否已经登录
      */
     public static boolean isLogin() {
+//        Log.i("===TAG","--     isLogin   3");
         return !TextUtils.isEmpty(MatchSharedUtil.AuthToken());
     }
 

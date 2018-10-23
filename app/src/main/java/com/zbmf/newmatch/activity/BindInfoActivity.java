@@ -19,11 +19,15 @@ import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.util.EditCheckUtil;
 import com.zbmf.newmatch.util.EditTextUtil;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.util.MyActivityManager;
+import com.zbmf.newmatch.util.ToastUtils;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 
 import org.json.JSONObject;
 
+/**
+ * 绑定用户实名认证
+ */
 public class BindInfoActivity extends BaseActivity implements View.OnClickListener {
 
     private EditText ed_phone;
@@ -48,7 +52,8 @@ public class BindInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initData(Bundle bundle) {
-
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
         addListener();
         GroupinitData();
@@ -177,20 +182,20 @@ public class BindInfoActivity extends BaseActivity implements View.OnClickListen
 
                 WebBase.codeBind(phone, PushManager.getInstance().getClientid(getBaseContext()),
                         new JSONHandler(true, BindInfoActivity.this, "加载中...") {
-                    @Override
-                    public void onSuccess(JSONObject obj) {
-                        if (timecount == null) {
-                            timecount = new TimeCount(60000, 1000);
-                        }
-                        timecount.start();
-                        Toast.makeText(getBaseContext(), "验证码已发送！", Toast.LENGTH_SHORT).show();
-                    }
+                            @Override
+                            public void onSuccess(JSONObject obj) {
+                                if (timecount == null) {
+                                    timecount = new TimeCount(60000, 1000);
+                                }
+                                timecount.start();
+                                Toast.makeText(getBaseContext(), "验证码已发送！", Toast.LENGTH_SHORT).show();
+                            }
 
-                    @Override
-                    public void onFailure(String err_msg) {
-                        Toast.makeText(getBaseContext(), err_msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            @Override
+                            public void onFailure(String err_msg) {
+                                Toast.makeText(getBaseContext(), err_msg, Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
                 break;
             case R.id.btn_bind:
@@ -228,21 +233,21 @@ public class BindInfoActivity extends BaseActivity implements View.OnClickListen
                 WebBase.bindName(ed_phone.getText().toString(), ed_yzm.getText().toString(), turename,
                         idcard, PushManager.getInstance().getClientid(getBaseContext()),
                         new JSONHandler(true, BindInfoActivity.this, "加载中...") {
-                    @Override
-                    public void onSuccess(JSONObject obj) {
-                        Toast.makeText(getBaseContext(), "提交成功", 0).show();
-                        MatchSharedUtil.setUserPhone(ed_phone.getText().toString());
-                        MatchSharedUtil.setUserTrueName(turename);
-                        MatchSharedUtil.setUserIDCard(idcard);
-                        setResult(RESULT_OK);
-                        finish();
-                    }
+                            @Override
+                            public void onSuccess(JSONObject obj) {
+                                Toast.makeText(getBaseContext(), "提交成功", 0).show();
+                                MatchSharedUtil.setUserPhone(ed_phone.getText().toString());
+                                MatchSharedUtil.setUserTrueName(turename);
+                                MatchSharedUtil.setUserIDCard(idcard);
+                                setResult(RESULT_OK);
+                                finish();
+                            }
 
-                    @Override
-                    public void onFailure(String err_msg) {
-                        Toast.makeText(getBaseContext(), err_msg, 0).show();
-                    }
-                });
+                            @Override
+                            public void onFailure(String err_msg) {
+                                Toast.makeText(getBaseContext(), err_msg, 0).show();
+                            }
+                        });
 
                 break;
         }

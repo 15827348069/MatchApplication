@@ -13,6 +13,7 @@ import com.zbmf.newmatch.bean.PopWindowBean;
 import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.presenter.HomePresenter;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.GlideOptionsManager;
 
@@ -22,6 +23,8 @@ public class PopDialogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         //当前版本大于11时，点击dialog外部关闭dialog
         PopDialogActivity.this.setFinishOnTouchOutside(true);
         setContentView(R.layout.activity_pop_dialog);

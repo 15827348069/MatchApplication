@@ -54,7 +54,7 @@ import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.LogUtil;
 import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.CusSeekbar;
 import com.zbmf.newmatch.view.GlideOptionsManager;
@@ -62,7 +62,6 @@ import com.zbmf.newmatch.view.MagicTextView;
 import com.zbmf.newmatch.view.RoundedCornerImageView;
 import com.zbmf.newmatch.view.TabLayout;
 import com.zbmf.worklibrary.presenter.BasePresenter;
-import com.zbmf.worklibrary.util.ActivityUtil;
 import com.zbmf.worklibrary.view.MyTextView;
 
 import org.json.JSONObject;
@@ -160,16 +159,20 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    protected void initData(Bundle bundle) {
+    protected void onRestart() {
+        super.onRestart();
+        mLiveFragment.setButton_layout_visible();
+    }
 
+    @Override
+    protected void initData(Bundle bundle) {
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         getGroupMessage();
         setLiveImageW();
         init();
         removeliveview();
-
-
         initData();
-
     }
 
     @Override
@@ -363,6 +366,7 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
                 }
                 break;
             case R.id.ll_share:
+                mLiveFragment.setButton_layout_gone();
                 bundle = new Bundle();
                 bundle.putSerializable(IntentKey.GROUP, group);
                 ShowActivity.showActivity(this, bundle, ShareTeacherActivity.class);
@@ -517,14 +521,16 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
             @Override
             public void run() {
                 long nowtime = System.currentTimeMillis();
-                int count = llgiftcontent.getChildCount();
-                for (int i = 0; i < count; i++) {
-                    View view = llgiftcontent.getChildAt(i);
-                    TextView gift_name = (TextView) view.findViewById(R.id.show_gift_name);
-                    long upTime = (Long) gift_name.getTag();
-                    if ((nowtime - upTime) >= 2000) {
-                        removeGiftView(i);
-                        return;
+                if (llgiftcontent!=null){
+                    int count = llgiftcontent.getChildCount();
+                    for (int i = 0; i < count; i++) {
+                        View view = llgiftcontent.getChildAt(i);
+                        TextView gift_name = (TextView) view.findViewById(R.id.show_gift_name);
+                        long upTime = (Long) gift_name.getTag();
+                        if ((nowtime - upTime) >= 2000) {
+                            removeGiftView(i);
+                            return;
+                        }
                     }
                 }
             }
@@ -562,7 +568,8 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
         if (giftViewCollection.size() <= 0) {
             /*如果垃圾回收中没有view,则生成一个*/
             view = LayoutInflater.from(this).inflate(R.layout.item_gift, null);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.topMargin = 5;
             view.setLayoutParams(lp);
             llgiftcontent.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
@@ -601,18 +608,15 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (activity_pause) {
-                    try {
-                        llgiftcontent.removeViewAt(index);
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    removeView.startAnimation(outAnim);
+        runOnUiThread(() -> {
+            if (activity_pause) {
+                try {
+                    llgiftcontent.removeViewAt(index);
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
                 }
+            } else {
+                removeView.startAnimation(outAnim);
             }
         });
     }
@@ -676,7 +680,8 @@ public class Chat1Activity extends BaseActivity implements View.OnClickListener,
         super.onDestroy();
         leaveGroup();
         MatchSharedUtil.instance().setCurrentChat("");
-        ActivityUtil.removeActivity(this);
+//        MyActivityManager.getMyActivityManager().flushAct(Chat1Activity.class);
+//        ActivityUtil.removeActivity(this);
     }
 
     @Override

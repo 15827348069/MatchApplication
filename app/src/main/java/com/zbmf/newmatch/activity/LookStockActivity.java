@@ -13,8 +13,8 @@ import com.zbmf.newmatch.common.HtmlUrl;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.fragment.BlogFragment;
 import com.zbmf.newmatch.fragment.WebFragment;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.worklibrary.presenter.BasePresenter;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +44,8 @@ public class LookStockActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
 
 

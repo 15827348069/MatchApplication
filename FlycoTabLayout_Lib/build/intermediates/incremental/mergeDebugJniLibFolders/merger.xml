@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\AS_WorkSpace\MatchApplication\FlycoTabLayout_Lib\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="D:\AS_WorkSpace\MatchApplication\FlycoTabLayout_Lib\src\debug\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="G:\Android_projects\MatchApplication\FlycoTabLayout_Lib\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="G:\Android_projects\MatchApplication\FlycoTabLayout_Lib\src\debug\jniLibs"/></dataSet></merger>

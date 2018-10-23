@@ -24,7 +24,7 @@ import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.LogUtil;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 import com.zbmf.worklibrary.pulltorefresh.PullToRefreshBase;
@@ -61,10 +61,11 @@ public class SeriesVideoActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
         addListener();
-
+        initData();
     }
 
     @Override

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_height="195dp"
+    android:background="@drawable/bgm_group_detail"
     android:orientation="vertical">
-
+    <include layout="@layout/action_title_layout"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40">
@@ -59,7 +59,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="32123"
-                    android:textColor="@color/main_head_title_layout"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp_15"
                     android:textStyle="bold" />
 
@@ -71,7 +71,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/fensi"
-                    android:textColor="@color/black_33"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp_15" />
             </LinearLayout>
 
@@ -89,7 +89,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="32123"
-                    android:textColor="@color/main_head_title_layout"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp_15"
                     android:textStyle="bold" />
 
@@ -101,7 +101,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/point"
-                    android:textColor="@color/black_33"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp_15" />
             </LinearLayout>
 
@@ -119,7 +119,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="32123"
-                    android:textColor="@color/main_head_title_layout"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp_15"
                     android:textStyle="bold" />
 
@@ -131,7 +131,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/care"
-                    android:textColor="@color/black_33"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp_15" />
             </LinearLayout>
         </LinearLayout>
@@ -152,7 +152,7 @@
             android:paddingTop="@dimen/dp_5"
             android:paddingRight="@dimen/dp_5"
             android:text="老师的身份"
-            android:textColor="@color/black_33"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_15"
             android:textStyle="normal" />
 
@@ -168,7 +168,7 @@
             android:paddingRight="@dimen/dp_5"
             android:paddingBottom="@dimen/dp_3"
             android:text="1243215"
-            android:textColor="@color/black_46"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_12" />
 
         <Space
@@ -181,12 +181,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_15"
-            android:drawableStart="@drawable/answer"
-            android:drawableLeft="@drawable/answer"
+            android:drawableStart="@drawable/icon_care_teacher"
+            android:drawableLeft="@drawable/icon_care_teacher"
             android:drawablePadding="@dimen/dp_5"
             android:padding="@dimen/dp_5"
             android:text="@string/care"
-            android:textColor="@color/red1"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_14" />
     </LinearLayout>
 
@@ -201,6 +201,6 @@
         android:paddingRight="@dimen/dp_12"
         android:paddingBottom="@dimen/dp_5"
         android:text="简介:。。。。。。。。。"
-        android:textColor="@color/black_33"
+        android:textColor="@color/white"
         android:textSize="@dimen/sp_13" />
 </LinearLayout>

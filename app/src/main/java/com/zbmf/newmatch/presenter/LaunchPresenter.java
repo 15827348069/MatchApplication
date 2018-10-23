@@ -12,6 +12,7 @@ import com.zbmf.newmatch.listener.IlaunchView;
 import com.zbmf.newmatch.model.LaunchMode;
 import com.zbmf.newmatch.model.MatchDescMode;
 import com.zbmf.newmatch.model.SymbolStockMode;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.worklibrary.model.CallBack;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 import com.zbmf.worklibrary.util.SharedpreferencesUtil;
@@ -50,6 +51,7 @@ public class LaunchPresenter extends BasePresenter<LaunchMode, IlaunchView> {
                 SharedpreferencesUtil.getInstance().putString(SharedKey.PASS_HOST, HostUrl.PASS_URL);
                 SharedpreferencesUtil.getInstance().putString(SharedKey.GUPIAO_HOST, HostUrl.GUPIAO_URLS);
                 SharedpreferencesUtil.getInstance().putInt(SharedKey.IS_SHOW_KLINE_CHART, kchart);
+                MatchSharedUtil.setIsShowFans(v.getEmergency());
                 if (getView() != null) {
                     getView().toLogin();
                 }
@@ -63,6 +65,9 @@ public class LaunchPresenter extends BasePresenter<LaunchMode, IlaunchView> {
                 }
             }
         });
+
+        //获取圈子的版本
+//        getMode().vers();
     }
 
     @Override

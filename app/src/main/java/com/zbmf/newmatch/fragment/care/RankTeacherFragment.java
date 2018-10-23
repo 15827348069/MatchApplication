@@ -2,8 +2,7 @@ package com.zbmf.newmatch.fragment.care;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.TextView;
+import android.util.Log;
 
 import com.zbmf.newmatch.R;
 import com.zbmf.newmatch.activity.LoginActivity;
@@ -12,15 +11,10 @@ import com.zbmf.newmatch.adapter.interfaces.LoadFinish;
 import com.zbmf.newmatch.api.JSONHandler;
 import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.bean.Group;
-import com.zbmf.newmatch.bean.RecommendTeacherBean;
-import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.fragment.BaseFragment;
-import com.zbmf.newmatch.listener.IGroupCareView;
-import com.zbmf.newmatch.presenter.GroupCarePresenter;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.ListViewForScrollView;
 import com.zbmf.newmatch.view.MyCustomViewpager;
@@ -83,7 +77,9 @@ public class RankTeacherFragment extends BaseFragment/*<GroupCarePresenter>*/ im
         adapter.setOnCareClink(this);
         recommend_list.setAdapter(adapter);
         recommend_list.setOnItemClickListener((parent, view, position, id) ->
-                ShowActivity.showGroupDetailActivity(getActivity(), infolist.get(position)));
+                 //跳转直播室
+                ShowActivity.showChatActivity(getActivity(),infolist.get(position)));
+//                ShowActivity.showGroupDetailActivity(getActivity(), infolist.get(position)));
     }
 
     @Override
@@ -157,6 +153,7 @@ public class RankTeacherFragment extends BaseFragment/*<GroupCarePresenter>*/ im
     }
 
     private void getRecommend() {
+        Log.i("===TAG","  执行  getRecommend() 请求  ");
 //        mGroupCarePresenter.getRecommendTeacher(flags, page);
         WebBase.getTeaCher(flags, page, new JSONHandler() {
             @Override

@@ -13,6 +13,7 @@ public class Vers extends BaseBean {
     private String download;
     private int kchart;
     private Address address;
+    private int emergency;
 
     public String getVersion() {
         return version;
@@ -68,6 +69,14 @@ public class Vers extends BaseBean {
 
     public void setKchart(int kchart) {
         this.kchart = kchart;
+    }
+
+    public int getEmergency() {
+        return emergency;
+    }
+
+    public void setEmergency(int emergency) {
+        this.emergency = emergency;
     }
 
     public static class logics{

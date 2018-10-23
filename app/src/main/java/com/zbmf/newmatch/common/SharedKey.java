@@ -26,11 +26,17 @@ public class SharedKey {
     public static final String USER_NAME="username";
     public static final String NICK_NAME="nickname";
     public static final String TRUE_NAME="truename";
+    public static final String VIP="vip";
+    public static final String VIP_AT_END="vip_at_end";
     public static final String AVATAR="avatar";
     public static final String ROLE="role";
     public static final String PHONE="phone";
     public static final String MPAY="mpay";
     public static final String IDCARD="idcard";
+    public static final String POINT="point";
+    public static final String PAYS="pays";
+    //设置用户可用优惠券
+    public static final String COUPON="coupon";
     /**
      * 魔方宝
      */

@@ -43,6 +43,7 @@ import com.zbmf.newmatch.fragment.video.VideoMobileFragment;
 import com.zbmf.newmatch.util.DateUtil;
 import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.JSONParse;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.NetWorkUtil;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.util.ShowWebShareLayout;
@@ -92,6 +93,8 @@ public class VideoPlayActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_play);
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

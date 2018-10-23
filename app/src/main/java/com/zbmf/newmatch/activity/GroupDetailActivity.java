@@ -32,6 +32,7 @@ import com.zbmf.newmatch.fragment.group.GroupDetailHistoryFragment;
 import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.MatchSharedUtil;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.GlideOptionsManager;
 import com.zbmf.newmatch.view.MyCustomViewpager;
@@ -93,7 +94,8 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
         addListener();
         initData();
@@ -379,8 +381,9 @@ public class GroupDetailActivity extends BaseActivity implements MyScrollView.On
             case R.id.group_detail_title_return:
                 finish();
                 break;
-            case R.id.tv_care_detail_message:
+            case R.id.careTvBtn:
             case R.id.tv_detail_care_text:
+                Toast.makeText(this, "点击了关注你的按钮", Toast.LENGTH_SHORT).show();
                 //关注按钮
                 if(ShowActivity.isLogin(GroupDetailActivity.this)){
                     if(group_bean.getFans_level()>=5){

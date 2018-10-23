@@ -26,7 +26,6 @@ import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.LogUtil;
 import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.view.GlideOptionsManager;
 import com.zbmf.newmatch.view.GroupTextView;
 
@@ -288,7 +287,7 @@ public class LiveAdapter extends BaseAdapter implements View.OnClickListener, Vi
                         item.live_img_id.setVisibility(View.VISIBLE);
                         Glide.with(context).load(cm.getThumb()).apply(GlideOptionsManager.getInstance()
                                 .getBannerOptions(0)).into(item.live_img_id);
-                        item.live_img_id.setTag(cm.getImg_url());
+//                        item.live_img_id.setTag(cm.getImg_url());
                         item.live_img_id.setOnClickListener(onClickListener);
                     } else {
                         item.live_img_id.setVisibility(View.GONE);
@@ -309,7 +308,7 @@ public class LiveAdapter extends BaseAdapter implements View.OnClickListener, Vi
                     item.live_img_id.setVisibility(View.VISIBLE);
                     Glide.with(context).load(cm.getThumb()).apply(GlideOptionsManager.getInstance()
                             .getBannerOptions(0)).into(item.live_img_id);
-                    item.live_img_id.setTag(cm.getImg_url());
+//                    item.live_img_id.setTag(cm.getImg_url());
                     item.live_img_id.setOnClickListener(onClickListener);
                 } else {
                     item.live_img_id.setVisibility(View.GONE);
@@ -333,7 +332,7 @@ public class LiveAdapter extends BaseAdapter implements View.OnClickListener, Vi
                     item.live_img_id.setVisibility(View.VISIBLE);
                     Glide.with(context).load(cm.getThumb()).apply(GlideOptionsManager.getInstance()
                             .getBannerOptions(0)).into(item.live_img_id);
-                    item.live_img_id.setTag(cm.getImg_url());
+//                    item.live_img_id.setTag(cm.getImg_url());
                     item.live_img_id.setOnClickListener(onClickListener);
                 } else {
                     item.live_img_id.setVisibility(View.GONE);

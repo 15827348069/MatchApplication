@@ -33,6 +33,7 @@ import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.util.BitmapUtil;
 import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.FileUtils;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.view.GlideOptionsManager;
 import com.zbmf.newmatch.view.RoundedCornerImageView;
 import com.zbmf.worklibrary.dialog.CustomProgressDialog;
@@ -76,7 +77,8 @@ public class ShareTeacherActivity extends BaseActivity implements IUiListener, W
 
     @Override
     protected void initData(Bundle bundle) {
-
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         imvAvatar = (RoundedCornerImageView) getView(R.id.imv_avatar);
         imvEwm = (ImageView) getView(R.id.imv_ewm);
         llShareLayout = (LinearLayout) getView(R.id.ll_share_layout);

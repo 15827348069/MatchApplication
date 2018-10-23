@@ -26,6 +26,7 @@ import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.db.DBManager;
 import com.zbmf.newmatch.db.Database;
 import com.zbmf.newmatch.util.JSONParse;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.RoundedCornerImageView;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -228,6 +229,8 @@ public class CareTeacherActivity extends BaseActivity implements FoucusAdapter.O
 
     @Override
     protected void initData(Bundle bundle) {
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         listview.setMode(PullToRefreshBase.Mode.BOTH);
 
         right_button=ll_none.findViewById(R.id.tv_right_button);

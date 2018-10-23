@@ -21,6 +21,7 @@ import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.bean.RedBagUserMessage;
 import com.zbmf.newmatch.bean.RedPackgedBean;
 import com.zbmf.newmatch.util.ImageLoaderOptions;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.view.ListViewForScrollView;
 import com.zbmf.newmatch.view.RoundedCornerImageView;
 import com.zbmf.newmatch.view.ScrollBottomScrollView;
@@ -49,6 +50,8 @@ public class RedPackgedActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.red_bag_detail_layout);
+		//添加管理activity
+		MyActivityManager.getMyActivityManager().pushAct(this);
 		rb=(RedPackgedBean) getIntent().getSerializableExtra("redpackged");
 		page=1;
 		init();

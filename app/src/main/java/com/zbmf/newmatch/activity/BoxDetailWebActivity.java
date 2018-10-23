@@ -31,7 +31,7 @@ import com.zbmf.newmatch.common.RequestCode;
 import com.zbmf.newmatch.listener.OnUrlClick;
 import com.zbmf.newmatch.util.BoxDetailHtml;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.webclient.GroupWebViewClient;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -72,7 +72,8 @@ public class BoxDetailWebActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
         addListener();
         GroupinitData();

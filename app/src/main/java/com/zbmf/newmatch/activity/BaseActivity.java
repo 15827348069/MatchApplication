@@ -38,9 +38,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends FragmentActi
         setFullscreen(true);
         setContentView(getLayout());
         mUnBinder = ButterKnife.bind(this);
+        presenter = initPresent();
         initData(getIntent().getExtras());
         initTitle(initTitle());
-        presenter = initPresent();
+
         if (presenter != null) {
             presenter.onStart(this);
             //只要加载子activity并且presenter不为null就初始化该activity的数据
@@ -48,7 +49,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends FragmentActi
             // TODO: 2018/4/4 初始加载数据的时候显示加载对话框
         }
         if (findViewById(R.id.imb_title_return) != null) {
-            findViewById(R.id.imb_title_return).setOnClickListener(this);
+            findViewById(R.id.imb_title_return).setOnClickListener(v -> {
+                finish();
+            });
         }
     }
 
@@ -105,6 +108,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends FragmentActi
 
     public void initTitle(String title) {
         TextView textView = findViewById(R.id.tv_title);
+
         if (textView != null && title != null) {
             textView.setText(title);
         }

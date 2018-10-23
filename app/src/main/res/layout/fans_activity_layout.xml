@@ -166,7 +166,7 @@
                 <!--/>-->
                 <!--</RelativeLayout>-->
 
-                <com.zbmf.StockGroup.view.ListViewForScrollView
+                <com.zbmf.newmatch.view.ListViewForScrollView
                     android:id="@+id/box_item_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

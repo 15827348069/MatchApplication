@@ -14,7 +14,6 @@ import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.util.LogUtil;
 import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.newmatch.util.MessageType;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
 
 import org.apache.http.Header;
 
@@ -743,7 +742,9 @@ public class WebBase {
         param.put("content", content);
         param.put("client_msg_id", client_msg_id);
         param.put("socket_id", MatchSharedUtil.getClientId());
-
+        Log.i("===TAG","--  打印发送消息的参数  groupId:"+group_id+"  chatType:"+type
+                +"  messageContent:"+content+"  messageClientId:"+client_msg_id
+                +"  socket_id:"+MatchSharedUtil.getClientId());
         if (!"".equals(url))
             param.put("url", url);
 
@@ -1153,7 +1154,8 @@ public class WebBase {
             param.put("code", code);
             param.put("phone", phone);
         }
-
+        Log.i("===TAG","--   auth_token:"+MatchSharedUtil.AuthToken()+" truename:"+truename
+        +"  client_id:"+id+"  idcard:"+idcard+"  phone:"+phone);
         login_post(AppUrl.bindName, param, jsonHandler);
     }
 

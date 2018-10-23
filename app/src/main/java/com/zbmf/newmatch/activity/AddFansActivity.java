@@ -30,8 +30,8 @@ import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.common.RequestCode;
 import com.zbmf.newmatch.util.MatchSharedUtil;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.SendBrodacast;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.GridViewForScrollView;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -61,7 +61,7 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
     private CheckedTextView jf_to_mfb_button;
     private LinearLayout add_fans_pay_message;
     private TextView add_fans_button_text, need_pay_mfb_number, my_tv_mfb, my_tv_jf;
-    private boolean need_add_mfb, jf_to_mfb=false;
+    private boolean need_add_mfb, jf_to_mfb = false;
     private double jf_to_mfb_number;
     //    private CouponsBean coupons;
     private CouponsOrSystem couponsOrSystem;
@@ -78,12 +78,13 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected String initTitle() {
-        return null;
+        return getString(R.string.tf_title);
     }
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
         addListener();
         GroupinitData();
@@ -96,7 +97,6 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void GroupinitView() {
-        initTitle(getString(R.string.tf_title));
         price_view = (GridViewForScrollView) findViewById(R.id.fans_price_gridview);
         coupns_textview = (TextView) findViewById(R.id.coupns_textview);
         mfb_text_view = (TextView) findViewById(R.id.mfb_text_view);
@@ -245,8 +245,8 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
                             if (days >= minimum1 && kind != 12 && days <= maximum1) {
                                 boolean b = compileTimeIsUse(couponsOrSystem);
                                 if (b) {
-                                        can_use_this = true;
-                                        can_use_coupons += 1;
+                                    can_use_this = true;
+                                    can_use_coupons += 1;
                                 }
                             } else {
                                 can_use_this = false;
@@ -255,8 +255,8 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
                             if (days >= minimum1 && kind != 12) {
                                 boolean b = compileTimeIsUse(couponsOrSystem);
                                 if (b) {
-                                        can_use_this = true;
-                                        can_use_coupons += 1;
+                                    can_use_this = true;
+                                    can_use_coupons += 1;
                                 }
                             } else {
                                 can_use_this = false;
@@ -448,8 +448,8 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
         }
         if (jf_to_mfb) {
             point = 1;
-        }else {
-            point=0;
+        } else {
+            point = 0;
         }
         if (coupon_id == 0 && point == 0) {
             double price = fansPrice.getPrice();
@@ -560,10 +560,10 @@ public class AddFansActivity extends BaseActivity implements View.OnClickListene
                 showDialig();
                 break;
             case R.id.jf_to_mfb_button:
-                if (!jf_to_mfb){
-                    jf_to_mfb=true;
-                }else {
-                    jf_to_mfb=false;
+                if (!jf_to_mfb) {
+                    jf_to_mfb = true;
+                } else {
+                    jf_to_mfb = false;
                 }
 //                jf_to_mfb = !jf_to_mfb;
                 jf_to_mfb_button.setChecked(jf_to_mfb);

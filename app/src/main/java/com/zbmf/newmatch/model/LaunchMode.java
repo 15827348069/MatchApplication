@@ -44,4 +44,25 @@ public class LaunchMode extends BaseMode implements ILaunchMode {
                     }
                 });
     }
+
+//    //获取圈子版本
+//    public void vers() {
+//        WebBase.vers(new JSONHandler() {
+//            @Override
+//            public void onSuccess(JSONObject obj) {
+////                Vers vers = JSONParse.vers(obj);
+////                AppUrl.ALL_URL_PREFIX = vers.getPassport().getHost() + vers.getPassport().getApi();
+////                AppUrl.ALL_URL = vers.getGroup().getHost() + vers.getGroup().getApi();
+////                AppUrl.Walle_URL = vers.getWww().getHost() + vers.getWww().getApi();
+////                AppUrl.MATCH_URL = vers.getMatch().getHost() + vers.getMatch().getApi();
+////                AppUrl.STOCK_URL = vers.getStock().getHost() + vers.getStock().getApi();
+////                getImageUrl();
+//            }
+//
+//            @Override
+//            public void onFailure(String err_msg) {
+//
+//            }
+//        });
+//    }
 }

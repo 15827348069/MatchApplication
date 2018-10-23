@@ -1,8 +1,11 @@
 package com.zbmf.newmatch.api;
 
+import android.util.Log;
+
 import com.loopj.android.http.RequestParams;
 import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.SharedKey;
+import com.zbmf.newmatch.util.MatchSharedUtil;
 import com.zbmf.worklibrary.util.Logx;
 import com.zbmf.worklibrary.util.SharedpreferencesUtil;
 
@@ -37,8 +40,8 @@ public class SendParam {
 
     private static Map<String, String> getAuthTokenMap() {
         Map<String, String> map = new HashMap<>();
-        SharedpreferencesUtil instance = SharedpreferencesUtil.getInstance();
-        map.put(ParamsKey.AUTH_TOKEN, instance.getString(SharedKey.AUTH_TOKEN, ""));
+        String authToken = MatchSharedUtil.AuthToken();
+        map.put(ParamsKey.AUTH_TOKEN, authToken);
         return map;
     }
 
@@ -805,6 +808,7 @@ public class SendParam {
         Map<String, String> param = getAuthTokenMap();
         param.put(ParamsKey.MATCH_ID, match_id);
         param.put(ParamsKey.USER_ID, userID);
+        Log.d("===TAG","  matchID:"+match_id+"    userID:"+userID+"    authToken:"+MatchSharedUtil.AuthToken());
         return getRequest(Method.MATCH_JOIN/*GETPLAYER*/, param);
     }
 

@@ -30,6 +30,15 @@
     <color name="orange_line">#ff7800</color>
     <color name="gold_yellow">#E9A400</color>
     <color name="black_t80">#80000000</color>
-
+    <color name="mfb_ff8989">#ff8989</color>
+    <color name="mfb_cc6c6c">#cc6c6c</color>
+    <color name="mfb_f3ad6f">#f3ad6f</color>
+    <color name="mfb_55587c">#55587c</color>
+    <color name="mfb_9b8989">#9b8989</color>
+    <color name="mfb_c28dce">#c28dce</color>
+    <color name="mfb_7db6f1">#7db6f1</color>
+    <color name="mfb_e86477">#e86477</color>
+    <color name="mfb_b7b7b7">#b7b7b7</color>
+    <color name="vip_btn_color">#F5F5F5</color>
 
 </resources>

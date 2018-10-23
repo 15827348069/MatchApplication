@@ -26,7 +26,8 @@ public class MatchInfo extends Erro implements Serializable{
         this.result = result;
     }
 
-    public static class Result implements Serializable{
+    public static class
+    Result implements Serializable{
         private int user_id;
         private int match_id;
         private double unfrozen;

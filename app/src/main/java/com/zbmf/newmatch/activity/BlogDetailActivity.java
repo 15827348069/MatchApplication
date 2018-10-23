@@ -55,7 +55,7 @@ import com.zbmf.newmatch.util.FileUtils;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.LogUtil;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.util.ShowWebShareLayout;
 import com.zbmf.newmatch.view.CusSeekbar;
@@ -114,7 +114,8 @@ public class BlogDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
         addListener();
         GroupinitData();

@@ -380,6 +380,37 @@
     <string name="fensi">粉丝</string>
     <string name="point">观点</string>
     <string name="care">关注</string>
+    <string name="to_ask">免费提问</string>
+    <string name="deal">模拟交易</string>
+    <string name="no_mfb_msg">魔方宝可用于订阅服务不可退换</string>
+    <string name="no_coupons_msg">您可以关注圈主优惠活动获得优惠券</string>
+    <string name="fans_coupons">铁粉优惠</string>
+    <string name="fans_discounts">铁粉优惠</string>
+    <string name="no_point_msg">您可以关注官方活动获得积分</string>
+    <string name="to_study">去学院</string>
+    <string name="to_stock">看股市</string>
+    <string name="to_original">原创文章</string>
+    <string name="match_list">比赛列表</string>
+    <string name="invite_share_desc">我在资本魔方分享了一只好股票，点击即可查看！</string>
+    <string name="enter">进入</string>
+    <string name="vip_tip">*会员功能为虚拟服务，请确认后再订阅\n咨询电话4000607878</string>
+    <string name="join_vip_title">加入资本魔方会员\n尊享特权优惠</string>
+    <string name="member">会员</string>
+    <string name="xf">续费</string>
+    <string name="open_vip">立即开通</string>
+    <string name="open_xf_vip_tip">正在申请加入会员,请确认!</string>
+    <string name="please_write_nick">请填写昵称</string>
+    <string name="select_stock">自选股</string>
+    <string name="message">消息中心</string>
+    <string name="risk_tip">风险提示</string>
+    <string name="buy_tip">本人自愿参加资本魔方网站的智能选股机器人测试活动并同意以下声明：\n
+1. 本人自愿义务参加资本魔方网站的智能选股机器人测试活动，并且完全同意资本魔方网的“免责条款”；\n
+2. 本人完全理解并同意本次智能选股机器人测试活动仅限本人参与，并承诺不会以任何方式向他人公开网站的任何内容与信息；\n
+3. 本人完全理解资本魔方网站的智能选股机器人结果仅供测试，并承诺不会将其作为投资参考；\n
+4. 参与网站测试属于本人自愿行为，双方不存在强制性约束力；本人明确知道此次活动不存在合同范畴的权利义务关系；\n
+5. 根据网站内容参与任何投资活动，并因此给自己和第三方造成任何直接和间接损失的，责任一律由本人承担；\n
+6. 本人同意资本魔方网站有权在不通知本人的情况下终止网站测试；\n
+请您认真阅读上述声明条款，慎重选择和参与。如果报名即表示已经阅读和完全同意上述声明的各项条款。</string>
 
 
 </resources>

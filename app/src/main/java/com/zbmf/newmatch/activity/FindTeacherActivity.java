@@ -19,6 +19,7 @@ import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.fragment.teacher.RankingFragment;
 import com.zbmf.newmatch.listener.TeacherToStudy;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.RoundedCornerImageView;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -114,6 +115,8 @@ public class FindTeacherActivity extends BaseActivity implements OnTabSelectList
 
     @Override
     protected void initData(Bundle bundle) {
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         initFragment();
         search_button.setVisibility(View.VISIBLE);
         search_button.setOnClickListener(this);

@@ -18,4 +18,10 @@ public class LoginUser extends BaseBean implements Serializable{
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "LoginUser{" +
+                "user=" + user +
+                '}';
+    }
 }

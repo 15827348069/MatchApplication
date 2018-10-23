@@ -122,6 +122,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements IMineVi
             MatchNewAllBean.Result.Matches matches = homeMatchAdapter.getItem(i);
             ShowActivity.showMatchDetail(getActivity(), matches);
         });
+        //手动加载第一次数据
+        getPresenter().getDatas();
         minePullToRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ScrollView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ScrollView> refreshView) {
@@ -317,8 +319,8 @@ public class MineFragment extends BaseFragment<MinePresenter> implements IMineVi
     private Dialog dialog2() {
         final Dialog dialog = new Dialog(getActivity(), R.style.myDialogTheme);
         View layout = LayoutInflater.from(getActivity()).inflate(R.layout.out_dialog, null);
-        TextView cancel_tv = (TextView) layout.findViewById(R.id.cancel_tv);
-        TextView confirm_tv = (TextView) layout.findViewById(R.id.confirm_tv);
+        TextView cancel_tv = layout.findViewById(R.id.cancel_tv);
+        TextView confirm_tv = layout.findViewById(R.id.confirm_tv);
         cancel_tv.setOnClickListener(v -> {
             mDialog1.dismiss(); //
         });

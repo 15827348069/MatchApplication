@@ -35,6 +35,7 @@ import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.util.BitmapUtil;
 import com.zbmf.newmatch.util.DisplayUtil;
 import com.zbmf.newmatch.util.FileUtils;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.view.GlideOptionsManager;
 import com.zbmf.newmatch.view.RoundedCornerImageView;
 import com.zbmf.worklibrary.dialog.CustomProgressDialog;
@@ -272,7 +273,9 @@ public class ShareMessageActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initData(Bundle bundle) {
-
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
+        initView();
         //添加监听事件
         addListener();
 

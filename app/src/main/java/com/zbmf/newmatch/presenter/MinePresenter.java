@@ -33,7 +33,7 @@ public class MinePresenter extends BasePresenter<MineMode, IMineView> {
     }
 
     private void getMatchList(RefreshStatus status) {
-        getMode().getMatchList(status, new CallBack<MatchList>() {
+        new MineMode().getMatchList(status, new CallBack<MatchList>() {
             @Override
             public void onSuccess(MatchList matchList) {
 //                getView().RushMatchList(matchList.getMatches());
@@ -49,7 +49,7 @@ public class MinePresenter extends BasePresenter<MineMode, IMineView> {
     }
 
     private void getUserInfo() {
-        getMode().getMineDetail(new CallBack<User>() {
+        new MineMode().getMineDetail(new CallBack<User>() {
             @Override
             public void onSuccess(User user) {
                 MatchSharedUtil.saveUser(user);

@@ -19,7 +19,7 @@ import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.common.RequestCode;
 import com.zbmf.newmatch.dialog.EditTextDialog;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.TextDialog;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -57,7 +57,8 @@ public class BlogPingActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
         addListener();
         GroupinitData();

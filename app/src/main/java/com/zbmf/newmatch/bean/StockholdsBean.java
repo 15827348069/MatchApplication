@@ -3,7 +3,7 @@ package com.zbmf.newmatch.bean;
 import java.io.Serializable;
 import java.util.List;
 
-public class StockholdsBean  extends General implements Serializable {
+public class StockholdsBean  extends Erro implements Serializable {
 
     private String stock_name;
     private double current;

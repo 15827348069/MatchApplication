@@ -31,7 +31,7 @@ public abstract class ChatHandler extends AsyncHttpResponseHandler {
 
         try {
             result = new String(bytes, "UTF-8");
-            LogUtil.json(result);
+            LogUtil.e(result);
             try {
                 JSONObject obj = new JSONObject(result);
                 if (obj.optString("status").equals("ok")) {

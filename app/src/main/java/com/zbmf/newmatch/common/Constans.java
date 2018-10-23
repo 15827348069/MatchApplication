@@ -12,6 +12,23 @@ import java.util.LinkedHashMap;
 
 public class Constans {
 
+    public static final String PUSH_BLOG_TYPE="blog";
+    public static final String PUSH_GROUP_TYPE="group";
+    public static final String PUSH_ASK_TYPE="ask";
+    public static final String PUSH_TOPIC_TYPE="system";
+    public static final String PUSH_TEXT_TYPE="text";
+    /**
+     * 用户魔方宝明细
+     */
+    public static final int CHARGE=210;//充值
+    public static final int REWARD=310;//伯乐奖励
+    public static final int USE=260;//使用
+    public static final int SYSTEM=205;//系统赠送
+    public static final int USER_PAY=270;//用户支付
+    public static final int PAY=230;//支付
+    public static final int GAIN=231;//获得
+    public static final int REFUND=204;//退款
+
     public static final int MFWW=0x7;//魔方薇薇
     public static final int MFTT=0x8;//头条
     public static final String ZBMFTT_ID="1791321";
@@ -20,10 +37,21 @@ public class Constans {
 
     public static final String MFWW_ID="7878";
     public static final String MM_dd_HH_mm="MM-dd HH:mm";
+    public static final String PUSH_SCREEN="screen";
+    public static final String PUSH_STOCK_NOTICE="stock.notice";
+    public static final String PUSH_STOCK_ASK="stock.ask";
+
+    public static final String PUSH_BOX_TYPE="box";
     /**
      * 收藏的博文
      */
     public static final String BLOG_COLLECT_TYPE="100";
+    public static final String LOGOUT="com.zbmf.StockGroup.logout";
+    public static final String BIND_CLIENT_ID ="com.zbmf.StockGroup.client_id";
+    public static final String CHAT_MSG="com.zbmf.StockGroup.chat_msg";
+    public static final String USER_RED_NEW_MESSAGE ="com.zbmf.StockGroup.Red_New_Message";
+    public static final String USER_NEW_MESSAGE ="com.zbmf.StockGroup.New_Message";
+    public static final String NETWORK_IS_UNREACHABLE="com.zbmf.StockGroup.Network_is_unreachable";
     public static final String UP_DATA_MESSAGE="com.zbmf.StockGroup.Updata_Message";
     public static final String UPDATE_VIDEO_LIST="com.zbmf.StockGroup.videoList";
     public static final String CC_KEY="iVGLTXNTOciHKaXElrbdwOBSLjHNmP4T";
@@ -113,6 +141,7 @@ public class Constans {
     public static final String MATCH_AD_TYPE="app://match";//表示比赛类型的广告
     public static final String REDIRECT_URL = "http://www.7878.com";
     public static final String SHARE_URL = "http://m1.zbmf.com/match/2052/invite/?user_id=1788263";
+    public static final String SHARE_URL_INVANITE="http://center.zbmf.com/register?uid=";
     public static final String SCOPE =
             "email,direct_messages_read,direct_messages_write,"
                     + "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
@@ -164,6 +193,8 @@ public class Constans {
     public static final int PEOPLE_RECOMED=0x4;
 
     public static final String YYYYMM="yyyyMM";
+    public static final String MM_dd="MM-dd";
+    public static final String HH_mm="HH:mm";
 
     /**
      * 1、投票：进入圈子选择送礼投票，按1积分=1票，1魔方宝=25票统计票数。所有资本魔方平台圈主和用户可参加

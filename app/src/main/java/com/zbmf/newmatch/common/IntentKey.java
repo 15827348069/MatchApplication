@@ -6,11 +6,16 @@ package com.zbmf.newmatch.common;
  */
 
 public class IntentKey {
+
+    public static final String MONEY="money";
+    public static final String METHOD="method";
     public static final String VIDEO_MOBILE="video_mobile";
     public static final String VIDEO_SERIES="video_series";
     public static final String VIDEO_KEY="video";
     public static final String SCREEN="screen";
     public static final String USER = "user";
+    public static final String STOCK_NAME="stock_name";
+    public static final String STOCK_SYMOL="stock_symol";
     public static final String PARENTER = "parenter";
     public static final String FLAG = "flag";
     public static final String MATCHBEAN = "matchbean";
@@ -50,6 +55,7 @@ public class IntentKey {
     public static final String TRADER_FLAG = "trader_flag";
     public static final String ID = "id";
     public static final String POP_MSG = "pop_msg";
+    public static final String SHOW_FANS="show_fans";
 
     public static final int ADD_STOCK_RESULT_CODE = 16;
 

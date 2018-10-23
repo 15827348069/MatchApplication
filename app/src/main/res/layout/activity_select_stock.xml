@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.zbmf.newmatch.activity.SelectStockActivity">
+    <!--<include layout="@layout/title_layout"/>-->
+    <include layout="@layout/action_title_layout"/>
+    <include layout="@layout/activity_title_layout"/>
+    <com.zbmf.worklibrary.pulltorefresh.PullToRefreshListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/line"
+        android:dividerHeight="1dp"
+        app:ptrMode="both"
+        android:id="@+id/pull_listview"
+        />
+
+    <include layout="@layout/no_message"/>
+</LinearLayout>

@@ -74,7 +74,7 @@
                 android:background="@drawable/headbg"
                 >
 
-            <com.zbmf.StockGroup.view.RoundedCornerImageView
+            <com.zbmf.newmatch.view.RoundedCornerImageView
                 android:id="@+id/imv_avatar"
                 android:layout_width="44dp"
                 android:layout_height="44dp"

@@ -56,6 +56,11 @@
     <dimen name="dp_80">80dp</dimen>
     <dimen name="dp_83">83dp</dimen>
     <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_14">14dp</dimen>
+    <dimen name="sp_11">11sp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_9">9dp</dimen>
+    <dimen name="sp_18">18sp</dimen>
 
     <!--字体的大小-->
     <!--<dimen name="tv_size_4">4sp</dimen>-->
@@ -107,4 +112,5 @@
     <!--<dimen name="dp_size_27">27dp</dimen>-->
     <!--<dimen name="dp_size_28">28dp</dimen>-->
     <!--<dimen name="dp_size_29">29dp</dimen>-->
+    <item name="dp_0_5" type="dimen" format="float">0.5</item>
 </resources>

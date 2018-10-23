@@ -4,11 +4,13 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.igexin.sdk.PushManager;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.zbmf.newmatch.common.AppConfig;
 import com.zbmf.newmatch.common.Constans;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
+import com.zbmf.newmatch.service.DemoIntentService;
+import com.zbmf.newmatch.util.LogUtil;
 import com.zbmf.worklibrary.util.Logx;
 import com.zbmf.worklibrary.util.SharedpreferencesUtil;
 
@@ -44,10 +46,14 @@ public class MatchApplication extends Application {
         super.onCreate();
         mContext = getApplicationContext();
         Logx.init(AppConfig.IS_DEBUG);
+        LogUtil.init();;
         Log.d("===TAG","---   初始化SP   :");
         SharedpreferencesUtil.getInstance().initSharedUtil(this);
         WbSdk.install(this,new AuthInfo(this, Constans.WBSDKAppKey,
                 Constans.REDIRECT_URL, Constans.SCOPE));
+        //初始化个推
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
+
     }
 
     @Override

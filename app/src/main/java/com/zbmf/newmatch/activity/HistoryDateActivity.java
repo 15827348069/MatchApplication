@@ -10,6 +10,7 @@ import com.zbmf.newmatch.bean.Group;
 import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.util.DateUtil;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.worklibrary.presenter.BasePresenter;
 
@@ -40,7 +41,8 @@ public class HistoryDateActivity extends BaseActivity {
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         history_date_list= (ListView) findViewById(R.id.history_date_list);
 
         addListener();

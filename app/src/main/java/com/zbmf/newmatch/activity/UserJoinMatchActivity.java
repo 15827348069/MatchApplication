@@ -15,6 +15,7 @@ import com.zbmf.newmatch.common.Constans;
 import com.zbmf.newmatch.common.IntentKey;
 import com.zbmf.newmatch.listener.IUserJoinMatchView;
 import com.zbmf.newmatch.presenter.UserJoinMatchPresenter;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.ShowOrHideProgressDialog;
 import com.zbmf.worklibrary.pulltorefresh.PullToRefreshBase;
@@ -54,6 +55,8 @@ public class UserJoinMatchActivity extends BaseActivity<UserJoinMatchPresenter> 
 
     @Override
     protected void initData(Bundle bundle) {
+        //添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         if (bundle!=null){
             mUserID = bundle.getString(IntentKey.USER_ID);
         }

@@ -11,6 +11,7 @@ import com.zbmf.newmatch.api.WebBase;
 import com.zbmf.newmatch.bean.BoxBean;
 import com.zbmf.newmatch.bean.BoxDetailBean;
 import com.zbmf.newmatch.bean.LiveTypeMessage;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.view.GroupTextView;
 import com.zbmf.newmatch.view.ListViewForScrollView;
 import com.zbmf.worklibrary.presenter.BasePresenter;
@@ -43,7 +44,8 @@ public class BoxDetailActivity extends BaseActivity implements GroupTextView.OnT
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
         GroupinitView();
 
         GroupinitData();

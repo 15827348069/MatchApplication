@@ -27,6 +27,7 @@ import com.zbmf.newmatch.dialog.QuanBottomDialog;
 import com.zbmf.newmatch.listener.GainQuan;
 import com.zbmf.newmatch.util.JSONParse;
 import com.zbmf.newmatch.util.LogUtil;
+import com.zbmf.newmatch.util.MyActivityManager;
 import com.zbmf.newmatch.util.SendBrodacast;
 import com.zbmf.newmatch.util.ShowActivity;
 import com.zbmf.newmatch.view.ListViewForScrollView;
@@ -84,7 +85,10 @@ public class FansActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void initData(Bundle bundle) {
-
+//添加管理activity
+        MyActivityManager.getMyActivityManager().pushAct(this);
+        TextView group_title_name = (TextView) getView(R.id.group_title_name);
+        group_title_name.setText(getString(R.string.tf_title));
         GroupinitView();
         addListener();
         GroupinitData();

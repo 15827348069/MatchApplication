@@ -100,6 +100,9 @@ public class PayDetailActivity extends BaseActivity<PayPresenter> implements Pay
         mAdapter = new MfbsPriceAdapter(this);
         mfbs_price_gridview.setAdapter(mAdapter);
 
+        TextView tv_title = findViewById(R.id.tv_title);
+        tv_title.setText(getString(R.string.pay));
+
         wx_pay_layout.setOnClickListener(this);
         sure_add_fans_button.setOnClickListener(this);
         mfbs_price_gridview.setOnItemClickListener((parent, view, position, id) -> {
@@ -112,6 +115,10 @@ public class PayDetailActivity extends BaseActivity<PayPresenter> implements Pay
             } else {
                 setNeedPay(mPayList.get(position));
             }
+        });
+        //返回
+        findViewById(R.id.imb_title_return).setOnClickListener(v -> {
+            PayDetailActivity.this.finish();
         });
     }
 
@@ -175,7 +182,7 @@ public class PayDetailActivity extends BaseActivity<PayPresenter> implements Pay
                 Toast.makeText(getApplicationContext(), "没有安装微信客户端", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Log.i("--TAG","--------------------- appID: "+map.get("appid"));
+            Log.i("--TAG", "--------------------- appID: " + map.get("appid"));
             PayReq request = new PayReq();
             request.appId = map.get("appid");
             request.partnerId = map.get("partnerid");
@@ -268,7 +275,6 @@ public class PayDetailActivity extends BaseActivity<PayPresenter> implements Pay
                 break;
             case R.id.sure_add_fans_button:
                 mPayPresenter.wxPay(String.valueOf(mPay_id), mPro_num);
-
                 break;
         }
     }

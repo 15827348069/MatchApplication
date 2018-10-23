@@ -13,6 +13,7 @@ import com.zbmf.newmatch.bean.DealSys;
 import com.zbmf.newmatch.bean.DealsRecord;
 import com.zbmf.newmatch.bean.Dictum;
 import com.zbmf.newmatch.bean.Group;
+import com.zbmf.newmatch.bean.GroupVers;
 import com.zbmf.newmatch.bean.Invite;
 import com.zbmf.newmatch.bean.NewsFeed;
 import com.zbmf.newmatch.bean.Offine;
@@ -263,73 +264,73 @@ public class JSONParse {
         }
     }
 
-//    public static Vers vers(JSONObject obj) {
-//        Vers vers = new Vers();
-//        try {
-//            vers.setVersion(obj.getString("version"));
-//            vers.setSubject(obj.getString("subject"));
-//            vers.setIntro(obj.getString("intro"));
-//            vers.setUrl(obj.getString("download"));
-//            vers.setUpdated_at(obj.getString("updated_at"));
-//            int kchart = obj.optInt("kchart");
-//            int group_kchart = obj.optInt("group_kchart");
-//            int emergency = obj.optInt("emergency");
-//            vers.setKchart(kchart);
+    public static GroupVers vers(JSONObject obj) {
+        GroupVers vers = new GroupVers();
+        try {
+            vers.setVersion(obj.getString("version"));
+            vers.setSubject(obj.getString("subject"));
+            vers.setIntro(obj.getString("intro"));
+            vers.setUrl(obj.getString("download"));
+            vers.setUpdated_at(obj.getString("updated_at"));
+            int kchart = obj.optInt("kchart");
+            int group_kchart = obj.optInt("group_kchart");
+            int emergency = obj.optInt("emergency");
+            vers.setKchart(kchart);
 //            SettingDefaultsManager.getInstance().setIsShowKlineChart(group_kchart);//圈子K线图
-//            SettingDefaultsManager.getInstance().setIsShowFans(emergency);
-//            vers.setGroup_kchart(group_kchart);
-//            vers.setEmergency(emergency);
-//            if (obj.has("logics")) {
-//                JSONObject object = obj.getJSONArray("logics").getJSONObject(0);
-//                Vers.Logics logics = new Vers.Logics();
-//                logics.state = object.optString("state");
-//                logics.intro = object.optString("intro");
-//                vers.setLogics(logics);
-//            }
-//            if (obj.has("address")) {
-//                JSONObject address = obj.optJSONObject("address");
-//                if (address.has("match")) {
-//                    JSONObject matchoj = address.optJSONObject("match");
-//                    Vers.address match = new Vers.address();
-//                    match.setApi(matchoj.optString("api"));
-//                    match.setHost(matchoj.optString("host"));
-//                    vers.setMatch(match);
-//                }
-//                if (address.has("group")) {
-//                    JSONObject groupoj = address.optJSONObject("group");
-//                    Vers.address group = new Vers.address();
-//                    group.setApi(groupoj.optString("api"));
-//                    group.setHost(groupoj.optString("host"));
-//                    vers.setGroup(group);
-//                }
-//                if (address.has("www")) {
-//                    JSONObject wwwoj = address.optJSONObject("www");
-//                    Vers.address www = new Vers.address();
-//                    www.setApi(wwwoj.optString("api"));
-//                    www.setHost(wwwoj.optString("host"));
-//                    vers.setWww(www);
-//                }
-//                if (address.has("passport")) {
-//                    JSONObject passportoj = address.optJSONObject("passport");
-//                    Vers.address passport = new Vers.address();
-//                    passport.setApi(passportoj.optString("api"));
-//                    passport.setHost(passportoj.optString("host"));
-//                    vers.setPassport(passport);
-//                }
-//                if (address.has("stock")) {
-//                    JSONObject stockoj = address.optJSONObject("stock");
-//                    Vers.address stock = new Vers.address();
-//                    stock.setApi(stockoj.optString("api"));
-//                    stock.setHost(stockoj.optString("host"));
-//                    vers.setStock(stock);
-//                }
-//            }
-//            return vers;
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+            MatchSharedUtil.setIsShowFans(emergency);
+            vers.setGroup_kchart(group_kchart);
+            vers.setEmergency(emergency);
+            if (obj.has("logics")) {
+                JSONObject object = obj.getJSONArray("logics").getJSONObject(0);
+                GroupVers.Logics logics = new GroupVers.Logics();
+                logics.state = object.optString("state");
+                logics.intro = object.optString("intro");
+                vers.setLogics(logics);
+            }
+            if (obj.has("address")) {
+                JSONObject address = obj.optJSONObject("address");
+                if (address.has("match")) {
+                    JSONObject matchoj = address.optJSONObject("match");
+                    GroupVers.address match = new GroupVers.address();
+                    match.setApi(matchoj.optString("api"));
+                    match.setHost(matchoj.optString("host"));
+                    vers.setMatch(match);
+                }
+                if (address.has("group")) {
+                    JSONObject groupoj = address.optJSONObject("group");
+                    GroupVers.address group = new GroupVers.address();
+                    group.setApi(groupoj.optString("api"));
+                    group.setHost(groupoj.optString("host"));
+                    vers.setGroup(group);
+                }
+                if (address.has("www")) {
+                    JSONObject wwwoj = address.optJSONObject("www");
+                    GroupVers.address www = new GroupVers.address();
+                    www.setApi(wwwoj.optString("api"));
+                    www.setHost(wwwoj.optString("host"));
+                    vers.setWww(www);
+                }
+                if (address.has("passport")) {
+                    JSONObject passportoj = address.optJSONObject("passport");
+                    GroupVers.address passport = new GroupVers.address();
+                    passport.setApi(passportoj.optString("api"));
+                    passport.setHost(passportoj.optString("host"));
+                    vers.setPassport(passport);
+                }
+                if (address.has("stock")) {
+                    JSONObject stockoj = address.optJSONObject("stock");
+                    GroupVers.address stock = new GroupVers.address();
+                    stock.setApi(stockoj.optString("api"));
+                    stock.setHost(stockoj.optString("host"));
+                    vers.setStock(stock);
+                }
+            }
+            return vers;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public static BoxBean box(JSONObject obj) {
         BoxBean newsBox = new BoxBean();
@@ -389,7 +390,7 @@ public class JSONParse {
     public static User isBind(JSONObject obj) {
         User user = new User();
         try {
-            user.setUser_id(obj.getString("user_id"));
+            user.setUser_id(obj.getInt("user_id"));
             user.setUsername(obj.getString("username"));
             user.setPhone(obj.getString("phone"));
             user.setIs_bind(obj.getString("is_bind"));
@@ -1076,46 +1077,47 @@ public class JSONParse {
 //        }
 //    }
 
-//    //获取比赛信息，接口替换后的解析
-//    public static MatchInfo getMatchMessage1(JSONObject oj) {
-//        if (oj.optString("status").equals("ok")) {
-//            MatchInfo mi = new MatchInfo();
-//            JSONObject result = oj.optJSONObject("result");
-//            if (result != null) {
-//                mi.setUser_id(result.optString("user_id"));
-//                mi.setMatch_id(result.optString("match_id"));
-//                mi.setMatch_name(result.optString("match_name"));
-//                mi.setStart_at(result.optString("start_at"));
-//                mi.setEnd_at(result.optString("end_at"));
-//                mi.setNickname(result.optString("nickname"));
-//                mi.setAvatar(result.optString("avatar"));
-//                mi.setTruename(result.optString("truename"));
-//                mi.setMobile(result.optString("mobile"));
-//                mi.setTotal(result.optDouble("total"));
-//                mi.setInit(result.optString("init"));
-//                mi.setPosition(result.optString("position"));
-//                mi.setUnfrozen(result.optDouble("unfrozen"));
-//                mi.setFrozen(result.optDouble("frozen"));
-//                mi.setDeal(result.optString("deal"));
-//                mi.setStocks_value(result.optString("stocks_value"));
-//                mi.setTotal_yield(result.optDouble("total_yield"));
-//                mi.setDay_yield(result.optDouble("day_yield"));
-//                mi.setWeek_yield(result.optDouble("week_yield"));
-//                mi.setMonth_yield(result.optDouble("month_yield"));
-//                mi.setDay_rank(result.optInt("day_rank"));
-//                mi.setWeek_rank(result.optInt("week_rank"));
-//                mi.setMonth_rank(result.optString("month_rank"));
-//                mi.setTotal_rank(result.optString("total_rank"));
-//                mi.setHolds(result.optString("holds"));
-//                mi.setRecords(result.optString("records"));
-//                mi.setPlayers(result.optString("players"));
-//                mi.setCanusecard(result.optString("canusecard"));
-//                mi.setTemplate(result.optString("template"));
-//                return mi;
-//            }
-//        }
-//        return null;
-//    }
+    //获取比赛信息，接口替换后的解析
+   /* public static MatchInfo getMatchMessage1(JSONObject oj) {
+        if (oj.optString("status").equals("ok")) {
+            MatchInfo mi = new MatchInfo();
+            MatchInfo.Result result1 = new MatchInfo.Result();
+            JSONObject result = oj.optJSONObject("result");
+            if (result != null) {
+                result1.setUser_id(Integer.parseInt(result.optString("user_id")));
+                result1.setMatch_id(Integer.parseInt(result.optString("match_id")));
+                result1.setMatch_name(result.optString("match_name"));
+                mi.setStart_at(result.optString("start_at"));
+                mi.setEnd_at(result.optString("end_at"));
+                mi.setNickname(result.optString("nickname"));
+                mi.setAvatar(result.optString("avatar"));
+                mi.setTruename(result.optString("truename"));
+                mi.setMobile(result.optString("mobile"));
+                mi.setTotal(result.optDouble("total"));
+                mi.setInit(result.optString("init"));
+                mi.setPosition(result.optString("position"));
+                mi.setUnfrozen(result.optDouble("unfrozen"));
+                mi.setFrozen(result.optDouble("frozen"));
+                mi.setDeal(result.optString("deal"));
+                mi.setStocks_value(result.optString("stocks_value"));
+                mi.setTotal_yield(result.optDouble("total_yield"));
+                mi.setDay_yield(result.optDouble("day_yield"));
+                mi.setWeek_yield(result.optDouble("week_yield"));
+                mi.setMonth_yield(result.optDouble("month_yield"));
+                mi.setDay_rank(result.optInt("day_rank"));
+                mi.setWeek_rank(result.optInt("week_rank"));
+                mi.setMonth_rank(result.optString("month_rank"));
+                mi.setTotal_rank(result.optString("total_rank"));
+                mi.setHolds(result.optString("holds"));
+                mi.setRecords(result.optString("records"));
+                mi.setPlayers(result.optString("players"));
+                mi.setCanusecard(result.optString("canusecard"));
+                mi.setTemplate(result.optString("template"));
+                return mi;
+            }
+        }
+        return null;
+    }*/
 
     /**
      * 获取股票信息
@@ -1342,8 +1344,8 @@ public class JSONParse {
                     }
                 }
             } else {
-                stockholdsBean.setCode(json.optJSONObject("err").optInt("code"));
-                stockholdsBean.setMsg(json.optJSONObject("err").optString("msg"));
+                stockholdsBean.getErr().setCode(json.optJSONObject("err").optInt("code"));
+                stockholdsBean.getErr().setMsg(json.optJSONObject("err").optString("msg"));
             }
             return stockholdsBean;
         } catch (JSONException e) {

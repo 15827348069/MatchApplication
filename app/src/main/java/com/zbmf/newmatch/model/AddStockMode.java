@@ -1,6 +1,7 @@
 package com.zbmf.newmatch.model;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import com.zbmf.newmatch.api.Method;
 import com.zbmf.newmatch.api.SendParam;
@@ -46,7 +47,9 @@ public class AddStockMode extends BaseStockMode implements IAddStockMode {
     }
 
     public void getMatchDetail(final String matchId, String userID, final CallBack callBack) {
-        postSubscrube(Method.MATCH_JOIN/*GETPLAYER*/, SendParam.getMatchDetail(matchId, userID), new CallBack() {
+//        int i = Integer.parseInt(userID);
+        Log.i("===TAG","--  训练页面的  userID :"+userID);
+        postSubscrube(Method.MATCH_JOIN/*GETPLAYER*/, SendParam.getMatchDetail(matchId,userID), new CallBack() {
             @Override
             public void onSuccess(Object o) {
                 MatchInfo matchInfo = GsonUtil.parseData(o, MatchInfo.class);

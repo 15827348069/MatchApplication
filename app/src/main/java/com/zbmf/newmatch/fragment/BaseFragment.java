@@ -3,7 +3,6 @@ package com.zbmf.newmatch.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +29,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     private T presenter;
     private Unbinder mUnbinder;
     private CustomProgressDialog progressDialog;
-    private boolean UserVisible;
+    private boolean UserVisible;//标识是否已经显示
     private LinearLayout dialog_layout;
+    private boolean already_initDate;
 
     public boolean isUserVisible() {
         return UserVisible;
@@ -47,15 +47,17 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         setUserVisible(isVisibleToUser);
 //        onResume();
     }
+    private LayoutInflater mInflater;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        this.mInflater=inflater;
         view=inflater.inflate(getLayout(),null);
         mUnbinder= ButterKnife.bind(this,view);
         dialog_layout=view.findViewById(R.id.dialog_layout);
         initView();
-        initData();
         presenter=initPresent();
+        initData();
         return view;
     }
 
@@ -86,19 +88,20 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onResume() {
         super.onResume();
+        //这个方法一定会执行
         if(isUserVisible()&&isAdded()){
             if(presenter!=null){
                 //fragment初始化加载数据
-                Log.i("---TAG","--    执行加载数据 ：");
                 presenter.getDatas();
             }else{
                 presenter=initPresent();
             }
         }
-//        if(view==null){
-//            initFragment();
-//        }
-        onRush();
+        if(view==null){
+            view=mInflater.inflate(getLayout(),null);
+            initFragment();
+            onRush();
+        }
         StatService.onPageStart(getContext(),getClass().getName());
     }
     public void setTitleMessage(String message){
@@ -109,6 +112,20 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         if(dialog_layout!=null){
             dialog_layout.setVisibility(visi);
         }
+    }
+    protected void setinitData(boolean already_initDate){
+        this.already_initDate=already_initDate;
+    }
+    private void onVisible(){
+        //view已经显示并且不为空，没有加载过数据时去加载数据
+        if(UserVisible&&view!=null/*&&!already_initDate*/){
+            initData();
+            already_initDate=true;
+        }
+    }
+    private void initFragment(){
+        initView();
+        onVisible();
     }
 
     /*-----------下面是 progressDialog------------*/

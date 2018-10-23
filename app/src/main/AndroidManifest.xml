@@ -10,9 +10,9 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <supports-screens
+        android:anyDensity="true"
         android:largeScreens="true"
-        android:normalScreens="true"
-        android:anyDensity = "true"/>
+        android:normalScreens="true"/>
 
     <application
         android:name=".MatchApplication"
@@ -22,11 +22,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--region 适配全面屏-->
+
+        <!-- region 适配全面屏 -->
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.4" />
-        <!--endregion-->
+            android:value="2.4"/>
+        <!-- endregion -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -34,13 +35,14 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/file_paths"/>
         </provider>
+
         <activity
             android:name=".activity.LaunchActivity"
-            android:theme="@style/Theme.SplashTheme"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SplashTheme">
 
             <!-- android:theme="@android:style/Theme.NoTitleBar.Fullscreen"> -->
             <intent-filter>
@@ -51,103 +53,118 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.LoginActivity"/>
         <!-- android:theme="@android:style/Animation.Activity"/> -->
         <!-- 这里设置启动模式为 singleTask 页面返回退出会有差异 -->
         <activity
             android:name=".activity.MatchDetailActivity"
-            android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.MatchRankActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.MatchRankActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.MatchDescActivity"
+        <activity
+            android:name=".activity.MatchDescActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
         <activity
             android:name=".activity.MatchApplyActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
+        <activity
+            android:name=".activity.MatchHoldActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.MatchHoldActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.MatchTraderInfoActivity"
+        <activity
+            android:name=".activity.MatchTraderInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
         <activity
             android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"
+            android:windowSoftInputMode="stateHidden|adjustPan">
+        </activity>
+        <activity
+            android:name=".activity.DealActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.DealActivity"
+        <activity
+            android:name=".activity.UserActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.UserActivity"
+        <activity
+            android:name=".activity.StockBuyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.StockBuyActivity"
+        <activity
+            android:name=".activity.AddStockActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.AddStockActivity"
+        <activity
+            android:name=".activity.RemarkListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.RemarkListActivity"
+        <activity
+            android:name=".activity.StockDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.StockDetailActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_theme">
-        </activity>
-        <activity android:name=".activity.StockCommitActivity"
+        <activity
+            android:name=".activity.StockCommitActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
         <activity
             android:name=".activity.WebViewActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.MatchTrustsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/activity_theme">
-        </activity>
-        <activity android:name=".activity.QueryActivity"
+            android:theme="@style/activity_theme"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".activity.MatchTrustsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.WinAPrizeActivity"
+        <activity
+            android:name=".activity.QueryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.PayDetailActivity"
+        <activity
+            android:name=".activity.WinAPrizeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme">
+        </activity>
+        <activity
+            android:name=".activity.PayDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
@@ -182,154 +199,281 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity android:name=".activity.NoticeActivity"
+        <activity
+            android:name=".activity.NoticeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.ShowNoticeContentActivity"
+        <activity
+            android:name=".activity.ShowNoticeContentActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.FindPassWordActivity"
+        <activity
+            android:name=".activity.FindPassWordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme">
         </activity>
-        <activity android:name=".activity.UserJoinMatchActivity"
+        <activity
+            android:name=".activity.UserJoinMatchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.PopDialogActivity"
-                  android:theme="@style/dialogStyle">
+        <activity
+            android:name=".activity.PopDialogActivity"
+            android:theme="@style/dialogStyle">
         </activity>
-        <!--               以下是新添加的圈子相关的activity             -->
-        <activity android:name=".activity.BigImageActivity"
+        <!-- 以下是新添加的圈子相关的activity -->
+        <activity
+            android:name=".activity.BigImageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.AddFansActivity"
+        <activity
+            android:name=".activity.AddFansActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.BindInfoActivity"
+        <activity
+            android:name=".activity.BindInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.BindPhoneActivity"
+        <activity
+            android:name=".activity.BindPhoneActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.BlogDetailActivity"
+        <activity
+            android:name=".activity.BlogDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.BlogPingActivity"
+        <activity
+            android:name=".activity.BlogPingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.BoxDetailActivity"
+        <activity
+            android:name=".activity.BoxDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.BoxDetailWebActivity"
+        <activity
+            android:name=".activity.BoxDetailWebActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.CareTeacherActivity"
+        <activity
+            android:name=".activity.CareTeacherActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.Chat1Activity"
+        <activity
+            android:name=".activity.Chat1Activity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.FansActivity"
+        <activity
+            android:name=".activity.FansActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.FindTeacherActivity"
+        <activity
+            android:name=".activity.FindTeacherActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.GroupDetailActivity"
+        <activity
+            android:name=".activity.GroupDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.HistoryDateActivity"
+        <activity
+            android:name=".activity.HistoryDateActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.LiveHistoryActivity"
+        <activity
+            android:name=".activity.LiveHistoryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.SeriesVideoActivity"
+        <activity
+            android:name=".activity.SeriesVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.RedPackgedActivity"
+        <activity
+            android:name=".activity.RedPackgedActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.PayVideoNewsActivity"
+        <activity
+            android:name=".activity.PayVideoNewsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.ShareTeacherActivity"
+        <activity
+            android:name=".activity.ShareTeacherActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.VideoPlayActivity"
+        <activity
+            android:name=".activity.VideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.ShareMessageActivity"
+        <activity
+            android:name=".activity.ShareMessageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.VotingGroupRankActivity"
+        <activity
+            android:name=".activity.VotingGroupRankActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <activity android:name=".activity.LookStockActivity"
+        <activity
+            android:name=".activity.LookStockActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/activity_theme"/>
-        <!--              百度统计APIKEY           -->
+        <activity
+            android:name=".activity.AskStockSendActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.MyQuestionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.VideoEmptyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.TopTicActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.MfbActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.PointActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.MySubscripActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.GroupSearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.MatchListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.InviteActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.VipActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.UserCollectsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.SettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.ResetPwdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.ConponsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.AccountBindActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity
+            android:name=".activity.MyDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/activity_theme"/>
+        <activity android:name=".activity.GroupPayDetailActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/activity_theme"/>
+        <activity android:name=".activity.SelectStockActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/activity_theme"/>
+
+
+        <service android:name=".service.ScoketService"/>
+
+        <!-- 百度统计APIKEY -->
         <meta-data
             android:name="BaiduMobAd_STAT_ID"
-            android:value="0b9cfa1c02" />
+            android:value="0b9cfa1c02"/>
         <!-- 以下是可选的 -->
         <!-- 是否开启错误日志统计，默认为false 此处开启 -->
         <meta-data
             android:name="BaiduMobAd_EXCEPTION_LOG"
-            android:value="true" />
+            android:value="true"/>
         <!-- 日志发送策略，可选值：APP_START、ONCE_A_DAY、SET_TIME_INTERVAL，默认为APP_START -->
         <meta-data
             android:name="BaiduMobAd_SEND_STRATEGY"
-            android:value="APP_START" />
+            android:value="APP_START"/>
         <!-- 上面的日志发送策略 为SET_TIME_INTERVAL时，需设定时间间隔。取值为1-24（小时）的整数，默认为1 -->
         <meta-data
             android:name="BaiduMobAd_TIME_INTERVAL"
-            android:value="2" /><!--2小时发送一次-->
+            android:value="2"/> <!-- 2小时发送一次 -->
         <!-- 日志仅在wifi网络下发送，默认为false -->
         <meta-data
             android:name="BaiduMobAd_ONLY_WIFI"
-            android:value="false" />
+            android:value="false"/>
         <!-- 是否获取基站位置信息 ,默认为true -->
         <meta-data
             android:name="BaiduMobAd_CELL_LOCATION"
-            android:value="true" />
+            android:value="true"/>
         <!-- 是否获取GPS位置信息，默认为true -->
         <meta-data
             android:name="BaiduMobAd_GPS_LOCATION"
-            android:value="true" />
+            android:value="true"/>
         <!-- 是否获取WIFI位置信息，默认为true -->
         <meta-data
             android:name="BaiduMobAd_WIFI_LOCATION"
-            android:value="true" />
+            android:value="true"/>
+
+
     </application>
 
 </manifest>

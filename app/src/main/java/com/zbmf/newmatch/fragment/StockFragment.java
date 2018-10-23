@@ -112,6 +112,9 @@ public class StockFragment extends BaseFragment<StockFragmentPresenter> implemen
 //                ShowActivity.showStockDetail2(getActivity(), new StockMode(holder.getName(), holder.getSymbol()));
 //            }
 //        });
+        //手动加载第一次数据
+        getPresenter().setFirst(true);
+        getPresenter().getDatas();
         pullListview.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {

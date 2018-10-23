@@ -11,7 +11,6 @@ import com.zbmf.newmatch.common.SharedKey;
 import com.zbmf.newmatch.db.DBManager;
 import com.zbmf.newmatch.model.imode.ILoginMode;
 import com.zbmf.newmatch.util.MatchSharedUtil;
-import com.zbmf.newmatch.util.SettingDefaultsManager;
 import com.zbmf.worklibrary.model.CallBack;
 import com.zbmf.worklibrary.util.GsonUtil;
 import com.zbmf.worklibrary.util.SharedpreferencesUtil;

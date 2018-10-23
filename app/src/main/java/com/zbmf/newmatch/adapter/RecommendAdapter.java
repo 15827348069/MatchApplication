@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.zbmf.newmatch.R;
 import com.zbmf.newmatch.bean.Group;
 import com.zbmf.newmatch.view.GlideOptionsManager;
-import com.zbmf.newmatch.view.RoundedCornerImageView;
 
 import java.util.List;
 
@@ -74,7 +73,7 @@ public class RecommendAdapter extends BaseAdapter {
         item.recommend_tag.setText(group.getTags());
         item.care_button.setSelected(!group.is_recommend());
         Glide.with(mContext).load(group.getAvatar()).apply(GlideOptionsManager.getInstance()
-                .getRequestOptionsMatch()).into(item.avatar);
+                .getBannerOptions(0)).into(item.avatar);
         if(!group.is_recommend()){
             item.care_button.setText("+关注");
             item.care_button.setTextColor(white);
